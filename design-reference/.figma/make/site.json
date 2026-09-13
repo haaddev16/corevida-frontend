@@ -1,0 +1,10 @@
+{
+  "description": "This premium web app offers a fully responsive design with six cohesive screens, providing users with a polished experience for seamless navigation and interaction.",
+  "robots": {
+    "index": false
+  },
+  "accessibility": {
+    "addBypassLinks": false,
+    "ignoreReducedMotion": false
+  }
+}
