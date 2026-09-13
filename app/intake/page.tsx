@@ -35,8 +35,8 @@ const DIETARY = [
   { label: "Gluten free", value: "gluten-free", hint: "no wheat, barley, or rye" },
   { label: "Halal", value: "halal", hint: "no pork or alcohol based ingredients" },
   { label: "Allergy", value: "allergy", hint: "specify nuts, seafood, etc." },
-  { label: "Keto", value: "keto", hint: "" },
-  { label: "Paleo", value: "paleo", hint: "" },
+  { label: "Keto", value: "keto", hint: "very low carb, high fat, no bread, rice, or sugar" },
+  { label: "Paleo", value: "paleo", hint: "no grains, dairy, or processed food, meat, veggies, fruits, and nuts only" },
 ];
 
 const EQUIPMENT = [
