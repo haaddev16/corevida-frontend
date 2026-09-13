@@ -19,15 +19,16 @@ export function GoldenCursor() {
   const canvasRef = useRef<HTMLCanvasElement>(null);
 
   useEffect(() => {
-    const canvas = canvasRef.current;
-    if (!canvas) return;
+    const canvasEl = canvasRef.current;
+    const context = canvasEl?.getContext("2d") ?? null;
+    if (!canvasEl || !context) return;
+
+    const canvas: HTMLCanvasElement = canvasEl;
+    const ctx: CanvasRenderingContext2D = context;
 
     const fine = window.matchMedia("(pointer: fine)").matches;
     const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     if (!fine || reduce) return;
-
-    const ctx = canvas.getContext("2d");
-    if (!ctx) return;
 
     const dpr = Math.min(window.devicePixelRatio || 1, 2);
     const sparkles: Sparkle[] = [];
@@ -35,6 +36,7 @@ export function GoldenCursor() {
     let frame = 0;
 
     function resize() {
+      if (!canvas || !ctx) return;
       const width = window.innerWidth;
       const height = window.innerHeight;
       canvas.width = width * dpr;
@@ -70,6 +72,7 @@ export function GoldenCursor() {
     }
 
     function drawStar(x: number, y: number, size: number) {
+      if (!ctx) return;
       ctx.beginPath();
       ctx.moveTo(x, y - size);
       ctx.lineTo(x + size * 0.28, y - size * 0.28);
@@ -84,6 +87,7 @@ export function GoldenCursor() {
     }
 
     function tick() {
+      if (!canvas || !ctx) return;
       ctx.clearRect(0, 0, canvas.width, canvas.height);
 
       for (let i = sparkles.length - 1; i >= 0; i -= 1) {
