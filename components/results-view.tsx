@@ -140,16 +140,16 @@ export function ResultsView({ planIdFromRoute }: { planIdFromRoute?: string }) {
               <h1 className="fx-flutter-in mb-3.5 font-display text-[clamp(1.5rem,3vw,2rem)] leading-snug font-bold tracking-[-0.02em] text-forest">
                 Hey {firstName(session.userName)}, here&apos;s your personalized program.
               </h1>
-              <p className="fx-fade-in mb-5 max-w-[480px] text-[0.9rem] leading-relaxed text-ink">
+              <p className="fx-fade-in mb-7 max-w-[760px] text-[clamp(1.25rem,2.4vw,1.7rem)] leading-snug text-ink">
                 {displayText(plan.final_plan.summary)}
               </p>
-              <div className="flex flex-col gap-2">
+              <div className="flex flex-col gap-4">
                 {plan.final_plan.key_recommendations.map((rec, i) => (
-                  <div key={rec} className="fx-rec flex items-start gap-2.5" style={{ animationDelay: `${0.08 * i}s` }}>
-                    <span className="mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-md bg-teal/10 text-[0.65rem] font-bold text-teal-light">
+                  <div key={rec} className="fx-rec flex items-start gap-3.5" style={{ animationDelay: `${0.08 * i}s` }}>
+                    <span className="mt-1 flex h-8 w-8 shrink-0 items-center justify-center rounded-md bg-teal/10 text-base font-bold text-teal-light">
                       {i + 1}
                     </span>
-                    <span className="text-[0.85rem] leading-relaxed text-ink">{displayText(rec)}</span>
+                    <span className="text-[clamp(1.25rem,2.4vw,1.7rem)] leading-snug text-ink">{displayText(rec)}</span>
                   </div>
                 ))}
               </div>
@@ -175,7 +175,7 @@ export function ResultsView({ planIdFromRoute }: { planIdFromRoute?: string }) {
         {(plan.final_plan.nutrition_highlights ||
           plan.final_plan.fitness_highlights ||
           plan.final_plan.habit_highlights) && (
-          <div className="fx-stagger mb-6 grid grid-cols-1 gap-3 md:grid-cols-3">
+          <div className="fx-stagger mb-6 grid grid-cols-1 gap-4 md:grid-cols-3">
             {[
               { title: "Nutrition", text: plan.final_plan.nutrition_highlights, icon: "🥗" },
               { title: "Fitness", text: plan.final_plan.fitness_highlights, icon: "🏋️" },
@@ -183,10 +183,10 @@ export function ResultsView({ planIdFromRoute }: { planIdFromRoute?: string }) {
             ]
               .filter((card) => card.text)
               .map((card) => (
-                <GlassCard key={card.title} hover className="p-5">
-                  <div className="mb-2 text-lg">{card.icon}</div>
-                  <div className="mb-1 text-sm font-semibold text-forest">{card.title}</div>
-                  <p className="text-[0.82rem] leading-relaxed text-muted">{displayText(card.text)}</p>
+                <GlassCard key={card.title} hover className="p-6 sm:p-7">
+                  <div className="mb-3 text-2xl">{card.icon}</div>
+                  <div className="mb-2.5 text-[clamp(1.15rem,2vw,1.45rem)] font-semibold text-forest">{card.title}</div>
+                  <p className="text-[clamp(1.2rem,2.2vw,1.6rem)] leading-snug text-ink">{displayText(card.text)}</p>
                 </GlassCard>
               ))}
           </div>
