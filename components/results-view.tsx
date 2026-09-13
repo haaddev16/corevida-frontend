@@ -288,23 +288,23 @@ function NutritionTab({ meals, notes, target }: { meals: Meal[]; notes: string; 
             {icons[i] || "🍽️"}
           </div>
           <div className="min-w-0 flex-1">
-            <div className="mb-1 flex items-center justify-between gap-3">
-              <span className="text-[0.92rem] font-semibold text-forest">{displayText(meal.name)}</span>
+            <div className="mb-1.5 flex items-center justify-between gap-3">
+              <span className="text-[1.05rem] font-semibold text-forest">{displayText(meal.name)}</span>
               <span
-                className="shrink-0 rounded-full px-2.5 py-0.5 font-mono text-[0.82rem] font-bold"
+                className="shrink-0 rounded-full px-2.5 py-0.5 font-mono text-[1.05rem] font-bold"
                 style={{ color: colors[i % colors.length], background: `${colors[i % colors.length]}12` }}
               >
                 {meal.estimated_calories} kcal
               </span>
             </div>
-            <p className="text-[0.85rem] leading-relaxed text-muted">{displayText(meal.description)}</p>
+            <p className="text-[1.05rem] leading-7 text-ink">{displayText(meal.description)}</p>
           </div>
         </GlassCard>
       ))}
       <GlassCard className="border-teal-mid/18 bg-teal-mid/6 px-6 py-4">
         <div className="flex items-center justify-between">
-          <span className="text-[0.88rem] font-semibold text-teal-mid">Total daily target</span>
-          <span className="font-mono text-base font-bold text-teal-light">{target.toLocaleString()} kcal</span>
+          <span className="text-[1.05rem] font-semibold text-teal-mid">Total daily target</span>
+          <span className="font-mono text-[1.05rem] font-bold text-teal-light">{target.toLocaleString()} kcal</span>
         </div>
       </GlassCard>
       {notes && <CoachNote notes={notes} />}
