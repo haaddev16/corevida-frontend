@@ -762,6 +762,45 @@ input[type="range"] {
   font-size: 0.8rem;
 }
 
+.intake-chip-hint {
+  align-items: flex-start;
+  justify-content: flex-start;
+  width: 100%;
+  border-radius: 16px;
+  padding: 0.85rem 1rem;
+  text-align: left;
+}
+
+@keyframes intake-step-forward {
+  from {
+    opacity: 0;
+    transform: translateX(20px) scale(0.985);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0) scale(1);
+  }
+}
+
+@keyframes intake-step-back {
+  from {
+    opacity: 0;
+    transform: translateX(-20px) scale(0.985);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0) scale(1);
+  }
+}
+
+.intake-step-forward {
+  animation: intake-step-forward 0.38s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.intake-step-back {
+  animation: intake-step-back 0.38s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
 .intake-chip-on {
   opacity: 1;
   border-color: #4db8aa;
@@ -990,7 +1029,9 @@ p.fx-flutter-in {
   .fx-cell-in,
   .fx-ring-halo,
   .fx-tab,
-  .intake-card {
+  .intake-card,
+  .intake-step-forward,
+  .intake-step-back {
     opacity: 1;
     animation: none;
     transform: none;

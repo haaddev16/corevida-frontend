@@ -29,13 +29,14 @@ const GOALS = [
 ] as const;
 
 const DIETARY = [
-  { label: "Vegetarian", value: "vegetarian" },
-  { label: "Vegan", value: "vegan" },
-  { label: "Gluten free", value: "gluten-free" },
-  { label: "Dairy free", value: "dairy-free" },
-  { label: "Keto", value: "keto" },
-  { label: "Paleo", value: "paleo" },
-  { label: "Halal", value: "halal" },
+  { label: "Vegetarian", value: "vegetarian", hint: "no meat or fish; dairy and eggs still allowed" },
+  { label: "Vegan", value: "vegan", hint: "no animal products at all, no meat, fish, dairy, eggs, or honey" },
+  { label: "No dairy", value: "dairy-free", hint: "dairy allergy or intolerance, no milk, yogurt, cheese, or butter" },
+  { label: "Gluten free", value: "gluten-free", hint: "no wheat, barley, or rye" },
+  { label: "Halal", value: "halal", hint: "no pork or alcohol based ingredients" },
+  { label: "Allergy", value: "allergy", hint: "specify nuts, seafood, etc." },
+  { label: "Keto", value: "keto", hint: "" },
+  { label: "Paleo", value: "paleo", hint: "" },
 ];
 
 const EQUIPMENT = [
@@ -69,6 +70,7 @@ interface IntakeData {
   sex: string;
   activity_level: string;
   dietary_restrictions: string[];
+  allergy_detail: string;
   equipment_available: string[];
   loads: EquipmentLoads;
   time_availability_minutes: number;
@@ -93,6 +95,7 @@ export default function IntakePage() {
     sex: "",
     activity_level: "",
     dietary_restrictions: [],
+    allergy_detail: "",
     equipment_available: [],
     loads: { dumbbells: [], kettlebells: [], barbell: [] },
     time_availability_minutes: 45,
@@ -132,6 +135,13 @@ export default function IntakePage() {
 
     const weightKg = data.weightUnit === "lbs" ? parseFloat(data.weight) * 0.453592 : parseFloat(data.weight);
     const heightCm = data.heightUnit === "ft" ? parseFloat(data.height) * 30.48 : parseFloat(data.height);
+    const dietary = data.dietary_restrictions
+      .filter((item) => item !== "allergy")
+      .concat(
+        data.dietary_restrictions.includes("allergy")
+          ? [data.allergy_detail.trim() ? `allergy: ${data.allergy_detail.trim()}` : "allergy"]
+          : [],
+      );
     const equipment = data.equipment_available.filter((item) => item !== "none");
     if (data.loads.dumbbells.length) equipment.push(`dumbbell weights: ${data.loads.dumbbells.join(", ")}`);
     if (data.loads.kettlebells.length) equipment.push(`kettlebell weights: ${data.loads.kettlebells.join(", ")}`);
@@ -147,7 +157,7 @@ export default function IntakePage() {
           height_cm: Math.round(heightCm),
           sex: data.sex,
           activity_level: data.activity_level,
-          dietary_restrictions: data.dietary_restrictions,
+          dietary_restrictions: dietary,
           equipment_available: equipment,
           time_availability_minutes: data.time_availability_minutes,
         },
@@ -203,11 +213,13 @@ export default function IntakePage() {
             transition: "opacity 0.55s ease, transform 0.55s ease",
           }}
         >
-          <div
-            key={animKey}
-            style={{ animation: `${direction === "forward" ? "fade-slide-left" : "fade-slide-right"} 0.35s ease` }}
-          >
-            <StepContent data={data} setData={setData} step={step} />
+          <div className="overflow-hidden">
+            <div
+              key={animKey}
+              className={direction === "forward" ? "intake-step-forward" : "intake-step-back"}
+            >
+              <StepContent data={data} setData={setData} step={step} />
+            </div>
           </div>
 
           {error && (
@@ -404,6 +416,7 @@ function LoadPickers({
 
 function Chip({
   label,
+  hint,
   selected,
   onClick,
   icon,
@@ -412,6 +425,7 @@ function Chip({
   delay = 0,
 }: {
   label: string;
+  hint?: string;
   selected: boolean;
   onClick: () => void;
   icon?: IconName;
@@ -428,12 +442,16 @@ function Chip({
         "intake-chip chip-in",
         selected && "intake-chip-on",
         compact && "intake-chip-sm",
+        hint && "intake-chip-hint",
         disabled && "pointer-events-none cursor-not-allowed opacity-35",
       )}
       style={{ animationDelay: `${0.18 + delay * 0.06}s` }}
     >
       {icon ? <LineIcon name={icon} /> : selected ? <span>✓</span> : null}
-      <span className={compact ? "" : "capitalize"}>{label}</span>
+      <span className="min-w-0 text-left">
+        <span className={cn("block", compact ? "" : "capitalize")}>{label}</span>
+        {hint ? <span className="mt-0.5 block text-[0.72rem] font-normal normal-case leading-snug text-sage">{hint}</span> : null}
+      </span>
     </button>
   );
 }
@@ -574,11 +592,12 @@ function StepContent({
         <p className="fx-fade-in mb-8 text-center text-[0.92rem] leading-relaxed text-muted">
           Optional. Skip if none apply. Your nutrition plan will respect these.
         </p>
-        <div className="flex flex-wrap justify-center gap-2.5">
+        <div className="grid grid-cols-1 gap-2.5 sm:grid-cols-2">
           {DIETARY.map((item, i) => (
             <Chip
               key={item.value}
               label={item.label}
+              hint={item.hint || undefined}
               delay={i}
               selected={data.dietary_restrictions.includes(item.value)}
               onClick={() =>
@@ -590,6 +609,17 @@ function StepContent({
             />
           ))}
         </div>
+        {data.dietary_restrictions.includes("allergy") && (
+          <div className="mt-4">
+            <FieldLabel>Allergy details</FieldLabel>
+            <input
+              value={data.allergy_detail}
+              onChange={(e) => setData((prev) => ({ ...prev, allergy_detail: e.target.value }))}
+              placeholder="Nuts, seafood, shellfish..."
+              className="intake-field"
+            />
+          </div>
+        )}
       </div>
     );
   }
