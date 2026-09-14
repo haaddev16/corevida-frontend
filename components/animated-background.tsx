@@ -223,6 +223,31 @@ export function AnimatedBackground({
   );
 }
 
+const THEME_FX = `
+@keyframes ember-rise{0%{transform:translate3d(0,12px,0) scale(.55);opacity:0}12%{opacity:.95}100%{transform:translate3d(18px,-92vh,0) scale(.2);opacity:0}}
+.fx-ember{position:absolute;bottom:-4%;width:3px;height:9px;border-radius:999px;background:linear-gradient(180deg,#ffb020,#ea580c);box-shadow:0 0 12px rgba(249,115,22,.85);animation:ember-rise 9s linear infinite}
+@keyframes heat-floor{0%,100%{opacity:.38;transform:scaleX(1) translateY(0)}50%{opacity:.7;transform:scaleX(1.05) translateY(-10px)}}
+.fx-heat-floor{pointer-events:none;position:absolute;left:-12%;right:-12%;bottom:-22%;height:46%;background:radial-gradient(ellipse at bottom,rgba(249,115,22,.32) 0%,rgba(234,88,12,.1) 44%,transparent 72%);filter:blur(22px);animation:heat-floor 6.4s ease-in-out infinite}
+@keyframes heat-haze{0%,100%{transform:translateX(-3%) scaleY(1);opacity:.1}50%{transform:translateX(3%) scaleY(1.06);opacity:.2}}
+.fx-heat-haze{pointer-events:none;position:absolute;inset:0;background:repeating-linear-gradient(180deg,transparent 0,rgba(249,115,22,.035) 2px,transparent 7px);mix-blend-mode:overlay;animation:heat-haze 8s ease-in-out infinite}
+@keyframes scan-sweep{0%{transform:translateX(-45%);opacity:0}18%{opacity:.38}55%{opacity:.16}100%{transform:translateX(48%);opacity:0}}
+.fx-scan-sweep{pointer-events:none;position:absolute;top:-12%;left:0;width:30%;height:124%;background:linear-gradient(90deg,transparent,rgba(255,122,24,.2),transparent);filter:blur(26px);animation:scan-sweep 10s ease-in-out infinite}
+@keyframes spark-line{0%,100%{opacity:.45;filter:drop-shadow(0 0 4px rgba(249,115,22,.2));transform:scaleX(.92)}50%{opacity:1;filter:drop-shadow(0 0 10px rgba(255,176,32,.75));transform:scaleX(1)}}
+.fx-spark-line{transform-origin:center;animation:page-fade .85s ease forwards,spark-line 2.8s ease-in-out 1s infinite}
+@keyframes heat-stat{0%,100%{text-shadow:0 0 12px rgba(249,115,22,.22)}50%{text-shadow:0 0 26px rgba(255,122,24,.55),0 0 8px rgba(255,176,32,.35)}}
+.fx-heat-stat{animation:heat-stat 3.2s ease-in-out infinite}
+.stat-count.fx-heat-stat{animation:stat-count .45s cubic-bezier(.34,1.3,.64,1) both,heat-stat 3.2s ease-in-out .45s infinite}
+@keyframes ember-under{0%,100%{opacity:.35;transform:scaleX(.86)}50%{opacity:.95;transform:scaleX(1.08)}}
+@keyframes cta-ember{0%,100%{box-shadow:0 6px 28px rgba(234,88,12,.32);filter:brightness(1)}32%{box-shadow:0 12px 48px rgba(249,115,22,.55),0 0 28px rgba(255,176,32,.28);filter:brightness(1.08)}58%{box-shadow:0 8px 34px rgba(234,88,12,.4);filter:brightness(1.02)}78%{box-shadow:0 14px 52px rgba(249,115,22,.48),0 0 18px rgba(255,176,32,.2);filter:brightness(1.06)}}
+.fx-cta-pulse{animation:cta-ember 2.8s ease-in-out infinite}
+.fx-cta-pulse::after{content:"";position:absolute;inset:auto 12% -6px;height:10px;border-radius:999px;pointer-events:none;background:radial-gradient(ellipse at center,rgba(255,176,32,.55),transparent 70%);filter:blur(6px);animation:ember-under 2.4s ease-in-out infinite}
+.fx-cta-pulse:hover{animation:none}
+.fx-cta-pulse:hover::after{animation:none;opacity:.8}
+.nav-glass{position:relative}
+.nav-glass::before{content:"";position:absolute;left:0;right:0;bottom:0;height:1px;pointer-events:none;background:linear-gradient(90deg,transparent,#f97316,#ffb020,#f97316,transparent);background-size:220% 100%;animation:bar-sheen 4.8s linear infinite;opacity:.7}
+@media (prefers-reduced-motion:reduce){.fx-ember,.fx-heat-floor,.fx-heat-haze,.fx-scan-sweep,.fx-spark-line,.fx-heat-stat,.fx-cta-pulse::after,.nav-glass::before{animation:none!important;opacity:1}}
+`;
+
 export function PageShell({
   children,
   className,
@@ -238,6 +263,7 @@ export function PageShell({
 }) {
   return (
     <div className={cn("relative min-h-dvh", className)}>
+      <style>{THEME_FX}</style>
       <AnimatedBackground scene={scene} image={image} overlay={overlay} />
       {scene === "landing" && !image && <LandingParallaxOrbs />}
       <div className="relative z-10">{children}</div>
