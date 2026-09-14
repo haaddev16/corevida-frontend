@@ -21,8 +21,8 @@ function passwordStrength(pw: string) {
   if (/[^A-Za-z0-9]/.test(pw)) score += 1;
   if (score <= 1) return { level: 1, label: "Weak", color: "#e8856a" };
   if (score === 2) return { level: 2, label: "Fair", color: "#f5c95e" };
-  if (score === 3) return { level: 3, label: "Good", color: "#7fad8b" };
-  return { level: 4, label: "Strong", color: "#a8e63d" };
+  if (score === 3) return { level: 3, label: "Good", color: "#c4784a" };
+  return { level: 4, label: "Strong", color: "#ffb020" };
 }
 
 export default function AuthPage() {
@@ -141,7 +141,7 @@ export default function AuthPage() {
                 className={cn(
                   "flex-1 rounded-full py-2.5 text-[0.9rem] font-semibold transition-all duration-200",
                   tab === item
-                    ? "bg-[#2a9d8f] text-white shadow-[0_6px_20px_rgba(42,157,143,0.35)]"
+                    ? "bg-[#f97316] text-white shadow-[0_6px_20px_rgba(249,115,22,0.35)]"
                     : "text-muted hover:text-forest",
                 )}
               >
@@ -358,8 +358,8 @@ function AuthField({
           placeholder={placeholder}
           onChange={(e) => onChange(e.target.value)}
           className={cn(
-            "w-full rounded-full border border-white/12 bg-[#06110e]/70 py-3.5 pr-4 pl-12 text-[0.92rem] text-forest outline-none transition-all",
-            "placeholder:text-sage/40 focus:border-[#4db8aa] focus:shadow-[0_0_0_3px_rgba(42,157,143,0.16)]",
+            "w-full rounded-full border border-white/12 bg-[#0a0a0a]/70 py-3.5 pr-4 pl-12 text-[0.92rem] text-forest outline-none transition-all",
+            "placeholder:text-sage/40 focus:border-[#fb923c] focus:shadow-[0_0_0_3px_rgba(249,115,22,0.16)]",
             isPassword && "pr-12",
           )}
         />

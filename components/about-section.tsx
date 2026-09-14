@@ -7,7 +7,7 @@ const CARDS = [
     icon: "🎯",
     title: "Why we exist",
     text: "Most plans fail because they ignore your life. We start from your intake and build around it: equipment, diet, time, and the goal you chose.",
-    accent: "#4db8aa",
+    accent: "#fb923c",
   },
   {
     icon: "🤝",
@@ -19,7 +19,7 @@ const CARDS = [
     icon: "🌿",
     title: "What we believe",
     text: "Discipline builds freedom. Small habits, honest targets, and a plan you can repeat beat a perfect week you abandon on day four.",
-    accent: "#7fad8b",
+    accent: "#c4784a",
   },
 ];
 

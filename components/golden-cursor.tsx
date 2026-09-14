@@ -13,7 +13,7 @@ type Sparkle = {
   gold: string;
 };
 
-const GOLDS = ["#ffe8a3", "#f3d16a", "#d4a017"];
+const GOLDS = ["#ffd4a3", "#ffb020", "#ea580c"];
 
 export function GoldenCursor() {
   const canvasRef = useRef<HTMLCanvasElement>(null);

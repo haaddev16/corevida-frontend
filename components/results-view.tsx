@@ -204,7 +204,7 @@ export function ResultsView({ planIdFromRoute }: { planIdFromRoute?: string }) {
                 className={cn(
                   "fx-tab rounded-full border-[1.5px] px-5 py-2.5 text-[0.88rem] backdrop-blur-sm transition-all",
                   active
-                    ? "border-teal bg-[linear-gradient(135deg,#1e7a6e,#2a9d8f)] font-semibold text-white shadow-[0_3px_14px_rgba(30,122,110,0.25)]"
+                    ? "border-teal bg-[linear-gradient(135deg,#ea580c,#f97316)] font-semibold text-white shadow-[0_3px_14px_rgba(234,88,12,0.25)]"
                     : "border-white/12 bg-white/6 text-muted",
                 )}
               >
@@ -233,7 +233,7 @@ export function ResultsView({ planIdFromRoute }: { planIdFromRoute?: string }) {
         <div className="mt-8 flex flex-wrap gap-3">
           <button
             onClick={() => router.push("/dashboard")}
-            className="rounded-full bg-[linear-gradient(135deg,#1e7a6e,#2a9d8f)] px-6 py-3 text-sm font-semibold text-white shadow-[0_4px_16px_rgba(30,122,110,0.28)]"
+            className="rounded-full bg-[linear-gradient(135deg,#ea580c,#f97316)] px-6 py-3 text-sm font-semibold text-white shadow-[0_4px_16px_rgba(234,88,12,0.28)]"
           >
             Track habits →
           </button>
@@ -275,7 +275,7 @@ export function ResultsView({ planIdFromRoute }: { planIdFromRoute?: string }) {
 }
 
 function NutritionTab({ meals, notes, target }: { meals: Meal[]; notes: string; target: number }) {
-  const colors = ["#2a9d8f", "#7fad8b", "#e8856a", "#a8ceb0", "#f5c95e", "#b0d4ce"];
+  const colors = ["#f97316", "#c4784a", "#e8856a", "#e8a070", "#f5c95e", "#e8a070"];
   const icons = ["🌅", "☀️", "🥗", "🍎", "🌙", "🌛"];
   return (
     <div className="fx-stagger flex flex-col gap-3.5">
@@ -326,13 +326,13 @@ function FitnessTab({
   setExpandedDay: (day: string | null) => void;
 }) {
   const colors: Record<string, string> = {
-    Monday: "#2a9d8f",
-    Tuesday: "#7fad8b",
+    Monday: "#f97316",
+    Tuesday: "#c4784a",
     Wednesday: "#e8856a",
-    Thursday: "#a8ceb0",
-    Friday: "#1e7a6e",
+    Thursday: "#e8a070",
+    Friday: "#ea580c",
     Saturday: "#f5c95e",
-    Sunday: "#b0d4ce",
+    Sunday: "#e8a070",
   };
   const icons = ["💪", "🚶", "🏋️", "🧘", "⚡", "🚴", "😴"];
 
@@ -340,7 +340,7 @@ function FitnessTab({
     <div className="flex flex-col gap-2.5">
       <div className="mb-2 grid grid-cols-2 gap-2.5 sm:grid-cols-4 lg:grid-cols-7">
         {schedule.map((day) => {
-          const color = colors[day.day] || "#7fad8b";
+          const color = colors[day.day] || "#c4784a";
           const open = expandedDay === day.day;
           return (
             <button
@@ -348,7 +348,7 @@ function FitnessTab({
               onClick={() => setExpandedDay(open ? null : day.day)}
               className="rounded-[14px] border-[1.5px] px-2 py-3.5 text-center backdrop-blur-sm transition-all"
               style={{
-                borderColor: open ? color : "rgba(127,173,139,0.22)",
+                borderColor: open ? color : "rgba(196,120,74,0.22)",
                 background: open ? `${color}22` : "rgba(255,255,255,0.06)",
                 transform: open ? "scale(1.03)" : "scale(1)",
               }}
@@ -365,7 +365,7 @@ function FitnessTab({
         (() => {
           const day = schedule.find((item) => item.day === expandedDay);
           if (!day) return null;
-          const color = colors[day.day] || "#7fad8b";
+          const color = colors[day.day] || "#c4784a";
           const icon = icons[schedule.findIndex((item) => item.day === expandedDay)] || "🏋️";
           return (
             <GlassCard hover className="p-6">
@@ -579,7 +579,7 @@ function MiniChip({
       style={{
         borderColor: selected ? color : "rgba(255,255,255,0.12)",
         background: selected ? `${color}22` : "rgba(255,255,255,0.04)",
-        color: selected ? "#e8f5f2" : "#9bb8b0",
+        color: selected ? "#f5f5f4" : "#a8a29e",
       }}
     >
       {label}

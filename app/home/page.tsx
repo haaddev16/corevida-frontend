@@ -111,7 +111,7 @@ export default function HomePage() {
               <button
                 type="button"
                 onClick={() => router.push("/results")}
-                className="rounded-full bg-[linear-gradient(135deg,#1e7a6e,#2a9d8f)] px-4 py-2 text-[0.82rem] font-semibold text-white"
+                className="rounded-full bg-[linear-gradient(135deg,#ea580c,#f97316)] px-4 py-2 text-[0.82rem] font-semibold text-white"
               >
                 Open full plan →
               </button>

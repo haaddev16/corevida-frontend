@@ -191,7 +191,7 @@ export default function IntakePage() {
           <span className="hidden text-[0.82rem] font-medium text-sage sm:inline">{STEPS[step]}</span>
           <div className="h-[2px] min-w-8 flex-1 overflow-hidden rounded-full bg-white/12">
             <div
-              className="fx-bar-sheen h-full shadow-[0_0_10px_rgba(77,184,170,0.7)] transition-all duration-500"
+              className="fx-bar-sheen h-full shadow-[0_0_10px_rgba(251,146,60,0.7)] transition-all duration-500"
               style={{ width: `${((step + 1) / STEPS.length) * 100}%` }}
             />
           </div>
@@ -243,7 +243,7 @@ export default function IntakePage() {
                 className={cn(
                   "rounded-full px-8 py-3 text-[0.9rem] font-semibold transition-all",
                   canContinue
-                    ? "bg-[#2a9d8f] text-white shadow-[0_8px_24px_rgba(42,157,143,0.35)] hover:-translate-y-0.5"
+                    ? "bg-[#f97316] text-white shadow-[0_8px_24px_rgba(249,115,22,0.35)] hover:-translate-y-0.5"
                     : "cursor-not-allowed bg-white/8 text-muted/50",
                 )}
               >
@@ -527,8 +527,8 @@ function StepContent({
               className={cn(
                 "rounded-full border py-3 text-[0.88rem] capitalize transition-all",
                 data.sex === sex
-                  ? "border-[#4db8aa] bg-[#2a9d8f]/15 font-semibold text-teal-light"
-                  : "border-white/10 bg-[#081210]/70 text-muted",
+                  ? "border-[#fb923c] bg-[#f97316]/15 font-semibold text-teal-light"
+                  : "border-white/10 bg-[#0a0a0a]/70 text-muted",
               )}
             >
               {sex}
@@ -555,7 +555,7 @@ function StepContent({
                 className={cn(
                   "chip-in flex items-center gap-4 rounded-[14px] border-[1.5px] px-5 py-4 text-left transition-all",
                   selected
-                    ? "scale-[1.01] border-teal bg-[linear-gradient(135deg,rgba(30,122,110,0.1),rgba(42,157,143,0.06))] shadow-[0_4px_20px_rgba(30,122,110,0.14)]"
+                    ? "scale-[1.01] border-teal bg-[linear-gradient(135deg,rgba(234,88,12,0.1),rgba(249,115,22,0.06))] shadow-[0_4px_20px_rgba(234,88,12,0.14)]"
                     : "border-white/10 bg-white/4",
                 )}
                 style={{ animationDelay: `${0.2 + i * 0.07}s` }}

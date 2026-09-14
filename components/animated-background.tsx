@@ -12,19 +12,19 @@ const LANDING_ORBS = [
   {
     className: "landing-orb -top-[8%] -left-[10%] h-[70vw] max-h-[620px] w-[70vw] max-w-[620px]",
     parallax: -0.08,
-    glow: "radial-gradient(circle at center, rgba(168,206,176,0.72) 0%, rgba(127,173,139,0.38) 38%, transparent 70%)",
+    glow: "radial-gradient(circle at center, rgba(232,160,112,0.72) 0%, rgba(196,120,74,0.38) 38%, transparent 70%)",
     float: "blob-float 20s ease-in-out infinite",
   },
   {
     className: "landing-orb -right-[8%] bottom-[-6%] h-[62vw] max-h-[560px] w-[62vw] max-w-[560px]",
     parallax: -0.14,
-    glow: "radial-gradient(circle at center, rgba(77,184,170,0.78) 0%, rgba(42,157,143,0.4) 40%, transparent 70%)",
+    glow: "radial-gradient(circle at center, rgba(251,146,60,0.78) 0%, rgba(249,115,22,0.4) 40%, transparent 70%)",
     float: "blob-float-2 24s ease-in-out infinite",
   },
   {
     className: "landing-orb top-[32%] left-[30%] h-[48vw] max-h-[440px] w-[48vw] max-w-[440px]",
     parallax: -0.2,
-    glow: "radial-gradient(circle at center, rgba(77,184,170,0.55) 0%, rgba(30,122,110,0.26) 44%, transparent 72%)",
+    glow: "radial-gradient(circle at center, rgba(251,146,60,0.55) 0%, rgba(234,88,12,0.26) 44%, transparent 72%)",
     float: "blob-float-3 30s ease-in-out infinite",
   },
 ];
@@ -80,7 +80,7 @@ function LandingParallaxOrbs() {
               animation: orb.float,
               mixBlendMode: "normal",
               filter: "blur(46px)",
-              boxShadow: "0 0 80px 24px rgba(42,157,143,0.35), 0 0 160px 48px rgba(127,173,139,0.2)",
+              boxShadow: "0 0 80px 24px rgba(249,115,22,0.35), 0 0 160px 48px rgba(196,120,74,0.2)",
             }}
           />
         </div>
@@ -134,9 +134,9 @@ export function AnimatedBackground({
         <>
           <FadingPhoto image={image} />
           {overlay === "sides" ? (
-            <div className="absolute inset-0 bg-[linear-gradient(90deg,rgba(8,16,14,0.12)_0%,rgba(8,16,14,0.42)_16%,rgba(8,16,14,0.94)_34%,rgba(8,16,14,0.96)_66%,rgba(8,16,14,0.42)_84%,rgba(8,16,14,0.12)_100%)]" />
+            <div className="absolute inset-0 bg-[linear-gradient(90deg,rgba(10,10,10,0.12)_0%,rgba(10,10,10,0.42)_16%,rgba(10,10,10,0.94)_34%,rgba(10,10,10,0.96)_66%,rgba(10,10,10,0.42)_84%,rgba(10,10,10,0.12)_100%)]" />
           ) : (
-            <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,rgba(8,16,14,0.28)_0%,rgba(8,16,14,0.52)_100%)]" />
+            <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,rgba(10,10,10,0.28)_0%,rgba(10,10,10,0.52)_100%)]" />
           )}
         </>
       ) : scene === "landing" ? (
@@ -151,24 +151,25 @@ export function AnimatedBackground({
             alt=""
             className="fx-kenburns absolute inset-0 h-full w-full object-cover object-[center_72%] md:hidden"
           />
-          <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(8,16,14,0.18)_0%,rgba(8,16,14,0.28)_55%,rgba(8,16,14,0.5)_100%)]" />
+          <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(10,10,10,0.18)_0%,rgba(18,10,6,0.32)_55%,rgba(26,12,4,0.58)_100%)]" />
           <div className="fx-aurora" />
+          <div className="fx-scan-sweep" />
         </>
       ) : (
         <>
-          <div className="absolute inset-0 bg-[linear-gradient(135deg,#0d1a16_0%,#111f1b_55%,#162823_100%)]" />
-          <div className="absolute inset-y-0 left-0 w-[38%] bg-[linear-gradient(90deg,rgba(127,173,139,0.12),transparent)]" />
+          <div className="absolute inset-0 bg-[linear-gradient(135deg,#0a0a0a_0%,#111111_55%,#1a1410_100%)]" />
+          <div className="absolute inset-y-0 left-0 w-[38%] bg-[linear-gradient(90deg,rgba(196,120,74,0.12),transparent)]" />
           <div
             className="absolute -top-[12%] -left-[8%] h-[58vw] w-[58vw] rounded-full blur-[64px]"
             style={{
-              background: "radial-gradient(ellipse at center, rgba(127,173,139,0.22) 0%, transparent 68%)",
+              background: "radial-gradient(ellipse at center, rgba(196,120,74,0.22) 0%, transparent 68%)",
               animation: "blob-float 20s ease-in-out infinite",
             }}
           />
           <div
             className="absolute right-[-12%] bottom-[5%] h-[52vw] w-[52vw] rounded-full blur-[80px]"
             style={{
-              background: "radial-gradient(ellipse at center, rgba(42,157,143,0.24) 0%, transparent 68%)",
+              background: "radial-gradient(ellipse at center, rgba(249,115,22,0.24) 0%, transparent 68%)",
               animation: "blob-float-2 24s ease-in-out infinite",
             }}
           />
@@ -193,6 +194,21 @@ export function AnimatedBackground({
           }}
         />
       ))}
+
+      {[14, 31, 48, 67, 82].map((left, i) => (
+        <span
+          key={`ember-${left}`}
+          className="fx-ember"
+          style={{
+            left: `${left}%`,
+            animationDelay: `${i * 1.4}s`,
+            animationDuration: `${8 + (i % 3) * 2.2}s`,
+          }}
+        />
+      ))}
+
+      <div className="fx-heat-floor" />
+      <div className="fx-heat-haze" />
 
       <div
         className="absolute inset-0 mix-blend-overlay"

@@ -14,13 +14,13 @@ const FEATURES = [
     icon: "🥗",
     title: "Personalized nutrition",
     desc: "Calorie targets and meals built around your body, restrictions, and goals, not a generic template.",
-    accent: "#2a9d8f",
+    accent: "#f97316",
   },
   {
     icon: "🏋️",
     title: "Smart fitness plans",
     desc: "Workouts designed for your equipment, schedule, and starting point. Progressive, not punishing.",
-    accent: "#7fad8b",
+    accent: "#c4784a",
   },
   {
     icon: "✅",
@@ -32,7 +32,7 @@ const FEATURES = [
     icon: "🧠",
     title: "AI synthesis",
     desc: "A supervisor agent reviews every plan for coherence so nutrition, fitness, and habits work together.",
-    accent: "#1e7a6e",
+    accent: "#ea580c",
   },
 ];
 
@@ -176,7 +176,7 @@ export default function LandingPage() {
             </span>
           ))}
           <span
-            className="page-fade mx-auto mt-5 block h-px w-[min(220px,40%)] origin-center bg-[linear-gradient(90deg,transparent,#f3d16a,transparent)]"
+            className="fx-spark-line mx-auto mt-5 block h-px w-[min(220px,40%)] origin-center bg-[linear-gradient(90deg,transparent,#ffb020,transparent)]"
             style={{ animationDelay: "0.96s" }}
           />
         </h1>
@@ -245,15 +245,15 @@ export default function LandingPage() {
 
         <GlassCard hover className="fx-rise px-5 py-10 sm:px-10">
           <div className="flex flex-col items-center justify-center gap-5 md:flex-row md:gap-0">
-            <AgentNode icon="📋" label="Your goals" sub="Intake" color="#7fad8b" />
+            <AgentNode icon="📋" label="Your goals" sub="Intake" color="#c4784a" />
             <Arrow />
             <div className="flex flex-row gap-3 md:flex-col">
-              <AgentNode icon="🥗" label="Nutrition" sub="Agent 1" color="#2a9d8f" small />
-              <AgentNode icon="🏋️" label="Fitness" sub="Agent 2" color="#2a9d8f" small />
-              <AgentNode icon="✅" label="Habits" sub="Agent 3" color="#2a9d8f" small />
+              <AgentNode icon="🥗" label="Nutrition" sub="Agent 1" color="#f97316" small />
+              <AgentNode icon="🏋️" label="Fitness" sub="Agent 2" color="#f97316" small />
+              <AgentNode icon="✅" label="Habits" sub="Agent 3" color="#f97316" small />
             </div>
             <Arrow />
-            <AgentNode icon="🧠" label="Supervisor" sub="Synthesis" color="#1e7a6e" />
+            <AgentNode icon="🧠" label="Supervisor" sub="Synthesis" color="#ea580c" />
             <Arrow />
             <AgentNode icon="✨" label="Your plan" sub="Complete" color="#e8856a" />
           </div>
