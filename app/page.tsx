@@ -152,14 +152,6 @@ export default function LandingPage() {
           </div>
         )}
 
-        <div
-          className="page-fade mb-8 inline-flex items-center gap-2 rounded-full border border-sage/32 bg-sage/14 px-4 py-1.5 text-[0.82rem] font-semibold tracking-[0.04em] text-teal-light uppercase"
-          style={{ animationDelay: "0.16s" }}
-        >
-          <span className="inline-block h-1.5 w-1.5 rounded-full bg-energy" style={{ animation: "pulse-ring 2s ease-in-out infinite" }} />
-          5 Agent AI System
-        </div>
-
         <h1 className="mb-6 max-w-[860px] font-display text-[clamp(2.4rem,6.5vw,5.1rem)] leading-[1.08] font-bold tracking-[-0.02em] [perspective:800px]">
           {"Your AI wellness coach,".split(" ").map((word, i) => (
             <span
