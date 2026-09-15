@@ -40,11 +40,11 @@ export function UserBadge({ className }: { className?: string }) {
       <button
         type="button"
         onClick={() => setOpen((value) => !value)}
-        className="flex shrink-0 items-center gap-2.5 rounded-full border border-white/10 bg-black/25 px-2 py-1.5 pr-3 backdrop-blur-md transition-colors hover:border-[#fb923c]/45 hover:bg-black/40"
+        className="flex shrink-0 items-center gap-2.5 rounded-full border border-white/10 bg-black/25 px-2 py-1.5 pr-3 backdrop-blur-md transition-colors hover:border-[#4db8aa]/45 hover:bg-black/40"
         aria-expanded={open}
         aria-haspopup="menu"
       >
-        <div className="flex h-8 w-8 items-center justify-center rounded-full border border-[#fb923c]/45 bg-[#f97316]/25 text-[0.82rem] font-semibold text-teal-light shadow-[0_0_14px_rgba(251,146,60,0.28)]">
+        <div className="flex h-8 w-8 items-center justify-center rounded-full border border-[#4db8aa]/45 bg-[#2a9d8f]/25 text-[0.82rem] font-semibold text-teal-light shadow-[0_0_14px_rgba(77,184,170,0.28)]">
           {initial}
         </div>
         <div className="min-w-0 text-left leading-tight">
@@ -57,7 +57,7 @@ export function UserBadge({ className }: { className?: string }) {
       {open && (
         <div
           role="menu"
-          className="absolute top-[calc(100%+8px)] right-0 min-w-[176px] rounded-2xl border border-white/12 bg-[#0a0a0a]/92 p-1.5 shadow-[0_12px_32px_rgba(0,0,0,0.35)] backdrop-blur-md"
+          className="absolute top-[calc(100%+8px)] right-0 min-w-[176px] rounded-2xl border border-white/12 bg-[#0d1a16]/92 p-1.5 shadow-[0_12px_32px_rgba(0,0,0,0.35)] backdrop-blur-md"
         >
           <MenuItem label="Home" onClick={() => go("/home")} />
           {session.planId && (

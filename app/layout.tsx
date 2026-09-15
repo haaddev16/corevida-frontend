@@ -2,7 +2,6 @@ import type { Metadata } from "next";
 import { Fraunces, JetBrains_Mono, Outfit } from "next/font/google";
 import { GoldenCursor } from "@/components/golden-cursor";
 import "./globals.css";
-import "./theme-fx.css";
 
 const fraunces = Fraunces({
   variable: "--font-fraunces",

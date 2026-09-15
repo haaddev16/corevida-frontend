@@ -14,14 +14,14 @@ const AGENTS = [
     icon: "🥗",
     name: "Nutrition Agent",
     task: "Calculating calorie and meal targets around your goals…",
-    color: "#f97316",
+    color: "#2a9d8f",
     duration: 3500,
   },
   {
     icon: "🏋️",
     name: "Fitness Agent",
     task: "Designing workouts for your equipment and schedule…",
-    color: "#c4784a",
+    color: "#7fad8b",
     duration: 3300,
   },
   {
@@ -35,7 +35,7 @@ const AGENTS = [
     icon: "🧠",
     name: "Supervisor Agent",
     task: "Reviewing all three plans and synthesizing one program…",
-    color: "#ea580c",
+    color: "#1e7a6e",
     duration: 3600,
   },
 ];
@@ -167,7 +167,7 @@ export default function LoadingPage() {
           transition: "all 0.6s ease",
         }}
       >
-        <h2 className="heading-glow mb-3 font-display text-[clamp(1.6rem,4vw,2.2rem)] leading-tight font-bold tracking-[-0.02em] text-[#f5f5f4]">
+        <h2 className="heading-glow mb-3 font-display text-[clamp(1.6rem,4vw,2.2rem)] leading-tight font-bold tracking-[-0.02em] text-[#e8f5f2]">
           {error ? "The coach hit a pause" : ready ? "Your plan is ready ✨" : "Building your plan…"}
         </h2>
         <p className="fx-fade-in mb-12 text-[0.9rem] leading-relaxed text-sage">
@@ -189,16 +189,16 @@ export default function LoadingPage() {
                 style={{
                   animationDelay: `${index * 0.1}s`,
                   background: isDone
-                    ? "rgba(196,120,74,0.12)"
+                    ? "rgba(127,173,139,0.12)"
                     : isActive
-                      ? "rgba(249,115,22,0.12)"
+                      ? "rgba(42,157,143,0.12)"
                       : "rgba(255,255,255,0.04)",
                   borderColor: isDone
-                    ? "rgba(196,120,74,0.28)"
+                    ? "rgba(127,173,139,0.28)"
                     : isActive
-                      ? "rgba(249,115,22,0.35)"
+                      ? "rgba(42,157,143,0.35)"
                       : "rgba(255,255,255,0.08)",
-                  boxShadow: isActive ? "0 0 28px rgba(249,115,22,0.2)" : "none",
+                  boxShadow: isActive ? "0 0 28px rgba(42,157,143,0.2)" : "none",
                 }}
               >
                 <div
@@ -207,8 +207,8 @@ export default function LoadingPage() {
                     isActive && "animate-[agent-pulse_1.4s_ease-in-out_infinite]",
                   )}
                   style={{
-                    background: isDone ? "rgba(196,120,74,0.2)" : isActive ? `${agent.color}25` : "rgba(255,255,255,0.05)",
-                    borderColor: isDone ? "rgba(196,120,74,0.3)" : isActive ? `${agent.color}40` : "rgba(255,255,255,0.08)",
+                    background: isDone ? "rgba(127,173,139,0.2)" : isActive ? `${agent.color}25` : "rgba(255,255,255,0.05)",
+                    borderColor: isDone ? "rgba(127,173,139,0.3)" : isActive ? `${agent.color}40` : "rgba(255,255,255,0.08)",
                   }}
                 >
                   {isDone ? "✓" : agent.icon}
@@ -216,7 +216,7 @@ export default function LoadingPage() {
                 <div className="min-w-0 flex-1">
                   <div
                     className="mb-0.5 text-[0.88rem] font-semibold"
-                    style={{ color: isDone ? "#c4784a" : isActive ? "#f5f5f4" : "rgba(214,211,209,0.35)" }}
+                    style={{ color: isDone ? "#7fad8b" : isActive ? "#e8f5f2" : "rgba(184,207,200,0.35)" }}
                   >
                     {agent.name}
                   </div>
@@ -224,10 +224,10 @@ export default function LoadingPage() {
                     className="text-[0.78rem] leading-relaxed"
                     style={{
                       color: isDone
-                        ? "rgba(196,120,74,0.7)"
+                        ? "rgba(127,173,139,0.7)"
                         : isActive
-                          ? "rgba(245,245,244,0.7)"
-                          : "rgba(214,211,209,0.2)",
+                          ? "rgba(232,245,242,0.7)"
+                          : "rgba(184,207,200,0.2)",
                     }}
                   >
                     {isDone ? "Complete" : isActive ? agent.task : "Waiting…"}
@@ -242,7 +242,7 @@ export default function LoadingPage() {
           <div className="mb-2 h-1 overflow-hidden rounded bg-white/10">
             <div
               className={cn(
-                "h-full rounded shadow-[0_0_10px_rgba(255,176,32,0.4)] transition-all duration-500",
+                "h-full rounded shadow-[0_0_10px_rgba(168,230,61,0.4)] transition-all duration-500",
                 (ready || doneCount > 0) && "fx-bar-sheen",
                 ready && "fx-bar-sheen-done",
               )}
@@ -277,7 +277,7 @@ export default function LoadingPage() {
               </PrimaryButton>
               <button
                 onClick={() => router.push("/intake")}
-                className="rounded-full border border-white/20 px-6 py-3 text-sm text-[#f5f5f4]"
+                className="rounded-full border border-white/20 px-6 py-3 text-sm text-[#e8f5f2]"
               >
                 Edit intake
               </button>

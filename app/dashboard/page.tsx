@@ -198,7 +198,7 @@ export default function DashboardPage() {
             className="flex items-center gap-2.5 rounded-full border-[1.5px] px-5 py-3 backdrop-blur-sm"
             style={{
               background: streak >= 3 ? "rgba(232,133,106,0.12)" : "rgba(255,255,255,0.06)",
-              borderColor: streak >= 3 ? "rgba(232,133,106,0.35)" : "rgba(196,120,74,0.25)",
+              borderColor: streak >= 3 ? "rgba(232,133,106,0.35)" : "rgba(127,173,139,0.25)",
             }}
           >
             <span
@@ -219,7 +219,7 @@ export default function DashboardPage() {
         {error && <div className="mb-5"><ErrorBanner message={error} /></div>}
 
         {celebrate && (
-          <div className="animate-in mb-5 flex items-center gap-3 rounded-[14px] border-[1.5px] border-energy/35 bg-[linear-gradient(135deg,rgba(255,176,32,0.15),rgba(249,115,22,0.1))] px-5 py-3.5">
+          <div className="animate-in mb-5 flex items-center gap-3 rounded-[14px] border-[1.5px] border-energy/35 bg-[linear-gradient(135deg,rgba(168,230,61,0.15),rgba(42,157,143,0.1))] px-5 py-3.5">
             <span className="text-2xl">🎉</span>
             <div>
               <div className="text-[0.9rem] font-bold text-energy">All habits complete!</div>
@@ -260,7 +260,7 @@ export default function DashboardPage() {
                   <button
                     type="button"
                     onClick={() => router.push("/results")}
-                    className="rounded-full bg-[linear-gradient(135deg,#ea580c,#f97316)] px-4 py-2 text-[0.82rem] font-semibold text-white"
+                    className="rounded-full bg-[linear-gradient(135deg,#1e7a6e,#2a9d8f)] px-4 py-2 text-[0.82rem] font-semibold text-white"
                   >
                     Open full plan →
                   </button>
@@ -276,7 +276,7 @@ export default function DashboardPage() {
                 <div className="h-2 overflow-hidden rounded-full bg-sage/18">
                   <div
                     className={cn(
-                      "h-full rounded-full shadow-[0_0_10px_rgba(249,115,22,0.35)] transition-all duration-500",
+                      "h-full rounded-full shadow-[0_0_10px_rgba(42,157,143,0.35)] transition-all duration-500",
                       pct > 0 && "fx-bar-sheen",
                       pct === 100 && "fx-bar-sheen-done",
                     )}
@@ -331,10 +331,10 @@ export default function DashboardPage() {
                 <div className="grid grid-cols-7 gap-1">
                   {days30.map((day, i) => {
                     const ratio = dayRatio(day);
-                    let bg = "rgba(196,120,74,0.1)";
-                    if (ratio >= 0.8) bg = "#f97316";
-                    else if (ratio >= 0.5) bg = "rgba(249,115,22,0.5)";
-                    else if (ratio > 0) bg = "rgba(249,115,22,0.22)";
+                    let bg = "rgba(127,173,139,0.1)";
+                    if (ratio >= 0.8) bg = "#2a9d8f";
+                    else if (ratio >= 0.5) bg = "rgba(42,157,143,0.5)";
+                    else if (ratio > 0) bg = "rgba(42,157,143,0.22)";
                     return (
                       <div
                         key={day}
@@ -343,7 +343,7 @@ export default function DashboardPage() {
                         style={{
                           animationDelay: `${i * 0.012}s`,
                           background: bg,
-                          border: day === today ? "1.5px solid #ea580c" : "1px solid transparent",
+                          border: day === today ? "1.5px solid #1e7a6e" : "1px solid transparent",
                         }}
                       />
                     );
@@ -351,7 +351,7 @@ export default function DashboardPage() {
                 </div>
                 <div className="mt-2.5 flex items-center justify-end gap-1.5">
                   <span className="text-[0.65rem] text-sage">Less</span>
-                  {["rgba(196,120,74,0.1)", "rgba(249,115,22,0.22)", "rgba(249,115,22,0.5)", "#f97316"].map((color) => (
+                  {["rgba(127,173,139,0.1)", "rgba(42,157,143,0.22)", "rgba(42,157,143,0.5)", "#2a9d8f"].map((color) => (
                     <div key={color} className="h-2.5 w-2.5 rounded-sm" style={{ background: color }} />
                   ))}
                   <span className="text-[0.65rem] text-sage">More</span>

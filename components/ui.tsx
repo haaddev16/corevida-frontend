@@ -24,7 +24,7 @@ export function GlassCard({
       style={style}
       className={cn(
         "glass rounded-[20px] text-left",
-        hover && "glass-hover hover:shadow-[0_18px_50px_rgba(249,115,22,0.22)]",
+        hover && "glass-hover hover:shadow-[0_18px_50px_rgba(42,157,143,0.22)]",
         onClick && "w-full cursor-pointer",
         className,
       )}
@@ -56,10 +56,10 @@ export function PrimaryButton({
       onClick={onClick}
       className={cn(
         "relative overflow-hidden inline-flex items-center justify-center gap-2 rounded-full font-semibold tracking-[0.01em] text-white transition-all duration-200",
-        "bg-[linear-gradient(135deg,#ea580c_0%,#f97316_100%)]",
-        "shadow-[0_6px_28px_rgba(234,88,12,0.32)]",
+        "bg-[linear-gradient(135deg,#1e7a6e_0%,#2a9d8f_100%)]",
+        "shadow-[0_6px_28px_rgba(30,122,110,0.32)]",
         "before:pointer-events-none before:absolute before:inset-0 before:translate-x-[-140%] before:skew-x-[-18deg] before:bg-[linear-gradient(115deg,transparent,rgba(255,255,255,0.22),transparent)] hover:before:animate-[card-shine_0.8s_ease]",
-        "hover:-translate-y-0.5 hover:scale-[1.03] hover:shadow-[0_10px_40px_rgba(234,88,12,0.44)]",
+        "hover:-translate-y-0.5 hover:scale-[1.03] hover:shadow-[0_10px_40px_rgba(30,122,110,0.44)]",
         "active:scale-95 disabled:cursor-not-allowed disabled:opacity-60 disabled:hover:translate-y-0 disabled:hover:scale-100",
         large ? "px-12 py-4 text-[1.05rem]" : "px-7 py-3 text-[0.95rem]",
         className,
@@ -143,7 +143,7 @@ export function TextInput({
             "w-full rounded-xl bg-white/6 px-4 py-3.5 text-[0.95rem] text-forest outline-none transition-all duration-200",
             isPassword && "pr-12",
             focused
-              ? "border-[1.5px] border-teal-mid shadow-[0_0_0_3px_rgba(249,115,22,0.16)]"
+              ? "border-[1.5px] border-teal-mid shadow-[0_0_0_3px_rgba(42,157,143,0.16)]"
               : "border-[1.5px] border-white/12",
           )}
         />
@@ -236,7 +236,7 @@ export function ProgressRing({
   pct,
   size = 120,
   stroke = 9,
-  color = "#f97316",
+  color = "#2a9d8f",
 }: {
   pct: number;
   size?: number;
@@ -260,7 +260,7 @@ export function ProgressRing({
         cy={size / 2}
         r={r}
         fill="none"
-        stroke="rgba(196,120,74,0.18)"
+        stroke="rgba(127,173,139,0.18)"
         strokeWidth={stroke}
       />
       <circle
