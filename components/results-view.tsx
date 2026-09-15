@@ -4,6 +4,7 @@ import { useEffect, useState, type ReactNode } from "react";
 import { useRouter } from "next/navigation";
 import { PageShell } from "@/components/animated-background";
 import { SceneSides } from "@/components/scene-sides";
+import { PlanShareActions } from "@/components/plan-share-actions";
 import { SiteNav } from "@/components/site-nav";
 import {
   CheckIcon,
@@ -11,6 +12,7 @@ import {
   ErrorBanner,
   GlassCard,
   LoadingDots,
+  PrimaryButton,
   ProgressRing,
 } from "@/components/ui";
 import { api, friendlyPlanError } from "@/lib/api";
@@ -32,7 +34,13 @@ import type { AgentRun, DayPlan, Habit, Meal, Plan } from "@/lib/types";
 
 type Tab = "nutrition" | "fitness" | "habits";
 
-export function ResultsView({ planIdFromRoute }: { planIdFromRoute?: string }) {
+export function ResultsView({
+  planIdFromRoute,
+  publicView = false,
+}: {
+  planIdFromRoute?: string;
+  publicView?: boolean;
+}) {
   const router = useRouter();
   const session = useSession();
   const [plan, setPlan] = useState<Plan | null>(null);
@@ -49,9 +57,36 @@ export function ResultsView({ planIdFromRoute }: { planIdFromRoute?: string }) {
   }, []);
 
   useEffect(() => {
+    const requestedId = (planIdFromRoute || "").trim();
+
+    if (publicView) {
+      if (!requestedId) {
+        setError("That plan could not be opened.");
+        return;
+      }
+      let cancelled = false;
+      setPlan(null);
+      setError("");
+      api
+        .getPlan(requestedId)
+        .then((loaded) => {
+          if (cancelled) return;
+          if (loaded.plan_id && loaded.plan_id !== requestedId) {
+            setError("That plan could not be opened.");
+            return;
+          }
+          setPlan(loaded);
+        })
+        .catch((err) => {
+          if (!cancelled) setError(friendlyPlanError(err));
+        });
+      return () => {
+        cancelled = true;
+      };
+    }
+
     if (!session.ready) return;
 
-    const requestedId = (planIdFromRoute || "").trim();
     const cached = readPlan();
     const planId = requestedId || session.planId || cached?.plan_id || "";
 
@@ -88,7 +123,7 @@ export function ResultsView({ planIdFromRoute }: { planIdFromRoute?: string }) {
     return () => {
       cancelled = true;
     };
-  }, [session.ready, session.planId, session.userId, planIdFromRoute, router]);
+  }, [publicView, session.ready, session.planId, session.userId, planIdFromRoute, router]);
 
   async function loadTrace() {
     if (!plan?.plan_id || runs) {
@@ -108,6 +143,9 @@ export function ResultsView({ planIdFromRoute }: { planIdFromRoute?: string }) {
       <PageShell image="/loading-plan-bg.png" className="flex min-h-dvh items-center justify-center px-4">
         <div className="w-full max-w-md space-y-4">
           <ErrorBanner message={error} />
+          <PrimaryButton className="w-full" onClick={() => router.push(publicView ? "/" : session.userId ? "/home" : "/auth")}>
+            {publicView ? "Back to Corevida" : "Go home"}
+          </PrimaryButton>
         </div>
       </PageShell>
     );
@@ -126,7 +164,10 @@ export function ResultsView({ planIdFromRoute }: { planIdFromRoute?: string }) {
   return (
     <PageShell image="/loading-plan-bg.png">
       <SceneSides left="Better Health Bigger Goals" right="Small Steps Big Results" />
-      <SiteNav userName={session.userName} planId={plan.plan_id} />
+      <SiteNav
+        userName={session.userName}
+        planId={publicView ? session.planId : plan.plan_id}
+      />
       <div
         className="mx-auto max-w-[900px] px-4 py-8 pb-20 sm:px-6 sm:py-10"
         style={{ opacity: mounted ? 1 : 0, transition: "opacity 0.5s ease" }}
@@ -135,11 +176,18 @@ export function ResultsView({ planIdFromRoute }: { planIdFromRoute?: string }) {
           <div className="flex flex-col gap-7 lg:flex-row">
             <div className="min-w-0 flex-1">
               <div className="type-kicker mb-4 inline-flex items-center gap-1.5 rounded-full border border-energy/30 bg-energy/12 px-3 py-1 text-energy">
-                ✨ Your plan is ready
+                {publicView ? "Shared plan" : "✨ Your plan is ready"}
               </div>
               <h1 className="type-h1 fx-flutter-in mb-3.5 text-forest">
-                Hey {firstName(session.userName)}, here&apos;s your personalized program.
+                {publicView
+                  ? "A Corevida wellness program"
+                  : `Hey ${firstName(session.userName)}, here is your personalized program.`}
               </h1>
+              {publicView && (
+                <p className="type-caption fx-fade-in mb-4 text-sage">
+                  This is a public view. The owner can still edit and track habits in their own account.
+                </p>
+              )}
               <p className="type-body-lg fx-fade-in mb-6 max-w-[620px] text-ink">
                 {displayText(plan.final_plan.summary)}
               </p>
@@ -171,6 +219,8 @@ export function ResultsView({ planIdFromRoute }: { planIdFromRoute?: string }) {
             </div>
           </div>
         </GlassCard>
+
+        <PlanShareActions plan={plan} showShare={!publicView} showLink={publicView} />
 
         {(plan.final_plan.nutrition_highlights ||
           plan.final_plan.fitness_highlights ||
@@ -225,11 +275,17 @@ export function ResultsView({ planIdFromRoute }: { planIdFromRoute?: string }) {
               notes={plan.fitness_plan.notes}
               expandedDay={expandedDay}
               setExpandedDay={setExpandedDay}
+              readOnly={publicView}
             />
           )}
-          {tab === "habits" && <HabitsTab habits={plan.habit_checklist.habits} />}
+          {tab === "habits" && <HabitsTab habits={plan.habit_checklist.habits} readOnly={publicView} />}
         </div>
 
+        {publicView ? (
+          <div className="mt-8 flex flex-wrap gap-3">
+            <PrimaryButton onClick={() => router.push("/auth")}>Build my plan →</PrimaryButton>
+          </div>
+        ) : (
         <div className="mt-8 flex flex-wrap gap-3">
           <button
             onClick={() => router.push("/dashboard")}
@@ -247,8 +303,9 @@ export function ResultsView({ planIdFromRoute }: { planIdFromRoute?: string }) {
             {showTrace ? "Hide agent trace" : "How it was built"}
           </button>
         </div>
+        )}
 
-        {showTrace && (
+        {showTrace && !publicView && (
           <GlassCard className="mt-5 p-5">
             <div className="mb-3 type-h3 text-forest">Agent handoffs</div>
             {runs && runs.length > 0 ? (
@@ -318,12 +375,14 @@ function FitnessTab({
   notes,
   expandedDay,
   setExpandedDay,
+  readOnly = false,
 }: {
   planId: string;
   schedule: DayPlan[];
   notes: string;
   expandedDay: string | null;
   setExpandedDay: (day: string | null) => void;
+  readOnly?: boolean;
 }) {
   const colors: Record<string, string> = {
     Monday: "#2a9d8f",
@@ -391,6 +450,7 @@ function FitnessTab({
                     day={day.day}
                     exercise={exercise}
                     color={color}
+                    readOnly={readOnly}
                   />
                 ))}
               </div>
@@ -405,32 +465,38 @@ function FitnessTab({
   );
 }
 
-function HabitsTab({ habits }: { habits: Habit[] }) {
+function HabitsTab({ habits, readOnly = false }: { habits: Habit[]; readOnly?: boolean }) {
   const [checked, setChecked] = useState<Set<number>>(new Set());
   return (
     <div className="fx-stagger flex flex-col gap-3">
       <div className="type-caption rounded-xl border border-energy/22 bg-energy/8 px-4 py-3 font-medium text-energy">
-        These are your starting habits. Head to the Dashboard to track them daily.
+        {readOnly
+          ? "Daily habits included in this plan."
+          : "These are your starting habits. Head to the Dashboard to track them daily."}
       </div>
       {habits.map((habit, i) => {
-        const done = checked.has(i);
+        const done = !readOnly && checked.has(i);
         return (
           <GlassCard
             key={habit.name}
-            hover
-            onClick={() =>
-              setChecked((prev) => {
-                const next = new Set(prev);
-                if (next.has(i)) next.delete(i);
-                else next.add(i);
-                return next;
-              })
+            hover={!readOnly}
+            onClick={
+              readOnly
+                ? undefined
+                : () =>
+                    setChecked((prev) => {
+                      const next = new Set(prev);
+                      if (next.has(i)) next.delete(i);
+                      else next.add(i);
+                      return next;
+                    })
             }
             className={cn(
               "flex items-center gap-4 px-5 py-4 transition-all",
               done ? "border-sage/30 bg-sage/10" : "",
             )}
           >
+            {!readOnly && (
             <div
               className={cn(
                 "flex h-6 w-6 shrink-0 items-center justify-center rounded-[7px] border-2 transition-all",
@@ -439,6 +505,7 @@ function HabitsTab({ habits }: { habits: Habit[] }) {
             >
               {done && <CheckIcon />}
             </div>
+            )}
             <div>
               <div className={cn("type-body text-[1rem] font-medium", done ? "text-sage line-through" : "text-forest")}>
                 {displayText(habit.name)}
@@ -460,15 +527,17 @@ function ExerciseRow({
   day,
   exercise,
   color,
+  readOnly = false,
 }: {
   planId: string;
   day: string;
   exercise: { name: string; sets: number; reps: string };
   color: string;
+  readOnly?: boolean;
 }) {
   const pickKey = `${planId}::${day}::${exercise.name}`;
   const [showWeight, setShowWeight] = useState(false);
-  const showSets = hasSetsPicker(exercise.name, exercise.sets);
+  const showSets = !readOnly && hasSetsPicker(exercise.name, exercise.sets);
   const [weights, setWeights] = useState(LOAD_OPTIONS.dumbbells);
   const setChoices = [...new Set([...SET_OPTIONS, exercise.sets].filter((n) => n > 1))].sort((a, b) => a - b);
 
@@ -477,6 +546,7 @@ function ExerciseRow({
   });
 
   useEffect(() => {
+    if (readOnly) return;
     const loads = readEquipmentLoads();
     const equipment = readEquipmentAvailable();
     const allowWeight = hasWeightPicker(exercise.name) && hasWeightedGear(equipment, loads);
@@ -488,7 +558,7 @@ function ExerciseRow({
       weight: saved?.weight ?? (allowWeight ? available[0] : undefined),
       sets: saved?.sets ?? (showSets ? exercise.sets : undefined),
     });
-  }, [pickKey, showSets, exercise.name, exercise.sets]);
+  }, [pickKey, showSets, exercise.name, exercise.sets, readOnly]);
 
   function update(next: ExercisePick) {
     setPick(next);
