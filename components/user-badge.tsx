@@ -44,13 +44,13 @@ export function UserBadge({ className }: { className?: string }) {
         aria-expanded={open}
         aria-haspopup="menu"
       >
-        <div className="flex h-8 w-8 items-center justify-center rounded-full border border-[#4db8aa]/45 bg-[#2a9d8f]/25 text-[0.82rem] font-semibold text-teal-light shadow-[0_0_14px_rgba(77,184,170,0.28)]">
+        <div className="flex h-8 w-8 items-center justify-center rounded-full border border-[#4db8aa]/45 bg-[#2a9d8f]/25 type-stat text-[0.82rem] text-teal-light shadow-[0_0_14px_rgba(77,184,170,0.28)]">
           {initial}
         </div>
         <div className="min-w-0 text-left leading-tight">
-          <div className="truncate text-[0.82rem] font-semibold text-forest">{shown}</div>
+          <div className="type-title truncate text-[0.95rem] text-forest">{shown}</div>
           {session.userEmail && (
-            <div className="hidden max-w-[140px] truncate text-[0.64rem] text-sage sm:block">{session.userEmail}</div>
+            <div className="type-meta hidden max-w-[140px] truncate text-sage sm:block">{session.userEmail}</div>
           )}
         </div>
       </button>
@@ -88,7 +88,7 @@ function MenuItem({
       role="menuitem"
       onClick={onClick}
       className={cn(
-        "flex w-full rounded-xl px-3 py-2 text-left text-[0.82rem] font-medium transition-colors",
+        "flex w-full rounded-xl px-3 py-2 text-left type-nav transition-colors",
         danger ? "text-[#e8856a] hover:bg-[#e8856a]/12" : "text-forest hover:bg-white/8",
       )}
     >

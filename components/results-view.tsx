@@ -134,22 +134,22 @@ export function ResultsView({ planIdFromRoute }: { planIdFromRoute?: string }) {
         <GlassCard hover className="fx-rise mb-6 p-6 sm:p-9">
           <div className="flex flex-col gap-7 lg:flex-row">
             <div className="min-w-0 flex-1">
-              <div className="mb-4 inline-flex items-center gap-1.5 rounded-full border border-energy/30 bg-energy/12 px-3 py-1 text-[0.75rem] font-semibold tracking-[0.05em] text-energy uppercase">
+              <div className="type-kicker mb-4 inline-flex items-center gap-1.5 rounded-full border border-energy/30 bg-energy/12 px-3 py-1 text-energy">
                 ✨ Your plan is ready
               </div>
-              <h1 className="fx-flutter-in mb-3.5 font-display text-[clamp(1.5rem,3vw,2rem)] leading-snug font-bold tracking-[-0.02em] text-forest">
+              <h1 className="type-h1 fx-flutter-in mb-3.5 text-forest">
                 Hey {firstName(session.userName)}, here&apos;s your personalized program.
               </h1>
-              <p className="fx-fade-in mb-6 max-w-[620px] text-[1.05rem] leading-7 text-ink">
+              <p className="type-body-lg fx-fade-in mb-6 max-w-[620px] text-ink">
                 {displayText(plan.final_plan.summary)}
               </p>
               <div className="flex flex-col gap-3">
                 {plan.final_plan.key_recommendations.map((rec, i) => (
                   <div key={rec} className="fx-rec flex items-start gap-3" style={{ animationDelay: `${0.08 * i}s` }}>
-                    <span className="mt-0.5 flex h-6 w-6 shrink-0 items-center justify-center rounded-md bg-teal/10 text-xs font-bold text-teal-light">
+                    <span className="mt-0.5 flex h-6 w-6 shrink-0 items-center justify-center rounded-md bg-teal/10 type-stat text-[0.72rem] text-teal-light">
                       {i + 1}
                     </span>
-                    <span className="text-[1.05rem] leading-7 text-ink">{displayText(rec)}</span>
+                    <span className="type-body leading-7 text-ink">{displayText(rec)}</span>
                   </div>
                 ))}
               </div>
@@ -158,15 +158,15 @@ export function ResultsView({ planIdFromRoute }: { planIdFromRoute?: string }) {
               <div className="fx-ring-halo relative flex items-center justify-center">
                 <ProgressRing pct={72} />
                 <div className="absolute text-center">
-                  <div className="font-mono text-[1.3rem] font-bold text-forest">
+                  <div className="type-stat text-[1.35rem] text-forest">
                     <CountUp target={calories} />
                   </div>
-                  <div className="mt-0.5 text-[0.6rem] font-semibold text-sage">kcal a day</div>
+                  <div className="type-meta mt-0.5 font-semibold text-sage">kcal a day</div>
                 </div>
               </div>
               <div className="text-center">
-                <div className="text-[0.78rem] font-semibold text-ink">Daily target</div>
-                <div className="text-[0.72rem] text-sage">Based on your profile</div>
+                <div className="type-title text-ink">Daily target</div>
+                <div className="type-caption text-sage">Based on your profile</div>
               </div>
             </div>
           </div>
@@ -185,8 +185,8 @@ export function ResultsView({ planIdFromRoute }: { planIdFromRoute?: string }) {
               .map((card) => (
                 <GlassCard key={card.title} hover className="p-6">
                   <div className="mb-2.5 text-xl">{card.icon}</div>
-                  <div className="mb-1.5 text-[1.05rem] font-semibold text-forest">{card.title}</div>
-                  <p className="text-[1.05rem] leading-7 text-ink">{displayText(card.text)}</p>
+                  <div className="mb-1.5 type-h3 text-forest">{card.title}</div>
+                  <p className="type-body text-ink">{displayText(card.text)}</p>
                 </GlassCard>
               ))}
           </div>
@@ -202,7 +202,7 @@ export function ResultsView({ planIdFromRoute }: { planIdFromRoute?: string }) {
                 onClick={() => setTab(item)}
                 style={{ animationDelay: `${0.06 * i}s` }}
                 className={cn(
-                  "fx-tab rounded-full border-[1.5px] px-5 py-2.5 text-[0.88rem] backdrop-blur-sm transition-all",
+                  "fx-tab type-button rounded-full border-[1.5px] px-5 py-2.5 text-[0.92rem] backdrop-blur-sm transition-all",
                   active
                     ? "border-teal bg-[linear-gradient(135deg,#1e7a6e,#2a9d8f)] font-semibold text-white shadow-[0_3px_14px_rgba(30,122,110,0.25)]"
                     : "border-white/12 bg-white/6 text-muted",
@@ -233,39 +233,39 @@ export function ResultsView({ planIdFromRoute }: { planIdFromRoute?: string }) {
         <div className="mt-8 flex flex-wrap gap-3">
           <button
             onClick={() => router.push("/dashboard")}
-            className="rounded-full bg-[linear-gradient(135deg,#1e7a6e,#2a9d8f)] px-6 py-3 text-sm font-semibold text-white shadow-[0_4px_16px_rgba(30,122,110,0.28)]"
+            className="type-button rounded-full bg-[linear-gradient(135deg,#1e7a6e,#2a9d8f)] px-6 py-3 text-white shadow-[0_4px_16px_rgba(30,122,110,0.28)]"
           >
             Track habits →
           </button>
           <button
             onClick={() => router.push("/intake")}
-            className="rounded-full bg-sage/12 px-6 py-3 text-sm font-medium text-ink"
+            className="type-button rounded-full bg-sage/12 px-6 py-3 text-ink"
           >
             Regenerate
           </button>
-          <button onClick={loadTrace} className="rounded-full px-6 py-3 text-sm font-medium text-teal-light">
+          <button onClick={loadTrace} className="type-button rounded-full px-6 py-3 text-teal-light">
             {showTrace ? "Hide agent trace" : "How it was built"}
           </button>
         </div>
 
         {showTrace && (
           <GlassCard className="mt-5 p-5">
-            <div className="mb-3 text-sm font-semibold text-forest">Agent handoffs</div>
+            <div className="mb-3 type-h3 text-forest">Agent handoffs</div>
             {runs && runs.length > 0 ? (
               <div className="flex flex-col gap-2">
                 {runs.map((run) => (
                   <details key={run.id} className="rounded-xl bg-white/5 px-4 py-3">
-                    <summary className="cursor-pointer text-sm font-medium capitalize text-teal-light">
-                      {run.agent_name}
+                    <summary className="type-nav cursor-pointer capitalize text-teal-light">
+                      {displayText(run.agent_name)}
                     </summary>
-                    <pre className="mt-2 overflow-x-auto text-[0.72rem] leading-relaxed text-muted">
+                    <pre className="type-stat mt-2 overflow-x-auto text-[0.72rem] font-normal leading-relaxed tracking-normal text-muted">
                       {JSON.stringify(run.output, null, 2)}
                     </pre>
                   </details>
                 ))}
               </div>
             ) : (
-              <p className="text-sm text-muted">No agent trace is stored for this plan yet.</p>
+              <p className="type-caption text-muted">No agent trace is stored for this plan yet.</p>
             )}
           </GlassCard>
         )}
@@ -289,22 +289,22 @@ function NutritionTab({ meals, notes, target }: { meals: Meal[]; notes: string; 
           </div>
           <div className="min-w-0 flex-1">
             <div className="mb-1.5 flex items-center justify-between gap-3">
-              <span className="text-[1.05rem] font-semibold text-forest">{displayText(meal.name)}</span>
+              <span className="type-title text-forest">{displayText(meal.name)}</span>
               <span
-                className="shrink-0 rounded-full px-2.5 py-0.5 font-mono text-[1.05rem] font-bold"
+                className="type-stat shrink-0 rounded-full px-2.5 py-0.5 text-[1.05rem]"
                 style={{ color: colors[i % colors.length], background: `${colors[i % colors.length]}12` }}
               >
                 {meal.estimated_calories} kcal
               </span>
             </div>
-            <p className="text-[1.05rem] leading-7 text-ink">{displayText(meal.description)}</p>
+            <p className="type-body text-ink">{displayText(meal.description)}</p>
           </div>
         </GlassCard>
       ))}
       <GlassCard className="border-teal-mid/18 bg-teal-mid/6 px-6 py-4">
         <div className="flex items-center justify-between">
-          <span className="text-[1.05rem] font-semibold text-teal-mid">Total daily target</span>
-          <span className="font-mono text-[1.05rem] font-bold text-teal-light">{target.toLocaleString()} kcal</span>
+          <span className="type-title text-teal-mid">Total daily target</span>
+          <span className="type-stat text-[1.05rem] text-teal-light">{target.toLocaleString()} kcal</span>
         </div>
       </GlassCard>
       {notes && <CoachNote notes={notes} />}
@@ -353,10 +353,10 @@ function FitnessTab({
                 transform: open ? "scale(1.03)" : "scale(1)",
               }}
             >
-              <div className="mb-1 text-[0.68rem] font-bold tracking-[0.05em] uppercase" style={{ color }}>
-                {day.day.slice(0, 3)}
+              <div className="type-kicker mb-1" style={{ color }}>
+                {displayText(day.day).slice(0, 3)}
               </div>
-              <div className="text-[0.72rem] leading-snug text-ink">{displayText(day.focus)}</div>
+              <div className="type-caption leading-snug text-ink">{displayText(day.focus)}</div>
             </button>
           );
         })}
@@ -377,8 +377,8 @@ function FitnessTab({
                   {icon}
                 </div>
                 <div>
-                  <div className="font-display text-[1.05rem] font-semibold text-forest">{day.day}</div>
-                  <div className="text-[0.82rem] font-medium" style={{ color }}>
+                  <div className="type-title text-forest">{displayText(day.day)}</div>
+                  <div className="type-caption font-medium" style={{ color }}>
                     {displayText(day.focus)}
                   </div>
                 </div>
@@ -398,7 +398,7 @@ function FitnessTab({
           );
         })()}
       {!expandedDay && (
-        <p className="py-2 text-center text-[0.82rem] text-sage">Tap a day to see your exercises</p>
+        <p className="type-caption py-2 text-center text-sage">Tap a day to see your exercises</p>
       )}
       {notes && <CoachNote notes={notes} />}
     </div>
@@ -409,7 +409,7 @@ function HabitsTab({ habits }: { habits: Habit[] }) {
   const [checked, setChecked] = useState<Set<number>>(new Set());
   return (
     <div className="fx-stagger flex flex-col gap-3">
-      <div className="rounded-xl border border-energy/22 bg-energy/8 px-4 py-3 text-[0.84rem] font-medium text-energy">
+      <div className="type-caption rounded-xl border border-energy/22 bg-energy/8 px-4 py-3 font-medium text-energy">
         These are your starting habits. Head to the Dashboard to track them daily.
       </div>
       {habits.map((habit, i) => {
@@ -440,10 +440,10 @@ function HabitsTab({ habits }: { habits: Habit[] }) {
               {done && <CheckIcon />}
             </div>
             <div>
-              <div className={cn("text-[0.9rem] font-medium", done ? "text-sage line-through" : "text-forest")}>
+              <div className={cn("type-body text-[1rem] font-medium", done ? "text-sage line-through" : "text-forest")}>
                 {displayText(habit.name)}
               </div>
-              <div className="mt-0.5 text-xs text-sage">
+              <div className="type-caption mt-0.5 text-sage">
                 {displayText(habit.frequency)}
                 {habit.reason ? ` · ${displayText(habit.reason)}` : ""}
               </div>
@@ -507,9 +507,9 @@ function ExerciseRow({
   return (
     <div className="rounded-[10px] border border-white/10 bg-white/5 px-4 py-3">
       <div className="flex items-center justify-between gap-3">
-        <span className="text-[0.88rem] font-medium text-forest">{displayText(exercise.name)}</span>
+        <span className="type-body text-[0.95rem] font-medium text-forest">{displayText(exercise.name)}</span>
         <span
-          className="shrink-0 rounded-md px-2.5 py-0.5 font-mono text-[0.78rem] font-semibold"
+          className="type-stat shrink-0 rounded-md px-2.5 py-0.5 text-[0.8rem]"
           style={{ color, background: `${color}10` }}
         >
           {badge}
@@ -552,7 +552,7 @@ function ExerciseRow({
 function PickerRow({ label, children }: { label: string; children: ReactNode }) {
   return (
     <div className="flex flex-wrap items-center gap-2">
-      <span className="w-14 shrink-0 text-[0.68rem] font-semibold tracking-[0.08em] text-sage uppercase">
+      <span className="type-label w-14 shrink-0 text-sage">
         {label}
       </span>
       {children}
@@ -575,7 +575,7 @@ function MiniChip({
     <button
       type="button"
       onClick={onClick}
-      className="rounded-full border px-2.5 py-1 text-[0.74rem] font-medium transition-all"
+      className="type-caption rounded-full border px-2.5 py-1 font-medium transition-all"
       style={{
         borderColor: selected ? color : "rgba(255,255,255,0.12)",
         background: selected ? `${color}22` : "rgba(255,255,255,0.04)",
@@ -589,7 +589,7 @@ function MiniChip({
 
 function CoachNote({ notes }: { notes: string }) {
   return (
-    <div className="rounded-xl border border-sage/20 bg-sage/8 px-4 py-3.5 text-[0.84rem] leading-relaxed text-ink">
+    <div className="type-body rounded-xl border border-sage/20 bg-sage/8 px-4 py-3.5 text-ink">
       <span className="font-semibold text-teal-light">Coach note: </span>
       {displayText(notes)}
     </div>

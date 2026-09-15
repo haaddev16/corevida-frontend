@@ -72,14 +72,14 @@ export default function LandingPage() {
             <>
               <a
                 href="#about"
-                className="fx-nav rounded-full px-4 py-2 text-sm font-medium text-ink transition-colors hover:text-teal-light"
+                className="type-nav fx-nav rounded-full px-4 py-2 text-ink transition-colors hover:text-teal-light"
               >
                 About
               </a>
               {hasPlan && (
                 <button
                   onClick={() => router.push("/results")}
-                  className="fx-nav rounded-full px-4 py-2 text-sm font-medium text-ink transition-colors hover:text-teal-light"
+                  className="type-nav fx-nav rounded-full px-4 py-2 text-ink transition-colors hover:text-teal-light"
                 >
                   My plan
                 </button>
@@ -93,13 +93,13 @@ export default function LandingPage() {
             <>
               <a
                 href="#about"
-                className="fx-nav rounded-full px-4 py-2 text-sm font-medium text-ink transition-colors hover:text-teal-light"
+                className="type-nav fx-nav rounded-full px-4 py-2 text-ink transition-colors hover:text-teal-light"
               >
                 About
               </a>
               <button
                 onClick={() => router.push("/auth")}
-                className="fx-nav rounded-full px-4 py-2 text-sm font-medium text-ink transition-colors hover:text-teal-light"
+                className="type-nav fx-nav rounded-full px-4 py-2 text-ink transition-colors hover:text-teal-light"
               >
                 Log in
               </button>
@@ -112,7 +112,7 @@ export default function LandingPage() {
         <div className="flex items-center gap-2 sm:hidden">
           <UserBadge />
           <button
-            className="rounded-xl border border-sage/25 px-3 py-2 text-sm text-ink"
+            className="rounded-xl border border-sage/25 px-3 py-2 type-nav text-ink"
             onClick={() => setMenuOpen((v) => !v)}
             aria-label="Menu"
           >
@@ -125,12 +125,12 @@ export default function LandingPage() {
         <div className="glass fixed top-[68px] right-4 z-50 flex w-48 flex-col gap-2 rounded-2xl p-3 sm:hidden">
           <a
             href="#about"
-            className="rounded-xl px-3 py-2 text-left text-sm text-ink"
+            className="rounded-xl px-3 py-2 text-left type-nav text-ink"
             onClick={() => setMenuOpen(false)}
           >
             About
           </a>
-          <button className="rounded-xl px-3 py-2 text-left text-sm text-ink" onClick={() => router.push("/auth")}>
+          <button className="rounded-xl px-3 py-2 text-left type-nav text-ink" onClick={() => router.push("/auth")}>
             Log in
           </button>
           <PrimaryButton className="w-full" onClick={() => router.push(primaryHref)}>
@@ -142,7 +142,7 @@ export default function LandingPage() {
       <section className="relative z-10 flex min-h-dvh flex-col items-center justify-center px-5 pt-28 pb-20 text-center sm:px-6">
         {loggedIn && session.ready && (
           <div
-            className="page-fade mb-6 max-w-xl rounded-2xl border border-teal-light/25 bg-white/6 px-5 py-3 text-sm text-ink backdrop-blur-md"
+            className="page-fade mb-6 max-w-xl rounded-2xl border border-teal-light/25 bg-white/6 px-5 py-3 type-caption text-ink backdrop-blur-md"
             style={{ animationDelay: "0.05s" }}
           >
             Welcome back, {firstName(session.userName)}.{" "}
@@ -152,7 +152,7 @@ export default function LandingPage() {
           </div>
         )}
 
-        <h1 className="mb-6 max-w-[860px] font-display text-[clamp(2.4rem,6.5vw,5.1rem)] leading-[1.08] font-bold tracking-[-0.02em] [perspective:800px]">
+        <h1 className="type-display mb-6 max-w-[860px] [perspective:800px]">
           {"Your AI wellness coach,".split(" ").map((word, i) => (
             <span
               key={`a-${word}`}
@@ -182,7 +182,7 @@ export default function LandingPage() {
         </h1>
 
         <p
-          className="fx-fade-in mx-auto mb-12 max-w-[540px] text-[clamp(1rem,2.2vw,1.2rem)] leading-relaxed text-ink"
+          className="type-body-lg fx-fade-in mx-auto mb-12 max-w-[560px] text-ink"
           style={{ animationDelay: "1s" }}
         >
           Nutrition, fitness, and habit plans generated together by a multi agent AI, then synthesized into one
@@ -216,7 +216,7 @@ export default function LandingPage() {
           {STATS.map((stat) => (
             <div key={stat.label} className="text-center">
               <div
-                className={`mb-1.5 font-display text-[2rem] leading-none font-bold text-teal-light ${countStart ? "stat-count" : ""}`}
+                className={`type-stat mb-1.5 text-[2.15rem] leading-none text-teal-light ${countStart ? "stat-count" : ""}`}
               >
                 <CountUp
                   target={stat.target}
@@ -226,7 +226,7 @@ export default function LandingPage() {
                   start={countStart}
                 />
               </div>
-              <div className="text-[0.82rem] font-medium text-sage">{stat.label}</div>
+              <div className="type-caption text-sage">{stat.label}</div>
             </div>
           ))}
         </div>
@@ -234,10 +234,10 @@ export default function LandingPage() {
 
       <section id="how" className="relative z-10 mx-auto max-w-[960px] px-5 py-16 sm:px-6 sm:py-20">
         <div className="mb-12 text-center">
-          <h2 className="fx-reveal-right mb-3 font-display text-[clamp(1.8rem,3.5vw,2.8rem)] font-bold tracking-[-0.02em] text-forest">
+          <h2 className="type-h2 fx-reveal-right mb-3 text-forest">
             Five agents, one plan
           </h2>
-          <p className="fx-fade-in mx-auto max-w-xl text-[1.05rem] leading-relaxed text-muted">
+          <p className="type-body fx-fade-in mx-auto max-w-xl text-muted">
             Parallel AI agents build your nutrition, fitness, and habit plans, then a supervisor synthesizes them
             into one coherent program.
           </p>
@@ -261,7 +261,7 @@ export default function LandingPage() {
       </section>
 
       <section className="relative z-10 mx-auto max-w-[1100px] px-5 pt-6 pb-28 sm:px-6">
-        <h2 className="fx-jump-right mb-12 text-center font-display text-[clamp(1.8rem,3.5vw,2.6rem)] font-bold tracking-[-0.02em] text-forest">
+        <h2 className="type-h2 fx-jump-right mb-12 text-center text-forest">
           Everything you need to thrive
         </h2>
         <div className="fx-stagger grid grid-cols-1 gap-4 sm:grid-cols-2 xl:grid-cols-4">
@@ -277,10 +277,10 @@ export default function LandingPage() {
               >
                 {feature.icon}
               </div>
-              <h3 className="fx-flutter-in mb-2.5 font-display text-[1.15rem] font-semibold tracking-[-0.01em] text-forest">
+              <h3 className="type-h3 fx-flutter-in mb-2.5 text-forest">
                 {feature.title}
               </h3>
-              <p className="fx-fade-in text-[0.88rem] leading-relaxed text-muted">{feature.desc}</p>
+              <p className="type-body fx-fade-in text-[0.98rem] text-muted">{feature.desc}</p>
             </GlassCard>
           ))}
         </div>
@@ -289,10 +289,10 @@ export default function LandingPage() {
 
         <div className="mt-16 flex justify-center">
           <GlassCard hover className="fx-rise w-full max-w-[560px] px-8 py-12 text-center sm:px-16">
-            <h3 className="fx-reveal-right mb-3 font-display text-[1.8rem] font-bold tracking-[-0.02em] text-forest">
+            <h3 className="type-h2 fx-reveal-right mb-3 text-forest">
               Ready to meet your coach?
             </h3>
-            <p className="fx-fade-in mb-7 text-[0.95rem] leading-relaxed text-muted">
+            <p className="type-body fx-fade-in mb-7 text-muted">
               Three minutes to set up. Your personalized plan is generated by four specialist agents plus a supervisor.
             </p>
             <PrimaryButton large className="fx-cta-pulse" onClick={() => router.push(primaryHref)}>
@@ -303,11 +303,11 @@ export default function LandingPage() {
       </section>
 
       <footer className="relative z-10 flex flex-wrap items-center justify-between gap-3 border-t border-sage/18 px-6 py-7 sm:px-10">
-        <span className="font-display text-xl font-semibold text-teal-light">Corevida</span>
-        <a href="#about" className="text-[0.82rem] text-sage transition-colors hover:text-teal-light">
+        <span className="type-logo text-xl text-teal-light">Corevida</span>
+        <a href="#about" className="type-caption text-sage transition-colors hover:text-teal-light">
           About us
         </a>
-        <span className="text-[0.82rem] text-sage">Built with 5 AI agents. © 2026 Corevida.</span>
+        <span className="type-caption text-sage">Built with 5 AI agents. © 2026 Corevida.</span>
       </footer>
     </PageShell>
   );
@@ -342,10 +342,10 @@ function AgentNode({
         {icon}
       </div>
       <div className="text-center">
-        <div className={small ? "text-[0.72rem] font-semibold text-forest" : "text-[0.8rem] font-semibold text-forest"}>
+        <div className={small ? "type-title text-[0.95rem] text-forest" : "type-title text-forest"}>
           {label}
         </div>
-        <div className="text-[0.68rem] font-medium" style={{ color }}>
+        <div className="type-meta" style={{ color }}>
           {sub}
         </div>
       </div>

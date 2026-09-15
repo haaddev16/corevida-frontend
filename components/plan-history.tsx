@@ -29,7 +29,7 @@ export function PlanHistoryList({
         <Link
           key={`${item.plan_id}-${item.created_at}-${index}`}
           href={`/results/${encodeURIComponent(item.plan_id)}`}
-          className="fx-history-item rounded-[10px] border border-sage/20 px-3 py-2 text-left text-[0.8rem] text-ink hover:bg-sage/8"
+          className="fx-history-item type-caption rounded-[10px] border border-sage/20 px-3 py-2 text-left text-ink hover:bg-sage/8"
           style={{ animationDelay: `${index * 0.06}s` }}
         >
           {formatPlanStamp(item.created_at)}

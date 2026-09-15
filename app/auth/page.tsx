@@ -120,7 +120,7 @@ export default function AuthPage() {
       <div className="relative z-10 flex min-h-dvh flex-col items-center justify-center px-4 py-10">
         <div className="page-fade mb-6 text-center">
           <Logo className="text-[1.9rem]" />
-          <p className="fx-flutter-in mt-1 text-[0.85rem] text-sage">Your AI wellness coach</p>
+          <p className="type-caption fx-flutter-in mt-1 text-sage">Your AI wellness coach</p>
         </div>
 
         <div
@@ -139,7 +139,7 @@ export default function AuthPage() {
                   setError("");
                 }}
                 className={cn(
-                  "flex-1 rounded-full py-2.5 text-[0.9rem] font-semibold transition-all duration-200",
+                  "type-button flex-1 rounded-full py-2.5 text-[0.92rem] transition-all duration-200",
                   tab === item
                     ? "bg-[#2a9d8f] text-white shadow-[0_6px_20px_rgba(42,157,143,0.35)]"
                     : "text-muted hover:text-forest",
@@ -196,7 +196,7 @@ export default function AuthPage() {
                         style={{ width: `${(strength.level / 4) * 100}%`, background: strength.color }}
                       />
                     </div>
-                    <span className="text-xs font-medium" style={{ color: strength.color }}>
+                    <span className="type-meta" style={{ color: strength.color }}>
                       {strength.label}
                     </span>
                   </div>
@@ -213,7 +213,7 @@ export default function AuthPage() {
                 delay={3}
               />
               {confirm.length > 0 && confirm !== password && (
-                <p className="text-xs text-coral">Passwords don&apos;t match.</p>
+                <p className="type-caption text-coral">Passwords don&apos;t match.</p>
               )}
               <PrimaryButton type="submit" disabled={loading} className="mt-3 w-full rounded-full">
                 {loading ? (
@@ -263,7 +263,7 @@ export default function AuthPage() {
             <button
               onClick={continueAsGuest}
               disabled={loading}
-              className="text-[0.85rem] text-sage underline decoration-sage/40 transition-colors hover:text-teal-light disabled:opacity-50"
+              className="type-caption text-sage underline decoration-sage/40 transition-colors hover:text-teal-light disabled:opacity-50"
             >
               Continue as guest →
             </button>
@@ -295,7 +295,7 @@ function AuthDecor() {
         ].map((item, i) => (
           <div key={item.label} className="rail-in flex items-center gap-2.5 text-sage/75" style={{ animationDelay: `${0.1 * i}s` }}>
             <AuthMark name={item.icon} />
-            <span className="max-w-[130px] text-[0.68rem] leading-tight tracking-[0.12em] uppercase">{item.label}</span>
+            <span className="type-kicker max-w-[130px] leading-tight text-sage/80">{item.label}</span>
           </div>
         ))}
       </div>
@@ -314,7 +314,7 @@ function AuthDecor() {
           { icon: "smile", label: "Feel stronger" },
         ].map((item, i) => (
           <div key={item.label} className="rail-in flex items-center justify-end gap-2.5 text-sage/75" style={{ animationDelay: `${0.12 * i}s` }}>
-            <span className="max-w-[120px] text-right text-[0.68rem] leading-tight tracking-[0.12em] uppercase">{item.label}</span>
+            <span className="type-kicker max-w-[120px] text-right leading-tight text-sage/80">{item.label}</span>
             <AuthMark name={item.icon} />
           </div>
         ))}
@@ -348,7 +348,7 @@ function AuthField({
 
   return (
     <div className="chip-in" style={{ animationDelay: `${0.22 + delay * 0.08}s` }}>
-      <label className="mb-1.5 block text-[0.7rem] font-semibold tracking-[0.14em] text-sage uppercase">{label}</label>
+      <label className="type-label mb-1.5 block text-sage">{label}</label>
       <div className="relative">
         <span className="pointer-events-none absolute top-1/2 left-4 -translate-y-1/2 text-sage/70">{icon}</span>
         <input
@@ -358,7 +358,7 @@ function AuthField({
           placeholder={placeholder}
           onChange={(e) => onChange(e.target.value)}
           className={cn(
-            "w-full rounded-full border border-white/12 bg-[#0d1a16]/70 py-3.5 pr-4 pl-12 text-[0.92rem] text-forest outline-none transition-all",
+            "type-input w-full rounded-full border border-white/12 bg-[#0d1a16]/70 py-3.5 pr-4 pl-12 text-forest outline-none transition-all",
             "placeholder:text-sage/40 focus:border-[#4db8aa] focus:shadow-[0_0_0_3px_rgba(42,157,143,0.16)]",
             isPassword && "pr-12",
           )}

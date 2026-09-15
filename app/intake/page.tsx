@@ -186,16 +186,16 @@ export default function IntakePage() {
         <div className="mx-auto flex max-w-[1100px] items-center gap-3 sm:gap-5">
           <Link href="/home" className="fx-logo hidden shrink-0 items-center gap-2 text-teal-light md:flex">
             <LotusMark />
-            <span className="font-display text-[1.15rem] font-semibold tracking-[-0.02em]">Corevida</span>
+            <span className="type-logo text-[1.25rem]">Corevida</span>
           </Link>
-          <span className="hidden text-[0.82rem] font-medium text-sage sm:inline">{STEPS[step]}</span>
+          <span className="hidden type-caption font-medium text-sage sm:inline">{STEPS[step]}</span>
           <div className="h-[2px] min-w-8 flex-1 overflow-hidden rounded-full bg-white/12">
             <div
               className="fx-bar-sheen h-full shadow-[0_0_10px_rgba(77,184,170,0.7)] transition-all duration-500"
               style={{ width: `${((step + 1) / STEPS.length) * 100}%` }}
             />
           </div>
-          <span className="shrink-0 text-[0.78rem] text-sage">
+          <span className="type-caption shrink-0 text-sage">
             {step + 1} of {STEPS.length}
           </span>
           <UserBadge />
@@ -232,7 +232,7 @@ export default function IntakePage() {
             <button
               onClick={() => go(step - 1, "back")}
               disabled={step === 0}
-              className="rounded-full border border-white/14 bg-white/4 px-6 py-3 text-[0.9rem] font-medium text-forest transition-colors hover:bg-white/8 disabled:cursor-not-allowed disabled:opacity-35"
+              className="type-button rounded-full border border-white/14 bg-white/4 px-6 py-3 text-forest transition-colors hover:bg-white/8 disabled:cursor-not-allowed disabled:opacity-35"
             >
               ← Back
             </button>
@@ -241,7 +241,7 @@ export default function IntakePage() {
                 onClick={() => canContinue && go(step + 1, "forward")}
                 disabled={!canContinue}
                 className={cn(
-                  "rounded-full px-8 py-3 text-[0.9rem] font-semibold transition-all",
+                  "type-button rounded-full px-8 py-3 transition-all",
                   canContinue
                     ? "bg-[#2a9d8f] text-white shadow-[0_8px_24px_rgba(42,157,143,0.35)] hover:-translate-y-0.5"
                     : "cursor-not-allowed bg-white/8 text-muted/50",
@@ -295,7 +295,7 @@ function SceneDecor({ step }: { step: number }) {
             <br />
             big results
           </p>
-          <div className="mt-16 ml-auto flex items-center justify-end gap-2 text-[0.68rem] tracking-[0.16em] text-sage/70 uppercase">
+          <div className="type-kicker mt-16 ml-auto flex items-center justify-end gap-2 text-sage/70">
             <LineIcon name="bars" />
             Track your progress
           </div>
@@ -334,7 +334,7 @@ function Rail({ items }: { items: { icon: IconName; label: string }[] }) {
           style={{ animationDelay: `${0.12 * i}s` }}
         >
           <LineIcon name={item.icon} />
-          <span className="max-w-[140px] text-[0.68rem] leading-tight tracking-[0.12em] uppercase">{item.label}</span>
+          <span className="type-kicker max-w-[140px] leading-tight">{item.label}</span>
         </div>
       ))}
     </div>
@@ -396,7 +396,7 @@ function LoadPickers({
       {visible.map((group) => (
         <div key={group.key}>
           <FieldLabel>{group.label}</FieldLabel>
-          <p className="mb-2.5 text-[0.78rem] text-sage">Select every weight you can actually use.</p>
+          <p className="type-caption mb-2.5 text-sage">Select every weight you can actually use.</p>
           <div className="flex flex-wrap gap-2">
             {LOAD_OPTIONS[group.key].map((kg) => (
               <Chip
@@ -449,8 +449,8 @@ function Chip({
     >
       {icon ? <LineIcon name={icon} /> : selected ? <span>✓</span> : null}
       <span className="min-w-0 text-left">
-        <span className={cn("block", compact ? "" : "capitalize")}>{label}</span>
-        {hint ? <span className="mt-0.5 block text-[0.72rem] font-normal normal-case leading-snug text-sage">{hint}</span> : null}
+        <span className={cn("type-button block", compact ? "text-[0.86rem]" : "capitalize")}>{label}</span>
+        {hint ? <span className="type-caption mt-0.5 block font-normal normal-case leading-snug text-sage">{hint}</span> : null}
       </span>
     </button>
   );
@@ -465,8 +465,8 @@ function StepContent({
   data: IntakeData;
   setData: React.Dispatch<React.SetStateAction<IntakeData>>;
 }) {
-  const heading = "fx-reveal-right mb-2 text-center font-display text-[clamp(1.7rem,3vw,2.15rem)] leading-tight font-semibold tracking-[-0.03em] text-forest";
-  const sub = "fx-fade-in mb-8 text-center text-[0.92rem] leading-relaxed text-muted";
+  const heading = "type-h2 fx-reveal-right mb-2 text-center text-forest";
+  const sub = "type-body fx-fade-in mb-8 text-center text-muted";
 
   function toggle(list: string[], value: string) {
     return list.includes(value) ? list.filter((item) => item !== value) : [...list, value];
@@ -525,7 +525,7 @@ function StepContent({
               type="button"
               onClick={() => setData((d) => ({ ...d, sex }))}
               className={cn(
-                "rounded-full border py-3 text-[0.88rem] capitalize transition-all",
+                "type-button rounded-full border py-3 text-[0.9rem] capitalize transition-all",
                 data.sex === sex
                   ? "border-[#4db8aa] bg-[#2a9d8f]/15 font-semibold text-teal-light"
                   : "border-white/10 bg-[#0d1a16]/70 text-muted",
@@ -562,10 +562,10 @@ function StepContent({
               >
                 <span className="text-[1.8rem]">{level.icon}</span>
                 <div>
-                  <div className={cn("mb-0.5 text-[0.95rem] font-semibold", selected ? "text-teal-light" : "text-forest")}>
+                  <div className={cn("type-title mb-0.5", selected ? "text-teal-light" : "text-forest")}>
                     {level.label}
                   </div>
-                  <div className="text-[0.8rem] text-sage">{level.desc}</div>
+                  <div className="type-caption text-sage">{level.desc}</div>
                 </div>
                 <div
                   className={cn(
@@ -586,10 +586,10 @@ function StepContent({
   if (step === 3) {
     return (
       <div>
-        <h2 className="fx-flutter-in mb-2 text-center font-display text-[clamp(1.7rem,3vw,2.15rem)] leading-tight font-semibold tracking-[-0.03em] text-forest">
+        <h2 className="type-h2 fx-flutter-in mb-2 text-center text-forest">
           Any dietary restrictions?
         </h2>
-        <p className="fx-fade-in mb-8 text-center text-[0.92rem] leading-relaxed text-muted">
+        <p className="type-body fx-fade-in mb-8 text-center text-muted">
           Optional. Skip if none apply. Your nutrition plan will respect these.
         </p>
         <div className="grid grid-cols-1 gap-2.5 sm:grid-cols-2">
@@ -645,7 +645,7 @@ function StepContent({
         })}
       </div>
       {data.equipment_available.includes("none") && (
-        <p className="mb-5 text-[0.8rem] text-sage">
+        <p className="type-caption mb-5 text-sage">
           No equipment is selected. Other gear stays locked, and workouts stay bodyweight only.
         </p>
       )}
@@ -660,13 +660,13 @@ function StepContent({
         onChange={(e) => setData((d) => ({ ...d, time_availability_minutes: parseInt(e.target.value, 10) }))}
         className="w-full"
       />
-      <div className="mt-1.5 flex justify-between text-xs text-sage">
+      <div className="type-meta mt-1.5 flex justify-between text-sage">
         <span>15 min</span>
         <span>120 min</span>
       </div>
-      <div className="mt-3 rounded-[10px] border border-teal-mid/20 bg-teal-mid/8 px-4 py-2.5 text-[0.85rem] font-medium text-teal-mid">
+      <div className="type-caption mt-3 rounded-[10px] border border-teal-mid/20 bg-teal-mid/8 px-4 py-2.5 text-teal-mid">
         {data.time_availability_minutes <= 30
-          ? "⚡ Perfect for quick, high-efficiency sessions"
+          ? "⚡ Perfect for quick, high efficiency sessions"
           : data.time_availability_minutes <= 60
             ? "🏃 Great balance of volume and recovery"
             : "💪 Plenty of time for comprehensive training"}
@@ -692,7 +692,7 @@ function NumberField({
 }) {
   return (
     <div>
-      <label className="mb-2 block text-center text-[0.72rem] font-semibold tracking-[0.14em] text-sage uppercase">
+      <label className="type-label mb-2 block text-center text-sage">
         {label}
       </label>
       <div className="relative">
@@ -706,7 +706,7 @@ function NumberField({
         <button
           type="button"
           onClick={onUnitToggle}
-          className="absolute top-1/2 right-3 -translate-y-1/2 text-[0.78rem] text-sage"
+          className="type-caption absolute top-1/2 right-3 -translate-y-1/2 text-sage"
         >
           {unit}
         </button>

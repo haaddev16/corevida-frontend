@@ -27,11 +27,11 @@ export default function AboutSection() {
   return (
     <section id="about" className="mt-20 mb-4 scroll-mt-24 [perspective:1200px]">
       <div className="mb-10 text-center">
-        <p className="fx-light-flow mb-3 text-[0.78rem] font-semibold uppercase">About us</p>
-        <h2 className="fx-reveal-right mb-4 font-display text-[clamp(1.8rem,3.5vw,2.6rem)] font-bold tracking-[-0.02em] text-forest">
+        <p className="type-kicker fx-light-flow mb-3 text-sage">About us</p>
+        <h2 className="type-h2 fx-reveal-right mb-4 text-forest">
           Built for real lives, not gym posters
         </h2>
-        <p className="fx-fade-in mx-auto max-w-[640px] text-[1.02rem] leading-relaxed text-muted">
+        <p className="type-body fx-fade-in mx-auto max-w-[640px] text-muted">
           Corevida is an AI wellness coach. Five specialist agents read your goals, schedule, and limits, then
           write one program: meals, training, and daily habits that fit the week you actually have.
         </p>
@@ -64,10 +64,10 @@ export default function AboutSection() {
               >
                 {item.icon}
               </div>
-              <span className="font-mono text-[0.72rem] tracking-[0.16em] text-sage/50">0{i + 1}</span>
+              <span className="type-stat text-[0.78rem] tracking-[0.16em] text-sage/70">0{i + 1}</span>
             </div>
-            <h3 className="fx-jump-right mb-2 font-display text-[1.15rem] font-semibold text-forest">{item.title}</h3>
-            <p className="fx-fade-in text-[0.88rem] leading-relaxed text-muted">{item.text}</p>
+            <h3 className="type-h3 fx-jump-right mb-2 text-forest">{item.title}</h3>
+            <p className="type-body fx-fade-in text-[0.98rem] text-muted">{item.text}</p>
           </GlassCard>
         ))}
       </div>

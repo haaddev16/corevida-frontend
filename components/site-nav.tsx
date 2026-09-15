@@ -19,7 +19,7 @@ export function Logo({
     <Link
       href={href}
       className={cn(
-        "fx-logo font-display text-[1.35rem] font-semibold tracking-[-0.01em] text-teal-light transition-opacity hover:opacity-80",
+        "fx-logo type-logo text-[1.4rem] text-teal-light transition-opacity hover:opacity-80",
         light && "text-teal-light",
         className,
       )}
@@ -47,7 +47,7 @@ export function SiteNav({
       <div className="flex items-center gap-2 sm:gap-3">
         <button
           onClick={() => router.push(homePath)}
-          className="fx-nav rounded-[10px] px-3 py-2 text-[0.85rem] font-medium text-teal-light transition-colors hover:bg-white/6 sm:px-5"
+          className="type-nav fx-nav rounded-[10px] px-3 py-2 text-teal-light transition-colors hover:bg-white/6 sm:px-5"
         >
           Home
         </button>
@@ -56,7 +56,7 @@ export function SiteNav({
             <button
               onClick={() => router.push("/results")}
               className={cn(
-                "fx-nav rounded-[10px] px-3 py-2 text-[0.85rem] font-medium text-teal-light transition-colors hover:bg-white/6 sm:px-5",
+                "type-nav fx-nav rounded-[10px] px-3 py-2 text-teal-light transition-colors hover:bg-white/6 sm:px-5",
                 compact && "hidden sm:inline-flex",
               )}
             >
@@ -64,7 +64,7 @@ export function SiteNav({
             </button>
             <button
               onClick={() => router.push("/dashboard")}
-              className="fx-nav rounded-[10px] border-[1.5px] border-teal-light/35 px-3 py-2 text-[0.85rem] font-medium text-teal-light transition-colors hover:bg-white/6 sm:px-5"
+              className="type-nav fx-nav rounded-[10px] border-[1.5px] border-teal-light/35 px-3 py-2 text-teal-light transition-colors hover:bg-white/6 sm:px-5"
             >
               Habits
             </button>

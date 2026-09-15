@@ -2,6 +2,7 @@
 
 import { useEffect, useState, type CSSProperties } from "react";
 import { cn } from "@/lib/cn";
+import { displayText } from "@/lib/text";
 
 export function GlassCard({
   children,
@@ -55,13 +56,13 @@ export function PrimaryButton({
       disabled={disabled}
       onClick={onClick}
       className={cn(
-        "relative overflow-hidden inline-flex items-center justify-center gap-2 rounded-full font-semibold tracking-[0.01em] text-white transition-all duration-200",
+        "type-button relative overflow-hidden inline-flex items-center justify-center gap-2 rounded-full text-white transition-all duration-200",
         "bg-[linear-gradient(135deg,#1e7a6e_0%,#2a9d8f_100%)]",
         "shadow-[0_6px_28px_rgba(30,122,110,0.32)]",
         "before:pointer-events-none before:absolute before:inset-0 before:translate-x-[-140%] before:skew-x-[-18deg] before:bg-[linear-gradient(115deg,transparent,rgba(255,255,255,0.22),transparent)] hover:before:animate-[card-shine_0.8s_ease]",
         "hover:-translate-y-0.5 hover:scale-[1.03] hover:shadow-[0_10px_40px_rgba(30,122,110,0.44)]",
         "active:scale-95 disabled:cursor-not-allowed disabled:opacity-60 disabled:hover:translate-y-0 disabled:hover:scale-100",
-        large ? "px-12 py-4 text-[1.05rem]" : "px-7 py-3 text-[0.95rem]",
+        large ? "px-12 py-4 text-[1.08rem]" : "px-7 py-3 text-[0.98rem]",
         className,
       )}
     >
@@ -89,7 +90,7 @@ export function SecondaryButton({
       disabled={disabled}
       onClick={onClick}
       className={cn(
-        "inline-flex items-center justify-center rounded-full border-[1.5px] border-teal-light/35 bg-white/6 px-10 py-4 text-[1.05rem] font-medium text-teal-light backdrop-blur-sm transition-all duration-200",
+        "type-button inline-flex items-center justify-center rounded-full border-[1.5px] border-teal-light/35 bg-white/6 px-10 py-4 text-[1.05rem] text-teal-light backdrop-blur-sm transition-all duration-200",
         "hover:border-teal-light/60 hover:bg-white/12 disabled:cursor-not-allowed disabled:opacity-40",
         className,
       )}
@@ -101,7 +102,7 @@ export function SecondaryButton({
 
 export function FieldLabel({ children }: { children: React.ReactNode }) {
   return (
-    <label className="mb-1.5 block text-[0.75rem] font-semibold tracking-[0.04em] text-ink uppercase">
+    <label className="type-label mb-1.5 block text-ink">
       {children}
     </label>
   );
@@ -140,7 +141,7 @@ export function TextInput({
           onFocus={() => setFocused(true)}
           onBlur={() => setFocused(false)}
           className={cn(
-            "w-full rounded-xl bg-white/6 px-4 py-3.5 text-[0.95rem] text-forest outline-none transition-all duration-200",
+            "type-input w-full rounded-xl bg-white/6 px-4 py-3.5 text-forest outline-none transition-all duration-200",
             isPassword && "pr-12",
             focused
               ? "border-[1.5px] border-teal-mid shadow-[0_0_0_3px_rgba(42,157,143,0.16)]"
@@ -295,8 +296,8 @@ export function LoadingDots({ className = "bg-white/80" }: { className?: string 
 
 export function ErrorBanner({ message }: { message: string }) {
   return (
-    <div className="animate-in rounded-[10px] border border-coral/40 bg-coral/15 px-3.5 py-2.5 text-[0.85rem] text-coral-light">
-      {message}
+    <div className="type-caption animate-in rounded-[10px] border border-coral/40 bg-coral/15 px-3.5 py-2.5 text-coral-light">
+      {displayText(message)}
     </div>
   );
 }

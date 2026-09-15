@@ -67,10 +67,10 @@ export default function HomePage() {
       >
         <div className="mb-7 flex flex-wrap items-end justify-between gap-4">
           <div>
-            <h1 className="fx-jump-right mb-1 font-display text-[clamp(1.6rem,3.5vw,2.2rem)] leading-tight font-bold tracking-[-0.02em] text-forest">
+            <h1 className="type-h1 fx-jump-right mb-1 text-forest">
               Good {timeOfDay()}, {firstName(session.userName)}.
             </h1>
-            <p className="fx-fade-in text-[0.9rem] text-muted">
+            <p className="type-caption fx-fade-in text-muted">
               {latestPlan ? "Your saved plan" : "Start a new plan whenever you are ready."}
             </p>
           </div>
@@ -90,10 +90,10 @@ export default function HomePage() {
         ) : latestPlan ? (
           <div className="grid grid-cols-1 items-start gap-5 lg:grid-cols-[1fr_minmax(220px,280px)]">
             <GlassCard hover className="fx-rise px-6 py-5">
-              <div className="mb-2 text-[0.72rem] font-semibold tracking-[0.12em] text-sage uppercase">
+              <div className="type-kicker mb-2 text-sage">
                 Saved plan
               </div>
-              <p className="mb-4 text-[0.88rem] leading-relaxed text-ink">{displayText(latestPlan.final_plan.summary)}</p>
+              <p className="type-body mb-4 text-ink">{displayText(latestPlan.final_plan.summary)}</p>
               <div className="mb-4 flex flex-wrap gap-2">
                 {[
                   `${latestPlan.nutrition_plan.meals?.length ?? 0} meals`,
@@ -102,7 +102,7 @@ export default function HomePage() {
                 ].map((label) => (
                   <span
                     key={label}
-                    className="rounded-full border border-white/10 bg-white/5 px-2.5 py-1 text-[0.72rem] text-sage"
+                    className="rounded-full border border-white/10 bg-white/5 px-2.5 py-1 type-meta text-sage"
                   >
                     {label}
                   </span>
@@ -111,7 +111,7 @@ export default function HomePage() {
               <button
                 type="button"
                 onClick={() => router.push("/results")}
-                className="rounded-full bg-[linear-gradient(135deg,#1e7a6e,#2a9d8f)] px-4 py-2 text-[0.82rem] font-semibold text-white"
+                className="type-button rounded-full bg-[linear-gradient(135deg,#1e7a6e,#2a9d8f)] px-4 py-2 text-[0.88rem] text-white"
               >
                 Open full plan →
               </button>
@@ -119,17 +119,17 @@ export default function HomePage() {
 
             {history.length > 0 && session.userId && (
               <GlassCard hover className="fx-rise px-5 py-4 [--enter-delay:0.12s]">
-                <div className="mb-3 text-[0.88rem] font-semibold text-forest">Plan history</div>
+                <div className="type-title mb-3 text-forest">Plan history</div>
                 <PlanHistoryList history={history} />
               </GlassCard>
             )}
           </div>
         ) : (
           <GlassCard hover className="fx-rise px-6 py-8">
-            <div className="mb-2 text-[0.72rem] font-semibold tracking-[0.12em] text-sage uppercase">
+            <div className="type-kicker mb-2 text-sage">
               Saved plan
             </div>
-            <p className="mb-5 text-[0.88rem] leading-relaxed text-ink">
+            <p className="type-body mb-5 text-ink">
               You do not have a saved plan yet. Make a new one and it will show up here.
             </p>
             <PrimaryButton onClick={() => router.push("/intake")}>Make a new plan</PrimaryButton>

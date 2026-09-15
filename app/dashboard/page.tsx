@@ -187,10 +187,10 @@ export default function DashboardPage() {
       >
         <div className="mb-7 flex flex-wrap items-end justify-between gap-4">
           <div>
-            <h1 className="fx-jump-right mb-1 font-display text-[clamp(1.6rem,3.5vw,2.2rem)] leading-tight font-bold tracking-[-0.02em] text-forest">
+            <h1 className="type-h1 fx-jump-right mb-1 text-forest">
               Good {timeOfDay()}, {firstName(session.userName)}.
             </h1>
-            <p className="fx-fade-in text-[0.9rem] text-muted">
+            <p className="type-caption fx-fade-in text-muted">
               {formatDay(today)} · Habit check in
             </p>
           </div>
@@ -208,10 +208,10 @@ export default function DashboardPage() {
               {streak >= 5 ? "🔥" : streak >= 3 ? "⚡" : "✨"}
             </span>
             <div>
-              <div className={cn("font-mono text-[1.1rem] leading-none font-bold", streak >= 3 ? "text-[#c0614a]" : "text-teal-light")}>
+              <div className={cn("type-stat text-[1.2rem] leading-none", streak >= 3 ? "text-[#c0614a]" : "text-teal-light")}>
                 {streak} day
               </div>
-              <div className="text-[0.68rem] font-medium text-sage">streak</div>
+              <div className="type-caption text-[0.8rem] text-sage">streak</div>
             </div>
           </div>
         </div>
@@ -222,8 +222,8 @@ export default function DashboardPage() {
           <div className="animate-in mb-5 flex items-center gap-3 rounded-[14px] border-[1.5px] border-energy/35 bg-[linear-gradient(135deg,rgba(168,230,61,0.15),rgba(42,157,143,0.1))] px-5 py-3.5">
             <span className="text-2xl">🎉</span>
             <div>
-              <div className="text-[0.9rem] font-bold text-energy">All habits complete!</div>
-              <div className="text-[0.8rem] text-sage-light">Come back tomorrow to keep the streak going.</div>
+              <div className="type-h3 text-energy">All habits complete!</div>
+              <div className="type-caption text-sage-light">Come back tomorrow to keep the streak going.</div>
             </div>
           </div>
         )}
@@ -237,10 +237,10 @@ export default function DashboardPage() {
             <div>
               {latestPlan && (
                 <GlassCard hover className="fx-rise mb-4 px-6 py-5">
-                  <div className="mb-2 text-[0.72rem] font-semibold tracking-[0.12em] text-sage uppercase">
+                  <div className="mb-2 type-kicker text-sage">
                     Saved plan
                   </div>
-                  <p className="mb-4 text-[0.88rem] leading-relaxed text-ink">
+                  <p className="type-body mb-4 text-ink">
                     {displayText(latestPlan.final_plan.summary)}
                   </p>
                   <div className="mb-4 flex flex-wrap gap-2">
@@ -251,7 +251,7 @@ export default function DashboardPage() {
                     ].map((label) => (
                       <span
                         key={label}
-                        className="rounded-full border border-white/10 bg-white/5 px-2.5 py-1 text-[0.72rem] text-sage"
+                        className="rounded-full border border-white/10 bg-white/5 px-2.5 py-1 type-meta text-sage"
                       >
                         {label}
                       </span>
@@ -260,7 +260,7 @@ export default function DashboardPage() {
                   <button
                     type="button"
                     onClick={() => router.push("/results")}
-                    className="rounded-full bg-[linear-gradient(135deg,#1e7a6e,#2a9d8f)] px-4 py-2 text-[0.82rem] font-semibold text-white"
+                    className="type-button rounded-full bg-[linear-gradient(135deg,#1e7a6e,#2a9d8f)] px-4 py-2 text-[0.88rem] text-white"
                   >
                     Open full plan →
                   </button>
@@ -268,8 +268,8 @@ export default function DashboardPage() {
               )}
               <GlassCard hover className="fx-rise mb-4 px-6 py-5 [--enter-delay:0.08s]">
                 <div className="mb-3.5 flex items-center justify-between">
-                  <span className="text-[0.9rem] font-semibold text-forest">Today&apos;s progress</span>
-                  <span className={cn("font-mono text-[0.88rem] font-bold", pct === 100 ? "text-energy" : "text-teal-light")}>
+                  <span className="type-title text-forest">Today&apos;s progress</span>
+                  <span className={cn("type-stat text-[0.95rem]", pct === 100 ? "text-energy" : "text-teal-light")}>
                     {todayChecked.size}/{habits.length}
                   </span>
                 </div>
@@ -283,7 +283,7 @@ export default function DashboardPage() {
                     style={{ width: `${pct}%` }}
                   />
                 </div>
-                <div className="mt-2 text-[0.78rem] text-sage">
+                <div className="type-caption mt-2 text-sage">
                   {pct === 100 ? "All done for today! 🎉" : pct === 0 ? "Tap a habit below to check it off" : `${100 - pct}% left, you're doing great`}
                 </div>
               </GlassCard>
@@ -310,15 +310,15 @@ export default function DashboardPage() {
                         {done && <CheckIcon />}
                       </div>
                       <div className="min-w-0 flex-1">
-                        <div className={cn("text-[0.9rem] font-medium", done ? "text-sage line-through" : "text-forest")}>
+                        <div className={cn("type-body text-[1rem] font-medium", done ? "text-sage line-through" : "text-forest")}>
                           {displayText(habit.name)}
                         </div>
-                        <div className="mt-0.5 text-[0.73rem] text-sage">
+                        <div className="type-caption mt-0.5 text-sage">
                           {displayText(habit.frequency)}
                           {habit.reason ? ` · ${displayText(habit.reason)}` : ""}
                         </div>
                       </div>
-                      {done && <div className="text-xs font-semibold text-sage">Done ✓</div>}
+                      {done && <div className="type-meta font-semibold text-sage">Done ✓</div>}
                     </GlassCard>
                   );
                 })}
@@ -327,7 +327,7 @@ export default function DashboardPage() {
 
             <div className="fx-stagger flex flex-col gap-4">
               <GlassCard hover className="px-5 py-5">
-                <div className="mb-3.5 text-[0.88rem] font-semibold text-forest">30 day history</div>
+                <div className="type-title mb-3.5 text-forest">30 day history</div>
                 <div className="grid grid-cols-7 gap-1">
                   {days30.map((day, i) => {
                     const ratio = dayRatio(day);
@@ -350,16 +350,16 @@ export default function DashboardPage() {
                   })}
                 </div>
                 <div className="mt-2.5 flex items-center justify-end gap-1.5">
-                  <span className="text-[0.65rem] text-sage">Less</span>
+                  <span className="type-meta text-sage">Less</span>
                   {["rgba(127,173,139,0.1)", "rgba(42,157,143,0.22)", "rgba(42,157,143,0.5)", "#2a9d8f"].map((color) => (
                     <div key={color} className="h-2.5 w-2.5 rounded-sm" style={{ background: color }} />
                   ))}
-                  <span className="text-[0.65rem] text-sage">More</span>
+                  <span className="type-meta text-sage">More</span>
                 </div>
               </GlassCard>
 
               <GlassCard hover className="px-5 py-4">
-                <div className="mb-3.5 text-[0.88rem] font-semibold text-forest">Stats</div>
+                <div className="type-title mb-3.5 text-forest">Stats</div>
                 {[
                   { label: "Current streak", value: `${streak} days`, icon: streak >= 3 ? "🔥" : "✨" },
                   { label: "Completed today", value: `${todayChecked.size}/${habits.length}`, icon: pct === 100 ? "🎉" : "📋" },
@@ -372,22 +372,22 @@ export default function DashboardPage() {
                   <div key={stat.label} className="mb-2 flex items-center justify-between rounded-[10px] bg-sage/6 px-3 py-2.5 last:mb-0">
                     <div className="flex items-center gap-2">
                       <span>{stat.icon}</span>
-                      <span className="text-[0.8rem] text-muted">{stat.label}</span>
+                      <span className="type-caption text-muted">{stat.label}</span>
                     </div>
-                    <span className="font-mono text-[0.82rem] font-bold text-teal-light">{stat.value}</span>
+                    <span className="type-stat text-[0.88rem] text-teal-light">{stat.value}</span>
                   </div>
                 ))}
               </GlassCard>
 
               {history.length > 0 && session.userId && (
                 <GlassCard hover className="px-5 py-4">
-                  <div className="mb-3 text-[0.88rem] font-semibold text-forest">Plan history</div>
+                  <div className="type-title mb-3 text-forest">Plan history</div>
                   <PlanHistoryList history={history} limit={5} />
                 </GlassCard>
               )}
 
               <GlassCard hover className="px-5 py-4">
-                <div className="mb-3 text-[0.88rem] font-semibold text-forest">Quick actions</div>
+                <div className="type-title mb-3 text-forest">Quick actions</div>
                 {[
                   { label: "View full plan", action: () => router.push("/results"), icon: "📋" },
                   { label: "Update goals", action: () => router.push("/intake"), icon: "🎯" },
@@ -403,7 +403,7 @@ export default function DashboardPage() {
                   <button
                     key={item.label}
                     onClick={item.action}
-                    className="mb-2 flex w-full items-center gap-2.5 rounded-[10px] border border-sage/20 px-3 py-2.5 text-left text-[0.82rem] text-ink last:mb-0 hover:bg-sage/8"
+                    className="type-nav mb-2 flex w-full items-center gap-2.5 rounded-[10px] border border-sage/20 px-3 py-2.5 text-left text-ink last:mb-0 hover:bg-sage/8"
                   >
                     <span>{item.icon}</span>
                     {item.label}

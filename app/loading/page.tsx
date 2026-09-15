@@ -55,7 +55,7 @@ function LoadingDecor() {
             className="rail-in flex items-center justify-end gap-2.5 text-sage/70"
             style={{ animationDelay: `${0.12 * i}s` }}
           >
-            <span className="text-right text-[0.68rem] leading-tight tracking-[0.12em] uppercase">{item.label}</span>
+            <span className="type-kicker text-right leading-tight text-sage/80">{item.label}</span>
             <span className="flex h-8 w-8 items-center justify-center rounded-full border border-white/10 bg-white/4 text-sm">
               {item.icon}
             </span>
@@ -167,10 +167,10 @@ export default function LoadingPage() {
           transition: "all 0.6s ease",
         }}
       >
-        <h2 className="heading-glow mb-3 font-display text-[clamp(1.6rem,4vw,2.2rem)] leading-tight font-bold tracking-[-0.02em] text-[#e8f5f2]">
+        <h2 className="type-h1 heading-glow mb-3 text-[#f3faf7]">
           {error ? "The coach hit a pause" : ready ? "Your plan is ready ✨" : "Building your plan…"}
         </h2>
-        <p className="fx-fade-in mb-12 text-[0.9rem] leading-relaxed text-sage">
+        <p className="type-body fx-fade-in mb-12 text-sage">
           {error
             ? "We could not finish this run. Try again. A backup plan is used if the coach is busy."
             : ready
@@ -215,13 +215,13 @@ export default function LoadingPage() {
                 </div>
                 <div className="min-w-0 flex-1">
                   <div
-                    className="mb-0.5 text-[0.88rem] font-semibold"
+                    className="type-title mb-0.5"
                     style={{ color: isDone ? "#7fad8b" : isActive ? "#e8f5f2" : "rgba(184,207,200,0.35)" }}
                   >
                     {agent.name}
                   </div>
                   <div
-                    className="text-[0.78rem] leading-relaxed"
+                    className="type-caption leading-relaxed"
                     style={{
                       color: isDone
                         ? "rgba(127,173,139,0.7)"
@@ -249,7 +249,7 @@ export default function LoadingPage() {
               style={{ width: `${ready ? 100 : (doneCount / AGENTS.length) * 100}%` }}
             />
           </div>
-          <div className="text-[0.78rem] text-sage/70">
+          <div className="type-caption text-sage/80">
             {error
               ? "Generation paused"
               : ready
@@ -277,7 +277,7 @@ export default function LoadingPage() {
               </PrimaryButton>
               <button
                 onClick={() => router.push("/intake")}
-                className="rounded-full border border-white/20 px-6 py-3 text-sm text-[#e8f5f2]"
+                className="type-button rounded-full border border-white/20 px-6 py-3 text-[#f3faf7]"
               >
                 Edit intake
               </button>
