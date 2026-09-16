@@ -152,24 +152,27 @@ export default function LandingPage() {
           </div>
         )}
 
-        <h1 className="type-display mb-6 max-w-[860px] [perspective:800px]">
+        <h1 className="type-display mb-6 max-w-[860px] overflow-visible [perspective:800px]">
           {"Your AI wellness coach,".split(" ").map((word, i) => (
             <span
               key={`a-${word}`}
-              className="title-flow-word fx-reveal-right mr-[0.28em] inline-block"
+              className="title-flow-word fx-reveal-right mr-[0.28em] inline-block overflow-visible"
               style={{ animationDelay: `${0.22 + i * 0.08}s, 0.8s` }}
             >
               {word}
             </span>
           ))}
           <br />
-          <em className="title-flow-word mr-[0.28em] inline-block italic" style={{ animationDelay: "0.58s, 0.8s" }}>
+          <em
+            className="title-flow-word mr-[0.28em] inline-block overflow-visible italic"
+            style={{ animationDelay: "0.58s, 0.8s" }}
+          >
             built
           </em>
           {"around you.".split(" ").map((word, i) => (
             <span
               key={`b-${word}`}
-              className="title-flow-word fx-jump-right mr-[0.28em] inline-block"
+              className="title-flow-word fx-jump-right mr-[0.28em] inline-block overflow-visible"
               style={{ animationDelay: `${0.72 + i * 0.1}s, 0.8s` }}
             >
               {word}

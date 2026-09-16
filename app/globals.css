@@ -62,8 +62,9 @@ h3,
 .type-display {
   font-size: clamp(2.9rem, 7.4vw, 5.6rem);
   font-weight: 700;
-  line-height: 0.98;
+  line-height: 1.14;
   letter-spacing: -0.042em;
+  overflow: visible;
   font-variation-settings: "opsz" 96, "SOFT" 32, "WONK" 0;
 }
 
@@ -1094,6 +1095,10 @@ input[type="range"] {
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;
+  /* Room for Fraunces ascenders/descenders; background-clip clips to the box. */
+  line-height: 1.18;
+  padding-block: 0.1em 0.16em;
+  overflow: visible;
 }
 
 .fx-light-flow {
@@ -1117,6 +1122,9 @@ input[type="range"] {
 
 em.title-flow-word {
   opacity: 0;
+  /* Italic Fraunces needs extra vertical room for tall ascenders. */
+  padding-block: 0.14em 0.2em;
+  padding-inline: 0.04em 0.08em;
   animation:
     fade-in-up 0.7s ease forwards,
     light-flow 3s linear 0.5s infinite;
