@@ -210,20 +210,40 @@ export function ResultsView({
                 ))}
               </div>
             </div>
-            <div className="flex shrink-0 flex-col items-center gap-3">
-              <div className="fx-ring-halo relative flex items-center justify-center">
-                <ProgressRing pct={72} />
-                <div className="absolute text-center">
-                  <div className="type-stat text-[1.35rem] text-forest">
-                    <CountUp target={calories} />
+            <div className="flex w-full shrink-0 items-center justify-center gap-2 sm:gap-3 lg:w-auto lg:flex-col lg:gap-3">
+              <p className="intake-quote quote-live pointer-events-none max-w-[5.5rem] text-[0.95rem] leading-tight lg:hidden">
+                Better
+                <br />
+                Health
+                <br />
+                Bigger
+                <br />
+                Goals
+              </p>
+              <div className="flex flex-col items-center gap-3">
+                <div className="fx-ring-halo relative flex items-center justify-center">
+                  <ProgressRing pct={72} />
+                  <div className="absolute text-center">
+                    <div className="type-stat text-[1.35rem] text-forest">
+                      <CountUp target={calories} />
+                    </div>
+                    <div className="type-meta mt-0.5 font-semibold text-sage">kcal a day</div>
                   </div>
-                  <div className="type-meta mt-0.5 font-semibold text-sage">kcal a day</div>
+                </div>
+                <div className="text-center">
+                  <div className="type-title text-ink">Daily target</div>
+                  <div className="type-caption text-sage">Based on your profile</div>
                 </div>
               </div>
-              <div className="text-center">
-                <div className="type-title text-ink">Daily target</div>
-                <div className="type-caption text-sage">Based on your profile</div>
-              </div>
+              <p className="intake-quote quote-live pointer-events-none max-w-[5.5rem] text-right text-[0.95rem] leading-tight lg:hidden">
+                Small
+                <br />
+                Steps
+                <br />
+                Big
+                <br />
+                Results
+              </p>
             </div>
           </div>
         </GlassCard>

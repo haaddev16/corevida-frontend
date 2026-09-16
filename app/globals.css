@@ -1065,8 +1065,7 @@ input[type="range"] {
 .fx-fade-in,
 .fx-light-flow,
 .text-rise,
-.text-fade,
-.quote-live {
+.text-fade {
   display: inline-block;
 }
 
