@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState, type CSSProperties } from "react";
+import { AppIcon } from "@/components/app-icon";
 import { cn } from "@/lib/cn";
 import { displayText } from "@/lib/text";
 
@@ -56,13 +57,13 @@ export function PrimaryButton({
       disabled={disabled}
       onClick={onClick}
       className={cn(
-        "type-button relative overflow-hidden inline-flex items-center justify-center gap-2 rounded-full text-white transition-all duration-200",
+        "type-button relative inline-flex min-h-11 items-center justify-center gap-2 overflow-hidden rounded-full text-white transition-all duration-200",
         "bg-[linear-gradient(135deg,#1e7a6e_0%,#2a9d8f_100%)]",
         "shadow-[0_6px_28px_rgba(30,122,110,0.32)]",
         "before:pointer-events-none before:absolute before:inset-0 before:translate-x-[-140%] before:skew-x-[-18deg] before:bg-[linear-gradient(115deg,transparent,rgba(255,255,255,0.22),transparent)] hover:before:animate-[card-shine_0.8s_ease]",
         "hover:-translate-y-0.5 hover:scale-[1.03] hover:shadow-[0_10px_40px_rgba(30,122,110,0.44)]",
         "active:scale-95 disabled:cursor-not-allowed disabled:opacity-60 disabled:hover:translate-y-0 disabled:hover:scale-100",
-        large ? "px-12 py-4 text-[1.08rem]" : "px-7 py-3 text-[0.98rem]",
+        large ? "min-h-12 px-8 py-3.5 text-[1.05rem] sm:px-12 sm:py-4 sm:text-[1.08rem]" : "px-6 py-3 text-[0.98rem] sm:px-7",
         className,
       )}
     >
@@ -90,7 +91,7 @@ export function SecondaryButton({
       disabled={disabled}
       onClick={onClick}
       className={cn(
-        "type-button inline-flex items-center justify-center rounded-full border-[1.5px] border-teal-light/35 bg-white/6 px-10 py-4 text-[1.05rem] text-teal-light backdrop-blur-sm transition-all duration-200",
+        "type-button inline-flex min-h-12 items-center justify-center rounded-full border-[1.5px] border-teal-light/35 bg-white/6 px-6 py-3.5 text-[1.02rem] text-teal-light backdrop-blur-sm transition-all duration-200 sm:px-10 sm:py-4 sm:text-[1.05rem]",
         "hover:border-teal-light/60 hover:bg-white/12 disabled:cursor-not-allowed disabled:opacity-40",
         className,
       )}
@@ -152,42 +153,14 @@ export function TextInput({
           <button
             type="button"
             onClick={() => setVisible((v) => !v)}
-            className="absolute top-1/2 right-3 -translate-y-1/2 rounded-md p-1 text-sage transition-colors hover:text-teal-light"
+            className="absolute top-1/2 right-2 flex h-10 w-10 -translate-y-1/2 items-center justify-center rounded-md text-sage transition-colors hover:text-teal-light"
             aria-label={visible ? "Hide password" : "Show password"}
           >
-            {visible ? <EyeOffIcon /> : <EyeIcon />}
+            <AppIcon name={visible ? "eyeOff" : "eye"} size={18} />
           </button>
         )}
       </div>
     </div>
-  );
-}
-
-function EyeIcon() {
-  return (
-    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden>
-      <path
-        d="M2.5 12s3.5-6.5 9.5-6.5S21.5 12 21.5 12s-3.5 6.5-9.5 6.5S2.5 12 2.5 12Z"
-        stroke="currentColor"
-        strokeWidth="1.7"
-        strokeLinejoin="round"
-      />
-      <circle cx="12" cy="12" r="2.6" stroke="currentColor" strokeWidth="1.7" />
-    </svg>
-  );
-}
-
-function EyeOffIcon() {
-  return (
-    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden>
-      <path
-        d="M3 4.5 20.5 22M10.2 10.4A2.7 2.7 0 0 0 13.6 13.8M7 7.4C4.7 8.8 3 12 3 12s3.5 6.5 9.5 6.5c1.5 0 2.9-.3 4.1-.8M16.7 15.9C19 14.5 21 12 21 12s-3.5-6.5-9.5-6.5c-.9 0-1.8.1-2.6.3"
-        stroke="currentColor"
-        strokeWidth="1.7"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-      />
-    </svg>
   );
 }
 

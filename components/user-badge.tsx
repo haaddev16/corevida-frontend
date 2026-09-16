@@ -40,7 +40,7 @@ export function UserBadge({ className }: { className?: string }) {
       <button
         type="button"
         onClick={() => setOpen((value) => !value)}
-        className="flex shrink-0 items-center gap-2.5 rounded-full border border-white/10 bg-black/25 px-2 py-1.5 pr-3 backdrop-blur-md transition-colors hover:border-[#4db8aa]/45 hover:bg-black/40"
+        className="flex min-h-11 shrink-0 items-center gap-2 rounded-full border border-white/10 bg-black/25 px-2 py-1.5 pr-2.5 backdrop-blur-md transition-colors hover:border-[#4db8aa]/45 hover:bg-black/40 sm:gap-2.5 sm:pr-3"
         aria-expanded={open}
         aria-haspopup="menu"
       >
@@ -88,7 +88,7 @@ function MenuItem({
       role="menuitem"
       onClick={onClick}
       className={cn(
-        "flex w-full rounded-xl px-3 py-2 text-left type-nav transition-colors",
+        "flex min-h-11 w-full rounded-xl px-3 py-2.5 text-left type-nav transition-colors",
         danger ? "text-[#e8856a] hover:bg-[#e8856a]/12" : "text-forest hover:bg-white/8",
       )}
     >

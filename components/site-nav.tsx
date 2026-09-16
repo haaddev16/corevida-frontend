@@ -42,12 +42,12 @@ export function SiteNav({
   const homePath = userName || planId ? "/home" : "/";
 
   return (
-    <nav className="nav-glass sticky top-0 z-50 flex items-center justify-between gap-3 px-4 py-4 sm:px-8">
-      <Logo href={homePath} />
-      <div className="flex items-center gap-2 sm:gap-3">
+    <nav className="nav-glass sticky top-0 z-50 flex items-center justify-between gap-2 px-3 py-3 sm:gap-3 sm:px-8 sm:py-4">
+      <Logo href={homePath} className="shrink-0 text-[1.15rem] sm:text-[1.4rem]" />
+      <div className="flex min-w-0 flex-wrap items-center justify-end gap-1.5 sm:gap-3">
         <button
           onClick={() => router.push(homePath)}
-          className="type-nav fx-nav rounded-[10px] px-3 py-2 text-teal-light transition-colors hover:bg-white/6 sm:px-5"
+          className="type-nav fx-nav min-h-10 rounded-[10px] px-2.5 py-2 text-teal-light transition-colors hover:bg-white/6 sm:min-h-11 sm:px-5"
         >
           Home
         </button>
@@ -56,7 +56,7 @@ export function SiteNav({
             <button
               onClick={() => router.push("/results")}
               className={cn(
-                "type-nav fx-nav rounded-[10px] px-3 py-2 text-teal-light transition-colors hover:bg-white/6 sm:px-5",
+                "type-nav fx-nav min-h-10 rounded-[10px] px-2.5 py-2 text-teal-light transition-colors hover:bg-white/6 sm:min-h-11 sm:px-5",
                 compact && "hidden sm:inline-flex",
               )}
             >
@@ -64,7 +64,7 @@ export function SiteNav({
             </button>
             <button
               onClick={() => router.push("/dashboard")}
-              className="type-nav fx-nav rounded-[10px] border-[1.5px] border-teal-light/35 px-3 py-2 text-teal-light transition-colors hover:bg-white/6 sm:px-5"
+              className="type-nav fx-nav min-h-10 rounded-[10px] border-[1.5px] border-teal-light/35 px-2.5 py-2 text-teal-light transition-colors hover:bg-white/6 sm:min-h-11 sm:px-5"
             >
               Habits
             </button>

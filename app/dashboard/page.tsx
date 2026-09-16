@@ -2,6 +2,7 @@
 
 import { useEffect, useMemo, useState } from "react";
 import { useRouter } from "next/navigation";
+import { AppIcon, type AppIconName } from "@/components/app-icon";
 import { PageShell } from "@/components/animated-background";
 import { SceneSides } from "@/components/scene-sides";
 import { SiteNav } from "@/components/site-nav";
@@ -185,9 +186,9 @@ export default function DashboardPage() {
         className="mx-auto max-w-[860px] px-4 py-8 pb-20 sm:px-6"
         style={{ opacity: mounted ? 1 : 0, transition: "opacity 0.5s ease" }}
       >
-        <div className="mb-7 flex flex-wrap items-end justify-between gap-4">
-          <div>
-            <h1 className="type-h1 fx-jump-right mb-1 text-forest">
+        <div className="mb-7 flex flex-col gap-4 sm:flex-row sm:flex-wrap sm:items-end sm:justify-between">
+          <div className="min-w-0">
+            <h1 className="type-h1 fx-jump-right mb-1 break-words text-forest">
               Good {timeOfDay()}, {firstName(session.userName)}.
             </h1>
             <p className="type-caption fx-fade-in text-muted">
@@ -195,17 +196,17 @@ export default function DashboardPage() {
             </p>
           </div>
           <div
-            className="flex items-center gap-2.5 rounded-full border-[1.5px] px-5 py-3 backdrop-blur-sm"
+            className="flex min-h-12 w-fit items-center gap-2.5 rounded-full border-[1.5px] px-4 py-3 backdrop-blur-sm sm:px-5"
             style={{
               background: streak >= 3 ? "rgba(232,133,106,0.12)" : "rgba(255,255,255,0.06)",
               borderColor: streak >= 3 ? "rgba(232,133,106,0.35)" : "rgba(127,173,139,0.25)",
             }}
           >
             <span
-              className="text-2xl"
+              className={cn("flex items-center justify-center", streak >= 3 ? "text-[#c0614a]" : "text-teal-light")}
               style={{ animation: streak >= 3 ? "streak-fire 1.2s ease-in-out infinite" : undefined }}
             >
-              {streak >= 5 ? "🔥" : streak >= 3 ? "⚡" : "✨"}
+              <AppIcon name={streak >= 5 ? "flame" : streak >= 3 ? "zap" : "sparkles"} size={22} />
             </span>
             <div>
               <div className={cn("type-stat text-[1.2rem] leading-none", streak >= 3 ? "text-[#c0614a]" : "text-teal-light")}>
@@ -219,8 +220,8 @@ export default function DashboardPage() {
         {error && <div className="mb-5"><ErrorBanner message={error} /></div>}
 
         {celebrate && (
-          <div className="animate-in mb-5 flex items-center gap-3 rounded-[14px] border-[1.5px] border-energy/35 bg-[linear-gradient(135deg,rgba(168,230,61,0.15),rgba(42,157,143,0.1))] px-5 py-3.5">
-            <span className="text-2xl">🎉</span>
+          <div className="animate-in mb-5 flex items-start gap-3 rounded-[14px] border-[1.5px] border-energy/35 bg-[linear-gradient(135deg,rgba(168,230,61,0.15),rgba(42,157,143,0.1))] px-4 py-3.5 sm:items-center sm:px-5">
+            <AppIcon name="party" size={24} className="mt-0.5 shrink-0 text-energy sm:mt-0" />
             <div>
               <div className="type-h3 text-energy">All habits complete!</div>
               <div className="type-caption text-sage-light">Come back tomorrow to keep the streak going.</div>
@@ -236,11 +237,11 @@ export default function DashboardPage() {
           <div className="grid grid-cols-1 items-start gap-5 lg:grid-cols-[1fr_minmax(220px,280px)]">
             <div>
               {latestPlan && (
-                <GlassCard hover className="fx-rise mb-4 px-6 py-5">
+                <GlassCard hover className="fx-rise mb-4 px-4 py-5 sm:px-6">
                   <div className="mb-2 type-kicker text-sage">
                     Saved plan
                   </div>
-                  <p className="type-body mb-4 text-ink">
+                  <p className="type-body mb-4 break-words text-ink">
                     {displayText(latestPlan.final_plan.summary)}
                   </p>
                   <div className="mb-4 flex flex-wrap gap-2">
@@ -260,9 +261,10 @@ export default function DashboardPage() {
                   <button
                     type="button"
                     onClick={() => router.push("/results")}
-                    className="type-button rounded-full bg-[linear-gradient(135deg,#1e7a6e,#2a9d8f)] px-4 py-2 text-[0.88rem] text-white"
+                    className="type-button inline-flex min-h-11 items-center gap-1.5 rounded-full bg-[linear-gradient(135deg,#1e7a6e,#2a9d8f)] px-4 py-2 text-[0.88rem] text-white"
                   >
-                    Open full plan →
+                    Open full plan
+                    <AppIcon name="arrowRight" size={16} />
                   </button>
                 </GlassCard>
               )}
@@ -284,7 +286,16 @@ export default function DashboardPage() {
                   />
                 </div>
                 <div className="type-caption mt-2 text-sage">
-                  {pct === 100 ? "All done for today! 🎉" : pct === 0 ? "Tap a habit below to check it off" : `${100 - pct}% left, you're doing great`}
+                  {pct === 100 ? (
+                    <span className="inline-flex items-center gap-1.5">
+                      All done for today!
+                      <AppIcon name="party" size={14} className="text-energy" />
+                    </span>
+                  ) : pct === 0 ? (
+                    "Tap a habit below to check it off"
+                  ) : (
+                    `${100 - pct}% left, you're doing great`
+                  )}
                 </div>
               </GlassCard>
 
@@ -297,7 +308,7 @@ export default function DashboardPage() {
                       hover
                       onClick={() => toggleHabit(habit.name)}
                       className={cn(
-                        "flex items-center gap-3.5 px-5 py-4 transition-all",
+                        "flex min-h-[72px] items-center gap-3.5 px-4 py-4 transition-all sm:px-5",
                         done ? "border-sage/32 bg-sage/11" : "",
                       )}
                     >
@@ -318,7 +329,12 @@ export default function DashboardPage() {
                           {habit.reason ? ` · ${displayText(habit.reason)}` : ""}
                         </div>
                       </div>
-                      {done && <div className="type-meta font-semibold text-sage">Done ✓</div>}
+                      {done && (
+                        <div className="type-meta inline-flex items-center gap-1 font-semibold text-sage">
+                          Done
+                          <AppIcon name="habits" size={14} />
+                        </div>
+                      )}
                     </GlassCard>
                   );
                 })}
@@ -361,20 +377,28 @@ export default function DashboardPage() {
               <GlassCard hover className="px-5 py-4">
                 <div className="type-title mb-3.5 text-forest">Stats</div>
                 {[
-                  { label: "Current streak", value: `${streak} days`, icon: streak >= 3 ? "🔥" : "✨" },
-                  { label: "Completed today", value: `${todayChecked.size}/${habits.length}`, icon: pct === 100 ? "🎉" : "📋" },
+                  {
+                    label: "Current streak",
+                    value: `${streak} days`,
+                    icon: (streak >= 3 ? "flame" : "sparkles") as AppIconName,
+                  },
+                  {
+                    label: "Completed today",
+                    value: `${todayChecked.size}/${habits.length}`,
+                    icon: (pct === 100 ? "party" : "clipboard") as AppIconName,
+                  },
                   {
                     label: "30 day avg",
                     value: `${Math.round((days30.reduce((sum, day) => sum + dayRatio(day), 0) / 30) * 100)}%`,
-                    icon: "📊",
+                    icon: "chart" as AppIconName,
                   },
                 ].map((stat) => (
                   <div key={stat.label} className="mb-2 flex items-center justify-between rounded-[10px] bg-sage/6 px-3 py-2.5 last:mb-0">
-                    <div className="flex items-center gap-2">
-                      <span>{stat.icon}</span>
+                    <div className="flex min-w-0 items-center gap-2">
+                      <AppIcon name={stat.icon} size={16} className="text-teal-light" />
                       <span className="type-caption text-muted">{stat.label}</span>
                     </div>
-                    <span className="type-stat text-[0.88rem] text-teal-light">{stat.value}</span>
+                    <span className="type-stat shrink-0 text-[0.88rem] text-teal-light">{stat.value}</span>
                   </div>
                 ))}
               </GlassCard>
@@ -388,24 +412,26 @@ export default function DashboardPage() {
 
               <GlassCard hover className="px-5 py-4">
                 <div className="type-title mb-3 text-forest">Quick actions</div>
-                {[
-                  { label: "View full plan", action: () => router.push("/results"), icon: "📋" },
-                  { label: "Update goals", action: () => router.push("/intake"), icon: "🎯" },
-                  {
-                    label: "Log out",
-                    action: () => {
-                      clearSession();
-                      router.push("/");
+                {(
+                  [
+                    { label: "View full plan", action: () => router.push("/results"), icon: "clipboard" as const },
+                    { label: "Update goals", action: () => router.push("/intake"), icon: "target" as const },
+                    {
+                      label: "Log out",
+                      action: () => {
+                        clearSession();
+                        router.push("/");
+                      },
+                      icon: "logout" as const,
                     },
-                    icon: "👋",
-                  },
-                ].map((item) => (
+                  ] as const
+                ).map((item) => (
                   <button
                     key={item.label}
                     onClick={item.action}
-                    className="type-nav mb-2 flex w-full items-center gap-2.5 rounded-[10px] border border-sage/20 px-3 py-2.5 text-left text-ink last:mb-0 hover:bg-sage/8"
+                    className="type-nav mb-2 flex min-h-11 w-full items-center gap-2.5 rounded-[10px] border border-sage/20 px-3 py-2.5 text-left text-ink last:mb-0 hover:bg-sage/8"
                   >
-                    <span>{item.icon}</span>
+                    <AppIcon name={item.icon} size={16} className="text-teal-light" />
                     {item.label}
                   </button>
                 ))}

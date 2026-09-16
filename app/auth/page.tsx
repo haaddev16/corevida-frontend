@@ -1,7 +1,8 @@
 "use client";
 
-import { useEffect, useState, type ReactNode } from "react";
+import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
+import { AppIcon, type AppIconName } from "@/components/app-icon";
 import { PageShell } from "@/components/animated-background";
 import { Logo } from "@/components/site-nav";
 import { ErrorBanner, LoadingDots, PrimaryButton } from "@/components/ui";
@@ -139,7 +140,7 @@ export default function AuthPage() {
                   setError("");
                 }}
                 className={cn(
-                  "type-button flex-1 rounded-full py-2.5 text-[0.92rem] transition-all duration-200",
+                  "type-button min-h-11 flex-1 rounded-full py-2.5 text-[0.92rem] transition-all duration-200",
                   tab === item
                     ? "bg-[#2a9d8f] text-white shadow-[0_6px_20px_rgba(42,157,143,0.35)]"
                     : "text-muted hover:text-forest",
@@ -160,7 +161,7 @@ export default function AuthPage() {
             <form onSubmit={handleSignup} className="animate-tab flex flex-col gap-3.5">
               <AuthField
                 label="Full name"
-                icon={<UserIcon />}
+                icon="user"
                 value={name}
                 onChange={setName}
                 placeholder="Alex Johnson"
@@ -170,7 +171,7 @@ export default function AuthPage() {
               <AuthField
                 label="Email"
                 type="email"
-                icon={<MailIcon />}
+                icon="mail"
                 value={email}
                 onChange={setEmail}
                 placeholder="alex@example.com"
@@ -181,7 +182,7 @@ export default function AuthPage() {
                 <AuthField
                   label="Password"
                   type="password"
-                  icon={<LockIcon />}
+                  icon="lock"
                   value={password}
                   onChange={setPassword}
                   placeholder="Create a password"
@@ -205,7 +206,7 @@ export default function AuthPage() {
               <AuthField
                 label="Confirm password"
                 type="password"
-                icon={<LockIcon />}
+                icon="lock"
                 value={confirm}
                 onChange={setConfirm}
                 placeholder="Repeat your password"
@@ -221,7 +222,10 @@ export default function AuthPage() {
                     <LoadingDots /> Creating account…
                   </>
                 ) : (
-                  "✦ Create account"
+                  <>
+                    <AppIcon name="sparkles" size={16} />
+                    Create account
+                  </>
                 )}
               </PrimaryButton>
             </form>
@@ -230,7 +234,7 @@ export default function AuthPage() {
               <AuthField
                 label="Email"
                 type="email"
-                icon={<MailIcon />}
+                icon="mail"
                 value={loginEmail}
                 onChange={setLoginEmail}
                 placeholder="alex@example.com"
@@ -240,7 +244,7 @@ export default function AuthPage() {
               <AuthField
                 label="Password"
                 type="password"
-                icon={<LockIcon />}
+                icon="lock"
                 value={loginPassword}
                 onChange={setLoginPassword}
                 placeholder="Your password"
@@ -263,9 +267,10 @@ export default function AuthPage() {
             <button
               onClick={continueAsGuest}
               disabled={loading}
-              className="type-caption text-sage underline decoration-sage/40 transition-colors hover:text-teal-light disabled:opacity-50"
+              className="type-caption inline-flex min-h-11 items-center gap-1.5 text-sage underline decoration-sage/40 transition-colors hover:text-teal-light disabled:opacity-50"
             >
-              Continue as guest →
+              Continue as guest
+              <AppIcon name="arrowRight" size={14} />
             </button>
           </div>
         </div>
@@ -287,14 +292,18 @@ function AuthDecor() {
         Goals
       </p>
       <div className="pointer-events-none absolute top-[42%] left-7 hidden flex-col gap-5 lg:flex">
-        {[
-          { icon: "dumbbell", label: "Personalized workouts" },
-          { icon: "heart", label: "Nutrition guidance" },
-          { icon: "brain", label: "AI powered coach" },
-          { icon: "bars", label: "Track progress" },
-        ].map((item, i) => (
+        {(
+          [
+            { icon: "dumbbell" as const, label: "Personalized workouts" },
+            { icon: "heart" as const, label: "Nutrition guidance" },
+            { icon: "brain" as const, label: "AI powered coach" },
+            { icon: "bars" as const, label: "Track progress" },
+          ] as const
+        ).map((item, i) => (
           <div key={item.label} className="rail-in flex items-center gap-2.5 text-sage/75" style={{ animationDelay: `${0.1 * i}s` }}>
-            <AuthMark name={item.icon} />
+            <span className="flex h-8 w-8 items-center justify-center rounded-full border border-white/10 bg-white/4 text-teal-light">
+              <AppIcon name={item.icon} size={16} />
+            </span>
             <span className="type-kicker max-w-[130px] leading-tight text-sage/80">{item.label}</span>
           </div>
         ))}
@@ -307,15 +316,19 @@ function AuthDecor() {
         Freedom
       </p>
       <div className="pointer-events-none absolute top-[42%] right-7 hidden flex-col items-end gap-5 lg:flex">
-        {[
-          { icon: "run", label: "Move better" },
-          { icon: "apple", label: "Eat healthier" },
-          { icon: "brain", label: "Think clearer" },
-          { icon: "smile", label: "Feel stronger" },
-        ].map((item, i) => (
+        {(
+          [
+            { icon: "run" as const, label: "Move better" },
+            { icon: "apple" as const, label: "Eat healthier" },
+            { icon: "brain" as const, label: "Think clearer" },
+            { icon: "smile" as const, label: "Feel stronger" },
+          ] as const
+        ).map((item, i) => (
           <div key={item.label} className="rail-in flex items-center justify-end gap-2.5 text-sage/75" style={{ animationDelay: `${0.12 * i}s` }}>
             <span className="type-kicker max-w-[120px] text-right leading-tight text-sage/80">{item.label}</span>
-            <AuthMark name={item.icon} />
+            <span className="flex h-8 w-8 items-center justify-center rounded-full border border-white/10 bg-white/4 text-teal-light">
+              <AppIcon name={item.icon} size={16} />
+            </span>
           </div>
         ))}
       </div>
@@ -339,7 +352,7 @@ function AuthField({
   onChange: (value: string) => void;
   placeholder?: string;
   autoComplete?: string;
-  icon: ReactNode;
+  icon: AppIconName;
   delay?: number;
 }) {
   const [visible, setVisible] = useState(false);
@@ -350,7 +363,9 @@ function AuthField({
     <div className="chip-in" style={{ animationDelay: `${0.22 + delay * 0.08}s` }}>
       <label className="type-label mb-1.5 block text-sage">{label}</label>
       <div className="relative">
-        <span className="pointer-events-none absolute top-1/2 left-4 -translate-y-1/2 text-sage/70">{icon}</span>
+        <span className="pointer-events-none absolute top-1/2 left-4 -translate-y-1/2 text-sage/70">
+          <AppIcon name={icon} size={16} />
+        </span>
         <input
           type={inputType}
           value={value}
@@ -367,112 +382,14 @@ function AuthField({
           <button
             type="button"
             onClick={() => setVisible((v) => !v)}
-            className="absolute top-1/2 right-4 -translate-y-1/2 text-sage transition-colors hover:text-teal-light"
+            className="absolute top-1/2 right-3 flex h-10 w-10 -translate-y-1/2 items-center justify-center text-sage transition-colors hover:text-teal-light"
             aria-label={visible ? "Hide password" : "Show password"}
           >
-            {visible ? <EyeOffIcon /> : <EyeIcon />}
+            <AppIcon name={visible ? "eyeOff" : "eye"} size={18} />
           </button>
         )}
       </div>
     </div>
-  );
-}
-
-function UserIcon() {
-  return (
-    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden>
-      <circle cx="12" cy="8" r="3.2" stroke="currentColor" strokeWidth="1.6" />
-      <path d="M5 19c1.4-3.2 3.8-4.8 7-4.8s5.6 1.6 7 4.8" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" />
-    </svg>
-  );
-}
-
-function MailIcon() {
-  return (
-    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden>
-      <rect x="4" y="6" width="16" height="12" rx="2" stroke="currentColor" strokeWidth="1.6" />
-      <path d="M5 8l7 5 7-5" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" />
-    </svg>
-  );
-}
-
-function LockIcon() {
-  return (
-    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden>
-      <rect x="6" y="10" width="12" height="10" rx="2" stroke="currentColor" strokeWidth="1.6" />
-      <path d="M8 10V8a4 4 0 0 1 8 0v2" stroke="currentColor" strokeWidth="1.6" />
-    </svg>
-  );
-}
-
-function EyeIcon() {
-  return (
-    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden>
-      <path d="M2.5 12s3.5-6.5 9.5-6.5S21.5 12 21.5 12s-3.5 6.5-9.5 6.5S2.5 12 2.5 12Z" stroke="currentColor" strokeWidth="1.6" />
-      <circle cx="12" cy="12" r="2.4" stroke="currentColor" strokeWidth="1.6" />
-    </svg>
-  );
-}
-
-function EyeOffIcon() {
-  return (
-    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden>
-      <path d="M4 5l16 14M9.5 9.7A3.2 3.2 0 0 0 12 15.2M7 8C4.6 9.4 3 12 3 12s3.5 6.5 9.5 6.5c1.4 0 2.7-.3 3.8-.8M17 16c2.1-1.3 3.5-4 3.5-4s-3.5-6.5-9.5-6.5c-.7 0-1.4.1-2 .2" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" />
-    </svg>
-  );
-}
-
-function AuthMark({ name }: { name: string }) {
-  const common = { width: 16, height: 16, viewBox: "0 0 24 24", fill: "none", "aria-hidden": true as const };
-  if (name === "heart") {
-    return (
-      <svg {...common}>
-        <path d="M12 19s-7-4.4-7-9.2C5 7 7 5.4 9.2 5.4c1.3 0 2.4.7 2.8 1.7.4-1 1.5-1.7 2.8-1.7C17 5.4 19 7 19 9.8 19 14.6 12 19 12 19Z" stroke="currentColor" strokeWidth="1.6" />
-      </svg>
-    );
-  }
-  if (name === "brain") {
-    return (
-      <svg {...common}>
-        <path d="M9 8a3 3 0 0 1 3-3 3 3 0 0 1 3 3v8a3 3 0 0 1-3 3 3 3 0 0 1-3-3V8Z" stroke="currentColor" strokeWidth="1.6" />
-        <path d="M9 12H7a2 2 0 0 1 0-4h2M15 12h2a2 2 0 0 0 0-4h-2" stroke="currentColor" strokeWidth="1.6" />
-      </svg>
-    );
-  }
-  if (name === "bars") {
-    return (
-      <svg {...common}>
-        <path d="M6 16v4M12 10v10M18 4v16" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" />
-      </svg>
-    );
-  }
-  if (name === "run") {
-    return (
-      <svg {...common}>
-        <circle cx="14" cy="5" r="2" stroke="currentColor" strokeWidth="1.6" />
-        <path d="M8 21l2.2-5 3 2 2-4 3 1M7 12l3 1 2-3 3 1" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" />
-      </svg>
-    );
-  }
-  if (name === "apple") {
-    return (
-      <svg {...common}>
-        <path d="M12 7c2-3 5-3 5-3s-1 3-3 4M8 10c-2 4 0 10 4 10s6-6 4-10c-1-2-3-3-4-3s-3 1-4 3Z" stroke="currentColor" strokeWidth="1.6" />
-      </svg>
-    );
-  }
-  if (name === "smile") {
-    return (
-      <svg {...common}>
-        <circle cx="12" cy="12" r="7" stroke="currentColor" strokeWidth="1.6" />
-        <path d="M8.5 13.5c.8 1.4 2 2.1 3.5 2.1s2.7-.7 3.5-2.1" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" />
-      </svg>
-    );
-  }
-  return (
-    <svg {...common}>
-      <path d="M4 9v6M7 7v10M17 7v10M20 9v6M7 12h10" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" />
-    </svg>
   );
 }
 

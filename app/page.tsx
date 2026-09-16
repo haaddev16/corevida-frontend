@@ -3,33 +3,34 @@
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import AboutSection from "@/components/about-section";
+import { AppIcon, type AppIconName } from "@/components/app-icon";
 import { PageShell } from "@/components/animated-background";
 import { Logo } from "@/components/site-nav";
 import { CountUp, GlassCard, PrimaryButton, SecondaryButton } from "@/components/ui";
 import { UserBadge } from "@/components/user-badge";
 import { firstName, useSession } from "@/lib/storage";
 
-const FEATURES = [
+const FEATURES: { icon: AppIconName; title: string; desc: string; accent: string }[] = [
   {
-    icon: "🥗",
+    icon: "nutrition",
     title: "Personalized nutrition",
     desc: "Calorie targets and meals built around your body, restrictions, and goals, not a generic template.",
     accent: "#2a9d8f",
   },
   {
-    icon: "🏋️",
+    icon: "fitness",
     title: "Smart fitness plans",
     desc: "Workouts designed for your equipment, schedule, and starting point. Progressive, not punishing.",
     accent: "#7fad8b",
   },
   {
-    icon: "✅",
+    icon: "habits",
     title: "Habit architecture",
     desc: "Small daily habits that compound. Your coach builds the ladder, you climb it.",
     accent: "#e8856a",
   },
   {
-    icon: "🧠",
+    icon: "brain",
     title: "AI synthesis",
     desc: "A supervisor agent reviews every plan for coherence so nutrition, fitness, and habits work together.",
     accent: "#1e7a6e",
@@ -61,25 +62,29 @@ export default function LandingPage() {
   const loggedIn = Boolean(session.userId);
   const hasPlan = Boolean(session.planId);
   const primaryHref = !loggedIn ? "/auth" : hasPlan ? "/dashboard" : "/intake";
-  const primaryLabel = !loggedIn ? "Start for free →" : hasPlan ? "Continue to dashboard →" : "Continue intake →";
+  const primaryLabel = !loggedIn
+    ? "Start for free"
+    : hasPlan
+      ? "Continue to dashboard"
+      : "Continue intake";
 
   return (
     <PageShell scene="landing">
-      <nav className="nav-glass fixed top-0 right-0 left-0 z-50 flex items-center justify-between px-4 py-4 sm:px-10">
-        <Logo />
+      <nav className="nav-glass fixed top-0 right-0 left-0 z-50 flex items-center justify-between gap-2 px-3 py-3 sm:px-10 sm:py-4">
+        <Logo className="text-[1.2rem] sm:text-[1.4rem]" />
         <div className="hidden items-center gap-3 sm:flex">
           {loggedIn ? (
             <>
               <a
                 href="#about"
-                className="type-nav fx-nav rounded-full px-4 py-2 text-ink transition-colors hover:text-teal-light"
+                className="type-nav fx-nav min-h-11 rounded-full px-4 py-2 text-ink transition-colors hover:text-teal-light"
               >
                 About
               </a>
               {hasPlan && (
                 <button
                   onClick={() => router.push("/results")}
-                  className="type-nav fx-nav rounded-full px-4 py-2 text-ink transition-colors hover:text-teal-light"
+                  className="type-nav fx-nav min-h-11 rounded-full px-4 py-2 text-ink transition-colors hover:text-teal-light"
                 >
                   My plan
                 </button>
@@ -93,13 +98,13 @@ export default function LandingPage() {
             <>
               <a
                 href="#about"
-                className="type-nav fx-nav rounded-full px-4 py-2 text-ink transition-colors hover:text-teal-light"
+                className="type-nav fx-nav min-h-11 rounded-full px-4 py-2 text-ink transition-colors hover:text-teal-light"
               >
                 About
               </a>
               <button
                 onClick={() => router.push("/auth")}
-                className="type-nav fx-nav rounded-full px-4 py-2 text-ink transition-colors hover:text-teal-light"
+                className="type-nav fx-nav min-h-11 rounded-full px-4 py-2 text-ink transition-colors hover:text-teal-light"
               >
                 Log in
               </button>
@@ -112,7 +117,7 @@ export default function LandingPage() {
         <div className="flex items-center gap-2 sm:hidden">
           <UserBadge />
           <button
-            className="rounded-xl border border-sage/25 px-3 py-2 type-nav text-ink"
+            className="type-nav min-h-11 rounded-xl border border-sage/25 px-3 py-2 text-ink"
             onClick={() => setMenuOpen((v) => !v)}
             aria-label="Menu"
           >
@@ -122,15 +127,18 @@ export default function LandingPage() {
       </nav>
 
       {menuOpen && (
-        <div className="glass fixed top-[68px] right-4 z-50 flex w-48 flex-col gap-2 rounded-2xl p-3 sm:hidden">
+        <div className="glass fixed top-[68px] right-3 left-3 z-50 flex flex-col gap-2 rounded-2xl p-3 sm:hidden">
           <a
             href="#about"
-            className="rounded-xl px-3 py-2 text-left type-nav text-ink"
+            className="type-nav min-h-11 rounded-xl px-3 py-3 text-left text-ink"
             onClick={() => setMenuOpen(false)}
           >
             About
           </a>
-          <button className="rounded-xl px-3 py-2 text-left type-nav text-ink" onClick={() => router.push("/auth")}>
+          <button
+            className="type-nav min-h-11 rounded-xl px-3 py-3 text-left text-ink"
+            onClick={() => router.push("/auth")}
+          >
             Log in
           </button>
           <PrimaryButton className="w-full" onClick={() => router.push(primaryHref)}>
@@ -139,10 +147,10 @@ export default function LandingPage() {
         </div>
       )}
 
-      <section className="relative z-10 flex min-h-dvh flex-col items-center justify-center px-5 pt-28 pb-20 text-center sm:px-6">
+      <section className="relative z-10 flex min-h-dvh flex-col items-center justify-center px-4 pt-24 pb-16 text-center sm:px-6 sm:pt-28 sm:pb-20">
         {loggedIn && session.ready && (
           <div
-            className="page-fade mb-6 max-w-xl rounded-2xl border border-teal-light/25 bg-white/6 px-5 py-3 type-caption text-ink backdrop-blur-md"
+            className="page-fade mb-6 max-w-xl rounded-2xl border border-teal-light/25 bg-white/6 px-4 py-3 type-caption text-ink backdrop-blur-md sm:px-5"
             style={{ animationDelay: "0.05s" }}
           >
             Welcome back, {firstName(session.userName)}.{" "}
@@ -152,7 +160,7 @@ export default function LandingPage() {
           </div>
         )}
 
-        <h1 className="type-display mb-6 max-w-[860px] overflow-visible [perspective:800px]">
+        <h1 className="type-display mb-6 max-w-[860px] overflow-visible px-1 [perspective:800px]">
           {"Your AI wellness coach,".split(" ").map((word, i) => (
             <span
               key={`a-${word}`}
@@ -185,7 +193,7 @@ export default function LandingPage() {
         </h1>
 
         <p
-          className="type-body-lg fx-fade-in mx-auto mb-12 max-w-[560px] text-ink"
+          className="type-body-lg fx-fade-in mx-auto mb-10 max-w-[560px] px-1 text-ink sm:mb-12"
           style={{ animationDelay: "1s" }}
         >
           Nutrition, fitness, and habit plans generated together by a multi agent AI, then synthesized into one
@@ -193,23 +201,27 @@ export default function LandingPage() {
         </p>
 
         <div
-          className="flex flex-wrap justify-center gap-3.5"
+          className="flex w-full max-w-md flex-col items-stretch justify-center gap-3 sm:max-w-none sm:flex-row sm:flex-wrap sm:items-center sm:gap-3.5"
           style={{
             opacity: mounted ? 1 : 0,
             transform: mounted ? "translateY(0)" : "translateY(24px)",
             transition: "all 0.7s ease 0.28s",
           }}
         >
-          <PrimaryButton large className="fx-cta-pulse" onClick={() => router.push(primaryHref)}>
+          <PrimaryButton large className="fx-cta-pulse w-full sm:w-auto" onClick={() => router.push(primaryHref)}>
             {primaryLabel}
+            <AppIcon name="arrowRight" size={18} className="ml-1" />
           </PrimaryButton>
-          <SecondaryButton onClick={() => document.getElementById("how")?.scrollIntoView({ behavior: "smooth" })}>
+          <SecondaryButton
+            className="w-full sm:w-auto"
+            onClick={() => document.getElementById("how")?.scrollIntoView({ behavior: "smooth" })}
+          >
             See how it works
           </SecondaryButton>
         </div>
 
         <div
-          className="mt-16 flex flex-wrap justify-center gap-10 sm:gap-14"
+          className="mt-12 flex w-full max-w-lg flex-col gap-8 sm:mt-16 sm:max-w-none sm:flex-row sm:flex-wrap sm:justify-center sm:gap-10 md:gap-14"
           style={{
             opacity: mounted ? 1 : 0,
             transform: mounted ? "translateY(0)" : "translateY(24px)",
@@ -219,7 +231,7 @@ export default function LandingPage() {
           {STATS.map((stat) => (
             <div key={stat.label} className="text-center">
               <div
-                className={`type-stat mb-1.5 text-[2.15rem] leading-none text-teal-light ${countStart ? "stat-count" : ""}`}
+                className={`type-stat mb-1.5 text-[1.85rem] leading-none text-teal-light sm:text-[2.15rem] ${countStart ? "stat-count" : ""}`}
               >
                 <CountUp
                   target={stat.target}
@@ -229,60 +241,57 @@ export default function LandingPage() {
                   start={countStart}
                 />
               </div>
-              <div className="type-caption text-sage">{stat.label}</div>
+              <div className="type-caption px-2 text-sage">{stat.label}</div>
             </div>
           ))}
         </div>
       </section>
 
-      <section id="how" className="relative z-10 mx-auto max-w-[960px] px-5 py-16 sm:px-6 sm:py-20">
-        <div className="mb-12 text-center">
-          <h2 className="type-h2 fx-reveal-right mb-3 text-forest">
-            Five agents, one plan
-          </h2>
+      <section id="how" className="relative z-10 mx-auto max-w-[960px] px-4 py-14 sm:px-6 sm:py-20">
+        <div className="mb-10 text-center sm:mb-12">
+          <h2 className="type-h2 fx-reveal-right mb-3 text-forest">Five agents, one plan</h2>
           <p className="type-body fx-fade-in mx-auto max-w-xl text-muted">
             Parallel AI agents build your nutrition, fitness, and habit plans, then a supervisor synthesizes them
             into one coherent program.
           </p>
         </div>
 
-        <GlassCard hover className="fx-rise px-5 py-10 sm:px-10">
+        <GlassCard hover className="fx-rise px-4 py-8 sm:px-10 sm:py-10">
           <div className="flex flex-col items-center justify-center gap-5 md:flex-row md:gap-0">
-            <AgentNode icon="📋" label="Your goals" sub="Intake" color="#7fad8b" />
+            <AgentNode icon="clipboard" label="Your goals" sub="Intake" color="#7fad8b" />
             <Arrow />
-            <div className="flex flex-row gap-3 md:flex-col">
-              <AgentNode icon="🥗" label="Nutrition" sub="Agent 1" color="#2a9d8f" small />
-              <AgentNode icon="🏋️" label="Fitness" sub="Agent 2" color="#2a9d8f" small />
-              <AgentNode icon="✅" label="Habits" sub="Agent 3" color="#2a9d8f" small />
+            <div className="flex flex-row flex-wrap justify-center gap-3 md:flex-col">
+              <AgentNode icon="nutrition" label="Nutrition" sub="Agent 1" color="#2a9d8f" small />
+              <AgentNode icon="fitness" label="Fitness" sub="Agent 2" color="#2a9d8f" small />
+              <AgentNode icon="habits" label="Habits" sub="Agent 3" color="#2a9d8f" small />
             </div>
             <Arrow />
-            <AgentNode icon="🧠" label="Supervisor" sub="Synthesis" color="#1e7a6e" />
+            <AgentNode icon="brain" label="Supervisor" sub="Synthesis" color="#1e7a6e" />
             <Arrow />
-            <AgentNode icon="✨" label="Your plan" sub="Complete" color="#e8856a" />
+            <AgentNode icon="sparkles" label="Your plan" sub="Complete" color="#e8856a" />
           </div>
         </GlassCard>
       </section>
 
-      <section className="relative z-10 mx-auto max-w-[1100px] px-5 pt-6 pb-28 sm:px-6">
-        <h2 className="type-h2 fx-jump-right mb-12 text-center text-forest">
+      <section className="relative z-10 mx-auto max-w-[1100px] px-4 pt-6 pb-20 sm:px-6 sm:pb-28">
+        <h2 className="type-h2 fx-jump-right mb-8 text-center text-forest sm:mb-12">
           Everything you need to thrive
         </h2>
         <div className="fx-stagger grid grid-cols-1 gap-4 sm:grid-cols-2 xl:grid-cols-4">
           {FEATURES.map((feature, i) => (
-            <GlassCard key={feature.title} hover className="p-7">
+            <GlassCard key={feature.title} hover className="p-5 sm:p-7">
               <div
-                className="mb-4 flex h-12 w-12 items-center justify-center rounded-[14px] text-2xl"
+                className="mb-4 flex h-12 w-12 items-center justify-center rounded-[14px]"
                 style={{
                   background: `${feature.accent}18`,
                   border: `1px solid ${feature.accent}30`,
+                  color: feature.accent,
                   animation: `icon-float 3.6s ease-in-out ${i * 0.35}s infinite`,
                 }}
               >
-                {feature.icon}
+                <AppIcon name={feature.icon} size={22} />
               </div>
-              <h3 className="type-h3 fx-flutter-in mb-2.5 text-forest">
-                {feature.title}
-              </h3>
+              <h3 className="type-h3 fx-flutter-in mb-2.5 text-forest">{feature.title}</h3>
               <p className="type-body fx-fade-in text-[0.98rem] text-muted">{feature.desc}</p>
             </GlassCard>
           ))}
@@ -290,22 +299,21 @@ export default function LandingPage() {
 
         <AboutSection />
 
-        <div className="mt-16 flex justify-center">
-          <GlassCard hover className="fx-rise w-full max-w-[560px] px-8 py-12 text-center sm:px-16">
-            <h3 className="type-h2 fx-reveal-right mb-3 text-forest">
-              Ready to meet your coach?
-            </h3>
+        <div className="mt-12 flex justify-center sm:mt-16">
+          <GlassCard hover className="fx-rise w-full max-w-[560px] px-5 py-10 text-center sm:px-16 sm:py-12">
+            <h3 className="type-h2 fx-reveal-right mb-3 text-forest">Ready to meet your coach?</h3>
             <p className="type-body fx-fade-in mb-7 text-muted">
               Three minutes to set up. Your personalized plan is generated by four specialist agents plus a supervisor.
             </p>
-            <PrimaryButton large className="fx-cta-pulse" onClick={() => router.push(primaryHref)}>
-              Build my plan →
+            <PrimaryButton large className="fx-cta-pulse w-full sm:w-auto" onClick={() => router.push(primaryHref)}>
+              Build my plan
+              <AppIcon name="arrowRight" size={18} className="ml-1" />
             </PrimaryButton>
           </GlassCard>
         </div>
       </section>
 
-      <footer className="relative z-10 flex flex-wrap items-center justify-between gap-3 border-t border-sage/18 px-6 py-7 sm:px-10">
+      <footer className="relative z-10 flex flex-col items-start gap-3 border-t border-sage/18 px-4 py-7 sm:flex-row sm:flex-wrap sm:items-center sm:justify-between sm:px-10">
         <span className="type-logo text-xl text-teal-light">Corevida</span>
         <a href="#about" className="type-caption text-sage transition-colors hover:text-teal-light">
           About us
@@ -323,7 +331,7 @@ function AgentNode({
   color,
   small = false,
 }: {
-  icon: string;
+  icon: AppIconName;
   label: string;
   sub: string;
   color: string;
@@ -334,20 +342,18 @@ function AgentNode({
       <div
         className="flex items-center justify-center rounded-2xl"
         style={{
-          width: small ? 58 : 70,
-          height: small ? 58 : 70,
+          width: small ? 52 : 64,
+          height: small ? 52 : 64,
           background: `${color}22`,
           border: `1.5px solid ${color}50`,
-          fontSize: small ? "1.3rem" : "1.55rem",
+          color,
           animation: `agent-pulse 3.2s ease-in-out ${small ? 0.4 : 0}s infinite`,
         }}
       >
-        {icon}
+        <AppIcon name={icon} size={small ? 20 : 24} />
       </div>
       <div className="text-center">
-        <div className={small ? "type-title text-[0.95rem] text-forest" : "type-title text-forest"}>
-          {label}
-        </div>
+        <div className={small ? "type-title text-[0.9rem] text-forest" : "type-title text-forest"}>{label}</div>
         <div className="type-meta" style={{ color }}>
           {sub}
         </div>
@@ -357,5 +363,9 @@ function AgentNode({
 }
 
 function Arrow() {
-  return <div className="hidden shrink-0 self-center px-2 text-[1.1rem] font-light text-sage-light md:block">→</div>;
+  return (
+    <div className="hidden shrink-0 self-center px-2 text-sage-light md:block">
+      <AppIcon name="arrowRight" size={18} />
+    </div>
+  );
 }

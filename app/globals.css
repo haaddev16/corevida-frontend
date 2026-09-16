@@ -23,6 +23,7 @@
 
 html {
   scroll-behavior: smooth;
+  overflow-x: clip;
 }
 
 body {
@@ -35,6 +36,8 @@ body {
   letter-spacing: 0.011em;
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
+  overflow-x: clip;
+  max-width: 100vw;
 }
 
 button,
@@ -1560,6 +1563,42 @@ p.fx-flutter-in {
   backdrop-filter: blur(18px);
   -webkit-backdrop-filter: blur(18px);
   border-bottom: 1px solid rgba(127, 173, 139, 0.16);
+}
+
+/* Small phones: prevent overflow, keep touch targets usable */
+@media (max-width: 480px) {
+  .type-display {
+    font-size: clamp(2.15rem, 11vw, 2.85rem);
+    line-height: 1.12;
+  }
+
+  .type-h1,
+  h1:not(.type-display) {
+    font-size: clamp(1.55rem, 7.2vw, 2rem);
+  }
+
+  .type-h2,
+  h2 {
+    font-size: clamp(1.3rem, 5.8vw, 1.65rem);
+  }
+
+  .type-body-lg {
+    font-size: 1.05rem;
+  }
+
+  .type-kicker {
+    letter-spacing: 0.14em;
+  }
+
+  .intake-card,
+  .auth-card {
+    border-radius: 18px;
+  }
+
+  .intake-field,
+  .type-input {
+    font-size: 1rem;
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {

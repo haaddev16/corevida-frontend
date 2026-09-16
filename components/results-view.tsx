@@ -2,6 +2,7 @@
 
 import { useEffect, useState, type ReactNode } from "react";
 import { useRouter } from "next/navigation";
+import { AppIcon, FITNESS_DAY_ICONS, MEAL_ICONS, type AppIconName } from "@/components/app-icon";
 import { PageShell } from "@/components/animated-background";
 import { SceneSides } from "@/components/scene-sides";
 import { PlanShareActions } from "@/components/plan-share-actions";
@@ -172,11 +173,18 @@ export function ResultsView({
         className="mx-auto max-w-[900px] px-4 py-8 pb-20 sm:px-6 sm:py-10"
         style={{ opacity: mounted ? 1 : 0, transition: "opacity 0.5s ease" }}
       >
-        <GlassCard hover className="fx-rise mb-6 p-6 sm:p-9">
+        <GlassCard hover className="fx-rise mb-6 p-4 sm:p-6 md:p-9">
           <div className="flex flex-col gap-7 lg:flex-row">
             <div className="min-w-0 flex-1">
               <div className="type-kicker mb-4 inline-flex items-center gap-1.5 rounded-full border border-energy/30 bg-energy/12 px-3 py-1 text-energy">
-                {publicView ? "Shared plan" : "✨ Your plan is ready"}
+                {publicView ? (
+                  "Shared plan"
+                ) : (
+                  <>
+                    <AppIcon name="sparkles" size={14} />
+                    Your plan is ready
+                  </>
+                )}
               </div>
               <h1 className="type-h1 fx-flutter-in mb-3.5 text-forest">
                 {publicView
@@ -226,15 +234,19 @@ export function ResultsView({
           plan.final_plan.fitness_highlights ||
           plan.final_plan.habit_highlights) && (
           <div className="fx-stagger mb-6 grid grid-cols-1 gap-4 md:grid-cols-3">
-            {[
-              { title: "Nutrition", text: plan.final_plan.nutrition_highlights, icon: "🥗" },
-              { title: "Fitness", text: plan.final_plan.fitness_highlights, icon: "🏋️" },
-              { title: "Habits", text: plan.final_plan.habit_highlights, icon: "✅" },
-            ]
+            {(
+              [
+                { title: "Nutrition", text: plan.final_plan.nutrition_highlights, icon: "nutrition" as const },
+                { title: "Fitness", text: plan.final_plan.fitness_highlights, icon: "fitness" as const },
+                { title: "Habits", text: plan.final_plan.habit_highlights, icon: "habits" as const },
+              ] as const
+            )
               .filter((card) => card.text)
               .map((card) => (
-                <GlassCard key={card.title} hover className="p-6">
-                  <div className="mb-2.5 text-xl">{card.icon}</div>
+                <GlassCard key={card.title} hover className="p-5 sm:p-6">
+                  <div className="mb-2.5 text-teal-light">
+                    <AppIcon name={card.icon} size={22} />
+                  </div>
                   <div className="mb-1.5 type-h3 text-forest">{card.title}</div>
                   <p className="type-body text-ink">{displayText(card.text)}</p>
                 </GlassCard>
@@ -244,7 +256,11 @@ export function ResultsView({
 
         <div className="mb-5 flex flex-wrap gap-2">
           {(["nutrition", "fitness", "habits"] as Tab[]).map((item, i) => {
-            const labels = { nutrition: "🥗 Nutrition", fitness: "🏋️ Fitness", habits: "✅ Habits" };
+            const labels: Record<Tab, { icon: AppIconName; text: string }> = {
+              nutrition: { icon: "nutrition", text: "Nutrition" },
+              fitness: { icon: "fitness", text: "Fitness" },
+              habits: { icon: "habits", text: "Habits" },
+            };
             const active = tab === item;
             return (
               <button
@@ -252,13 +268,14 @@ export function ResultsView({
                 onClick={() => setTab(item)}
                 style={{ animationDelay: `${0.06 * i}s` }}
                 className={cn(
-                  "fx-tab type-button rounded-full border-[1.5px] px-5 py-2.5 text-[0.92rem] backdrop-blur-sm transition-all",
+                  "fx-tab type-button inline-flex min-h-11 items-center gap-2 rounded-full border-[1.5px] px-4 py-2.5 text-[0.9rem] backdrop-blur-sm transition-all sm:px-5 sm:text-[0.92rem]",
                   active
                     ? "border-teal bg-[linear-gradient(135deg,#1e7a6e,#2a9d8f)] font-semibold text-white shadow-[0_3px_14px_rgba(30,122,110,0.25)]"
                     : "border-white/12 bg-white/6 text-muted",
                 )}
               >
-                {labels[item]}
+                <AppIcon name={labels[item].icon} size={16} />
+                {labels[item].text}
               </button>
             );
           })}
@@ -283,23 +300,27 @@ export function ResultsView({
 
         {publicView ? (
           <div className="mt-8 flex flex-wrap gap-3">
-            <PrimaryButton onClick={() => router.push("/auth")}>Build my plan →</PrimaryButton>
+            <PrimaryButton className="w-full sm:w-auto" onClick={() => router.push("/auth")}>
+              Build my plan
+              <AppIcon name="arrowRight" size={16} className="ml-1" />
+            </PrimaryButton>
           </div>
         ) : (
-        <div className="mt-8 flex flex-wrap gap-3">
+        <div className="mt-8 flex w-full flex-col gap-3 sm:flex-row sm:flex-wrap">
           <button
             onClick={() => router.push("/dashboard")}
-            className="type-button rounded-full bg-[linear-gradient(135deg,#1e7a6e,#2a9d8f)] px-6 py-3 text-white shadow-[0_4px_16px_rgba(30,122,110,0.28)]"
+            className="type-button inline-flex min-h-11 items-center justify-center gap-1.5 rounded-full bg-[linear-gradient(135deg,#1e7a6e,#2a9d8f)] px-6 py-3 text-white shadow-[0_4px_16px_rgba(30,122,110,0.28)]"
           >
-            Track habits →
+            Track habits
+            <AppIcon name="arrowRight" size={16} />
           </button>
           <button
             onClick={() => router.push("/intake")}
-            className="type-button rounded-full bg-sage/12 px-6 py-3 text-ink"
+            className="type-button min-h-11 rounded-full bg-sage/12 px-6 py-3 text-ink"
           >
             Regenerate
           </button>
-          <button onClick={loadTrace} className="type-button rounded-full px-6 py-3 text-teal-light">
+          <button onClick={loadTrace} className="type-button min-h-11 rounded-full px-6 py-3 text-teal-light">
             {showTrace ? "Hide agent trace" : "How it was built"}
           </button>
         </div>
@@ -333,33 +354,36 @@ export function ResultsView({
 
 function NutritionTab({ meals, notes, target }: { meals: Meal[]; notes: string; target: number }) {
   const colors = ["#2a9d8f", "#7fad8b", "#e8856a", "#a8ceb0", "#f5c95e", "#a8ceb0"];
-  const icons = ["🌅", "☀️", "🥗", "🍎", "🌙", "🌛"];
   return (
     <div className="fx-stagger flex flex-col gap-3.5">
       {meals.map((meal, i) => (
-        <GlassCard key={`${meal.name}-${i}`} hover className="flex items-center gap-4 px-5 py-5 sm:px-6">
+        <GlassCard key={`${meal.name}-${i}`} hover className="flex items-start gap-3 px-4 py-4 sm:items-center sm:gap-4 sm:px-6 sm:py-5">
           <div
-            className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl text-lg"
-            style={{ background: `${colors[i % colors.length]}18`, border: `1.5px solid ${colors[i % colors.length]}30` }}
+            className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl"
+            style={{
+              background: `${colors[i % colors.length]}18`,
+              border: `1.5px solid ${colors[i % colors.length]}30`,
+              color: colors[i % colors.length],
+            }}
           >
-            {icons[i] || "🍽️"}
+            <AppIcon name={MEAL_ICONS[i] || "utensils"} size={18} />
           </div>
           <div className="min-w-0 flex-1">
-            <div className="mb-1.5 flex items-center justify-between gap-3">
+            <div className="mb-1.5 flex flex-col gap-1 sm:flex-row sm:items-center sm:justify-between sm:gap-3">
               <span className="type-title text-forest">{displayText(meal.name)}</span>
               <span
-                className="type-stat shrink-0 rounded-full px-2.5 py-0.5 text-[1.05rem]"
+                className="type-stat w-fit shrink-0 rounded-full px-2.5 py-0.5 text-[1.05rem]"
                 style={{ color: colors[i % colors.length], background: `${colors[i % colors.length]}12` }}
               >
                 {meal.estimated_calories} kcal
               </span>
             </div>
-            <p className="type-body text-ink">{displayText(meal.description)}</p>
+            <p className="type-body break-words text-ink">{displayText(meal.description)}</p>
           </div>
         </GlassCard>
       ))}
-      <GlassCard className="border-teal-mid/18 bg-teal-mid/6 px-6 py-4">
-        <div className="flex items-center justify-between">
+      <GlassCard className="border-teal-mid/18 bg-teal-mid/6 px-4 py-4 sm:px-6">
+        <div className="flex flex-col gap-1 sm:flex-row sm:items-center sm:justify-between">
           <span className="type-title text-teal-mid">Total daily target</span>
           <span className="type-stat text-[1.05rem] text-teal-light">{target.toLocaleString()} kcal</span>
         </div>
@@ -393,11 +417,10 @@ function FitnessTab({
     Saturday: "#f5c95e",
     Sunday: "#a8ceb0",
   };
-  const icons = ["💪", "🚶", "🏋️", "🧘", "⚡", "🚴", "😴"];
 
   return (
     <div className="flex flex-col gap-2.5">
-      <div className="mb-2 grid grid-cols-2 gap-2.5 sm:grid-cols-4 lg:grid-cols-7">
+      <div className="mb-2 grid grid-cols-2 gap-2 sm:grid-cols-4 lg:grid-cols-7 sm:gap-2.5">
         {schedule.map((day) => {
           const color = colors[day.day] || "#7fad8b";
           const open = expandedDay === day.day;
@@ -405,7 +428,7 @@ function FitnessTab({
             <button
               key={day.day}
               onClick={() => setExpandedDay(open ? null : day.day)}
-              className="rounded-[14px] border-[1.5px] px-2 py-3.5 text-center backdrop-blur-sm transition-all"
+              className="min-h-[72px] rounded-[14px] border-[1.5px] px-2 py-3 text-center backdrop-blur-sm transition-all"
               style={{
                 borderColor: open ? color : "rgba(127,173,139,0.22)",
                 background: open ? `${color}22` : "rgba(255,255,255,0.06)",
@@ -415,7 +438,7 @@ function FitnessTab({
               <div className="type-kicker mb-1" style={{ color }}>
                 {displayText(day.day).slice(0, 3)}
               </div>
-              <div className="type-caption leading-snug text-ink">{displayText(day.focus)}</div>
+              <div className="type-caption leading-snug break-words text-ink">{displayText(day.focus)}</div>
             </button>
           );
         })}
@@ -425,19 +448,20 @@ function FitnessTab({
           const day = schedule.find((item) => item.day === expandedDay);
           if (!day) return null;
           const color = colors[day.day] || "#7fad8b";
-          const icon = icons[schedule.findIndex((item) => item.day === expandedDay)] || "🏋️";
+          const dayIndex = schedule.findIndex((item) => item.day === expandedDay);
+          const iconName = FITNESS_DAY_ICONS[dayIndex] || "fitness";
           return (
-            <GlassCard hover className="p-6">
+            <GlassCard hover className="p-4 sm:p-6">
               <div className="mb-5 flex items-center gap-3">
                 <div
-                  className="flex h-10 w-10 items-center justify-center rounded-[10px] text-lg"
-                  style={{ background: `${color}18`, border: `1.5px solid ${color}35` }}
+                  className="flex h-10 w-10 items-center justify-center rounded-[10px]"
+                  style={{ background: `${color}18`, border: `1.5px solid ${color}35`, color }}
                 >
-                  {icon}
+                  <AppIcon name={iconName} size={18} />
                 </div>
-                <div>
+                <div className="min-w-0">
                   <div className="type-title text-forest">{displayText(day.day)}</div>
-                  <div className="type-caption font-medium" style={{ color }}>
+                  <div className="type-caption font-medium break-words" style={{ color }}>
                     {displayText(day.focus)}
                   </div>
                 </div>

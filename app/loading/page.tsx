@@ -2,6 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import { useRouter } from "next/navigation";
+import { AppIcon, type AppIconName } from "@/components/app-icon";
 import { PageShell } from "@/components/animated-background";
 import { ErrorBanner, PrimaryButton } from "@/components/ui";
 import { api, friendlyPlanError } from "@/lib/api";
@@ -9,30 +10,30 @@ import { cn } from "@/lib/cn";
 import { UserBadge } from "@/components/user-badge";
 import { savePlan, useSession } from "@/lib/storage";
 
-const AGENTS = [
+const AGENTS: { icon: AppIconName; name: string; task: string; color: string; duration: number }[] = [
   {
-    icon: "🥗",
+    icon: "nutrition",
     name: "Nutrition Agent",
     task: "Calculating calorie and meal targets around your goals…",
     color: "#2a9d8f",
     duration: 3500,
   },
   {
-    icon: "🏋️",
+    icon: "fitness",
     name: "Fitness Agent",
     task: "Designing workouts for your equipment and schedule…",
     color: "#7fad8b",
     duration: 3300,
   },
   {
-    icon: "✅",
+    icon: "habits",
     name: "Habits Agent",
     task: "Building daily habits that fit your lifestyle…",
     color: "#e8856a",
     duration: 3000,
   },
   {
-    icon: "🧠",
+    icon: "brain",
     name: "Supervisor Agent",
     task: "Reviewing all three plans and synthesizing one program…",
     color: "#1e7a6e",
@@ -44,20 +45,22 @@ function LoadingDecor() {
   return (
     <>
       <div className="pointer-events-none fixed top-28 right-8 hidden flex-col gap-5 lg:flex">
-        {[
-          { icon: "🏋️", label: "Personalized workouts" },
-          { icon: "🥗", label: "Smart nutrition" },
-          { icon: "📊", label: "Healthy habits" },
-          { icon: "🌙", label: "Better sleep" },
-        ].map((item, i) => (
+        {(
+          [
+            { icon: "fitness" as const, label: "Personalized workouts" },
+            { icon: "nutrition" as const, label: "Smart nutrition" },
+            { icon: "chart" as const, label: "Healthy habits" },
+            { icon: "moon" as const, label: "Better sleep" },
+          ] as const
+        ).map((item, i) => (
           <div
             key={item.label}
             className="rail-in flex items-center justify-end gap-2.5 text-sage/70"
             style={{ animationDelay: `${0.12 * i}s` }}
           >
             <span className="type-kicker text-right leading-tight text-sage/80">{item.label}</span>
-            <span className="flex h-8 w-8 items-center justify-center rounded-full border border-white/10 bg-white/4 text-sm">
-              {item.icon}
+            <span className="flex h-8 w-8 items-center justify-center rounded-full border border-white/10 bg-white/4 text-teal-light">
+              <AppIcon name={item.icon} size={16} />
             </span>
           </div>
         ))}
@@ -154,8 +157,8 @@ export default function LoadingPage() {
   const doneCount = completed.length;
 
   return (
-    <PageShell image="/loading-plan-bg.png" className="flex min-h-dvh items-center justify-center px-5 py-10">
-      <div className="fixed top-4 right-4 z-50 sm:top-6 sm:right-8">
+    <PageShell image="/loading-plan-bg.png" className="flex min-h-dvh items-center justify-center px-4 py-8 sm:px-5 sm:py-10">
+      <div className="fixed top-3 right-3 z-50 sm:top-6 sm:right-8">
         <UserBadge />
       </div>
       <LoadingDecor />
@@ -168,7 +171,16 @@ export default function LoadingPage() {
         }}
       >
         <h2 className="type-h1 heading-glow mb-3 text-[#f3faf7]">
-          {error ? "The coach hit a pause" : ready ? "Your plan is ready ✨" : "Building your plan…"}
+          {error ? (
+            "The coach hit a pause"
+          ) : ready ? (
+            <span className="inline-flex flex-wrap items-center justify-center gap-2">
+              Your plan is ready
+              <AppIcon name="sparkles" size={28} className="text-energy" />
+            </span>
+          ) : (
+            "Building your plan…"
+          )}
         </h2>
         <p className="type-body fx-fade-in mb-12 text-sage">
           {error
@@ -185,7 +197,7 @@ export default function LoadingPage() {
             return (
               <div
                 key={agent.name}
-                className="fx-agent-row flex items-center gap-4 rounded-[18px] border px-[22px] py-[16px] text-left backdrop-blur-md transition-all duration-400"
+                className="fx-agent-row flex items-center gap-3 rounded-[18px] border px-3.5 py-3.5 text-left backdrop-blur-md transition-all duration-400 sm:gap-4 sm:px-[22px] sm:py-[16px]"
                 style={{
                   animationDelay: `${index * 0.1}s`,
                   background: isDone
@@ -203,15 +215,16 @@ export default function LoadingPage() {
               >
                 <div
                   className={cn(
-                    "flex h-10 w-10 shrink-0 items-center justify-center rounded-full border text-lg",
+                    "flex h-10 w-10 shrink-0 items-center justify-center rounded-full border",
                     isActive && "animate-[agent-pulse_1.4s_ease-in-out_infinite]",
                   )}
                   style={{
                     background: isDone ? "rgba(127,173,139,0.2)" : isActive ? `${agent.color}25` : "rgba(255,255,255,0.05)",
                     borderColor: isDone ? "rgba(127,173,139,0.3)" : isActive ? `${agent.color}40` : "rgba(255,255,255,0.08)",
+                    color: isDone ? "#7fad8b" : isActive ? agent.color : "rgba(184,207,200,0.45)",
                   }}
                 >
-                  {isDone ? "✓" : agent.icon}
+                  {isDone ? <AppIcon name="habits" size={18} /> : <AppIcon name={agent.icon} size={18} />}
                 </div>
                 <div className="min-w-0 flex-1">
                   <div

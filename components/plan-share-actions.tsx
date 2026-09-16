@@ -49,12 +49,12 @@ export function PlanShareActions({
 
   return (
     <div className="mb-6">
-      <div className="flex flex-wrap gap-3">
+      <div className="flex flex-col gap-3 sm:flex-row sm:flex-wrap">
         <button
           type="button"
           onClick={onPdf}
           disabled={busy}
-          className="type-button rounded-full bg-[linear-gradient(135deg,#1e7a6e,#2a9d8f)] px-6 py-3 text-white shadow-[0_4px_16px_rgba(30,122,110,0.28)] disabled:opacity-60"
+          className="type-button inline-flex min-h-11 w-full items-center justify-center rounded-full bg-[linear-gradient(135deg,#1e7a6e,#2a9d8f)] px-6 py-3 text-white shadow-[0_4px_16px_rgba(30,122,110,0.28)] disabled:opacity-60 sm:w-auto"
         >
           {busy ? "Preparing PDF…" : "Download as PDF"}
         </button>
@@ -62,7 +62,7 @@ export function PlanShareActions({
           <button
             type="button"
             onClick={() => setShareOpen((open) => !open)}
-            className="type-button rounded-full bg-sage/12 px-6 py-3 text-ink"
+            className="type-button inline-flex min-h-11 w-full items-center justify-center rounded-full bg-sage/12 px-6 py-3 text-ink sm:w-auto"
           >
             {shareOpen ? "Hide share link" : "Share"}
           </button>
@@ -70,7 +70,7 @@ export function PlanShareActions({
         <button
           type="button"
           onClick={onCopy}
-          className="type-button rounded-full border-[1.5px] border-teal-light/35 px-6 py-3 text-teal-light"
+          className="type-button inline-flex min-h-11 w-full items-center justify-center rounded-full border-[1.5px] border-teal-light/35 px-6 py-3 text-teal-light sm:w-auto"
         >
           {copied ? "Link copied" : "Copy link"}
         </button>

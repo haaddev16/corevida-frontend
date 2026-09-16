@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
+import { AppIcon } from "@/components/app-icon";
 import { PageShell } from "@/components/animated-background";
 import { SceneSides } from "@/components/scene-sides";
 import { SiteNav } from "@/components/site-nav";
@@ -65,16 +66,18 @@ export default function HomePage() {
         className="mx-auto max-w-[860px] px-4 py-8 pb-20 sm:px-6"
         style={{ opacity: mounted ? 1 : 0, transition: "opacity 0.5s ease" }}
       >
-        <div className="mb-7 flex flex-wrap items-end justify-between gap-4">
-          <div>
-            <h1 className="type-h1 fx-jump-right mb-1 text-forest">
+        <div className="mb-7 flex flex-col gap-4 sm:flex-row sm:flex-wrap sm:items-end sm:justify-between">
+          <div className="min-w-0">
+            <h1 className="type-h1 fx-jump-right mb-1 break-words text-forest">
               Good {timeOfDay()}, {firstName(session.userName)}.
             </h1>
             <p className="type-caption fx-fade-in text-muted">
               {latestPlan ? "Your saved plan" : "Start a new plan whenever you are ready."}
             </p>
           </div>
-          <PrimaryButton onClick={() => router.push("/intake")}>Make a new plan</PrimaryButton>
+          <PrimaryButton className="w-full sm:w-auto" onClick={() => router.push("/intake")}>
+            Make a new plan
+          </PrimaryButton>
         </div>
 
         {error && (
@@ -89,11 +92,11 @@ export default function HomePage() {
           </div>
         ) : latestPlan ? (
           <div className="grid grid-cols-1 items-start gap-5 lg:grid-cols-[1fr_minmax(220px,280px)]">
-            <GlassCard hover className="fx-rise px-6 py-5">
+            <GlassCard hover className="fx-rise px-4 py-5 sm:px-6">
               <div className="type-kicker mb-2 text-sage">
                 Saved plan
               </div>
-              <p className="type-body mb-4 text-ink">{displayText(latestPlan.final_plan.summary)}</p>
+              <p className="type-body mb-4 break-words text-ink">{displayText(latestPlan.final_plan.summary)}</p>
               <div className="mb-4 flex flex-wrap gap-2">
                 {[
                   `${latestPlan.nutrition_plan.meals?.length ?? 0} meals`,
@@ -111,9 +114,10 @@ export default function HomePage() {
               <button
                 type="button"
                 onClick={() => router.push("/results")}
-                className="type-button rounded-full bg-[linear-gradient(135deg,#1e7a6e,#2a9d8f)] px-4 py-2 text-[0.88rem] text-white"
+                className="type-button inline-flex min-h-11 items-center gap-1.5 rounded-full bg-[linear-gradient(135deg,#1e7a6e,#2a9d8f)] px-4 py-2 text-[0.88rem] text-white"
               >
-                Open full plan →
+                Open full plan
+                <AppIcon name="arrowRight" size={16} />
               </button>
             </GlassCard>
 
